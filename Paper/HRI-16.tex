@@ -516,8 +516,8 @@ able to learn a classifier from our experimental data effortlessly,
 and the approach should scale to much more complex feature spaces.
 Here, we have two classes $y\in\{-1,1\} $ which denotes whether to
 trust or not to trust the operator respectively.  The training data is
-specified as $x_i = [d_i, h_i, \Delta t_i]^T$. Our input for the
-classifier is $(y_1,x_1), \ldots,(y_N,x_N)$. The SVM generates an
+specified as $x_i = [d^i, h^i, t^i]^T$. Our input for the
+classifier is $(x_1,y_1), \ldots,(x_N,y_N)$. The SVM generates an
 optimized $w$ that identifies the hyperplane to classify test data by
 minimizing the following function:
 \begin{equation*}
