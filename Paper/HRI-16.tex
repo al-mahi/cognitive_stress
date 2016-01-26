@@ -393,7 +393,7 @@ H, & \text{if } i = 0\\
 \begin{equation}
 \label{eq:health_calc_norm}
 h^i = \dfrac{\Delta H^i}{H}
-s\end{equation}
+\end{equation}
   where $H$ is the initial health, $h_i$ the health upon reaching waypoint $i$ and function $random$ always returns a random number between to given parameters. Notice that $\Delta h^i$ is already normalized.
  
   \item[Time Delay] is the difference between when the robot would
@@ -416,7 +416,7 @@ respectively:
  
 \begin{equation}
   \label{eq:delay_calc_norm}
-    d^i = \dfrac{\Delta t^i}{\max(\Delta t^1,\Delta t^2, \ldots) - \min(\Delta t^1,\Delta t^2, \ldots)}
+    t^i = \dfrac{\Delta t^i}{\max(\Delta t^1,\Delta t^2, \ldots) - \min(\Delta t^1,\Delta t^2, \ldots)}
 \end{equation}
 
 We can combine these metrics in such a way that a robot can evaluate
