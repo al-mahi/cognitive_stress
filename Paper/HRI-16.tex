@@ -387,7 +387,7 @@ these are: \textit{disparity}, \textit{percent damage} and \textit{goal arrival
 \Delta H^i = 
 \begin{cases}
 H, & \text{if } i = 0\\
-\Delta H^{i-1}-randoms(0,\Delta H^{i-1}), & Otherwise\\
+\Delta H^{i-1}-random(0,\Delta H^{i-1}), & Otherwise\\
 \end{cases}
 \end{equation}
 \begin{equation}
@@ -449,7 +449,7 @@ One of the concerns with the normalization of $d, h, t$ and
 $\tau $ is the potential loss of of information that could lead to
 misclassification. We have plotted the histogram distribution of all
 the metrics.  Fig~\ref{fig:hist_norm} demonstrates that the
-distribution of the data remains largely intact.
+distribution of the data remains largely intact. Another concern might be the assigning of the same numerical range for all the metrics. One possible way of avoiding this problem could be performing the experiment as a temporal credit assignment problem using reinforcement learning. For example, we could assign reward for completing the maze and penalize the a trustworthiness of a human operator for leading the robot to make collision with the wall (or moving through the wall), take longer time to reach the goal and/or not reaching the goal. Devising the experiments in that way could give us more accurate estimation of cognitive load of human operator. We have plan for doing this experiment with learned weights of metrics in future.  
 
 \begin{figure}
 \centering
