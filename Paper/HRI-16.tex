@@ -274,6 +274,28 @@ more effective if the robot simultaneously has the tools to evaluate
 the trustworthiness of the human's direction.
 
 \section{Technical Details}
+\subsection{Problem statement}
+Without loss of generality, take $H=[h_1,h_2,\cdots,h_m]$ to be a
+vector of ecologically valid measurments of human behavior relevant to
+the problem space.  Assume a task for which a robot participant can
+independently calculate $s$, a scalar metric of success, which is a
+function of a vector of measurable environmental features
+$E=[e_1,e_2,\cdots,e_n]$.  Thus, $s = f(E)$, where $f$ is a
+task-specific function known to the robot.  Using $f$ and calculating
+$s$, a robot can build its own supervised training set for a learning
+task, where the human input $H$ is associated with $s$ through a
+learned function $g$.  Thus, the robot learns to associate the human
+behavioral metrics $H$ with task success $s$ within a known task, so
+the output of $g$ is a learned \emph{estimate} of the true success
+($\hat{s}=g(H)$).  Now, assign the robot a task which requires human
+input for success, i.e., the robot has no access to an analogue to $f$
+or $s$ in this new task.  However, it can still measure the components
+of $H$, and it has access to its learned model $g$.  We show that
+computing $\hat{s}=g(H)$ in this new environment allows the robot to
+estimate not the task success (about which it has no information), but
+the cognitive load on its human partner and an estimate of the quality
+of the human's direction.
+\subsection{Experimental design}
 For our research project, experiments were carried out in two parts:
 the Maze Game and the Coin Game experiments. In the first phase, the
 robot was run through the maze in order to collect the data needed to
