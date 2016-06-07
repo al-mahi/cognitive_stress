@@ -1,0 +1,12 @@
+<launch>
+	
+	<node name="trust_evaluation_server" pkg="coin_game" type="TrustEvaluator.py" respawn="false" output="screen">
+		<param name="min_disparity" value="0.0" />
+		<param name="max_disparity" value="1.5" />
+		<param name="min_percent_damage" value="0.0" />
+		<param name="max_percent_damage" value="1" />
+		<param name="min_arrival_delay" value="-15.0" />
+		<param name="max_arrival_delay" value="15.0" />
+	</node>
+
+</launch>

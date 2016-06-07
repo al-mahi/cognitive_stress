@@ -1,0 +1,46 @@
+<launch>
+
+	<arg name="robot_id" />
+	<arg name="initial_x" default="0.0" />
+	<arg name="initial_y" default="0.0" />
+	<arg name="initial_a" default="0.0" />
+	
+	<group ns="$(arg robot_id)">
+		
+		<param name="tf_prefix" value="$(arg robot_id)" />
+		
+		<include file="$(find maze_game)/launch/includes/minimal.launch" >
+			<arg name="robot_id"	value="$(arg robot_id)" />
+		</include>
+		
+		<arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
+		<include file="$(find maze_game)/launch/includes/3dsensor.launch">
+			<arg name="robot_id" value="$(arg robot_id)" />
+  			<arg name="camera" value="camera" />
+			<arg name="rgb_processing" value="false" />
+			<arg name="depth_registration" value="false" />
+			<arg name="depth_processing" value="false" />
+    
+			<!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
+		     Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7
+			<arg name="scan_topic" value="/$(arg robot_id)/scan" /> -->
+	 	</include>
+	 	
+	 	<include file="$(find maze_game)/launch/includes/amcl.launch.xml" >
+			<arg name="robot_id" value="$(arg robot_id)" />
+			<arg name="initial_pose_x" value="$(arg initial_x)" />
+			<arg name="initial_pose_y" value="$(arg initial_y)"/>
+  			<arg name="initial_pose_a" value="$(arg initial_a)"/>
+  			<arg name="use_map_topic"	value="true" />
+		</include>
+		
+		<include file="$(find maze_game)/launch/includes/move_base.launch.xml" >
+  			<arg name="robot_id"	value="$(arg robot_id)" />
+  		</include>
+  		
+  		<node pkg="robot_pose_publisher" type="robot_pose_publisher" name="robot_pose_publisher" >
+  			<param name="base_frame" value="$(arg robot_id)/base_link" />
+  		</node>
+	 	
+	 </group>
+</launch>

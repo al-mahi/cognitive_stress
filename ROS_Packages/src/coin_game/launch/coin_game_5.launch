@@ -1,0 +1,37 @@
+<launch>
+
+    <arg name="robot1_id" default="miranda" />
+    <arg name="robot2_id" default="caliban" />
+    <arg name="robot3_id" default="ferdinand" />
+    <arg name="robot4_id" default="trinculo" />
+    <arg name="robot5_id" default="prospero" />
+
+    <node name="coin_game_node" pkg="coin_game" type="coin_game_node.py" respawn="false" output="screen">
+            <param name="number_of_robots" value="5"/>
+    </node>
+
+    <node name="map_server" pkg="map_server" type="map_server" respawn="false" args="$(find maze_game)/include/lab_landmark.yaml" />
+
+    <include file="$(find coin_game)/launch/trust_evaluator.launch" />
+
+    <node name="robot_$(arg robot1_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(robot1_id)"/>
+    </node>
+
+    <node name="robot_$(arg robot2_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot2_id)"/>
+    </node>
+
+    <node name="robot_$(arg robot3_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot3_id)"/>
+    </node>
+
+    <node name="robot_$(arg robot4_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot4_id)"/>
+    </node>
+
+    <node name="robot_$(arg robot5_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot5_id)"/>
+    </node>
+
+</launch>

@@ -1,0 +1,5 @@
+string robot_name
+time[] goal_arival_times
+int32[] damage_at_goal
+---
+string response

@@ -1,0 +1,20 @@
+<launch>
+
+    <arg name="robot1_id" default="miranda" />
+    <arg name="robot2_id" default="caliban" />
+
+    <node name="coin_game_node" pkg="coin_game" type="coin_game_node.py" respawn="false" output="screen">
+            <param name="number_of_robots" value="2"/>
+    </node>
+
+    <include file="$(find coin_game)/launch/trust_evaluator.launch" />
+
+    <node name="robot_$(arg robot1_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot1_id)"/>
+    </node>
+
+    <node name="robot_$(arg robot2_id)" pkg="coin_game" type="Robot.py" respawn="false" output="screen">
+        <param name="name" value="$(arg robot2_id)"/>
+    </node>
+
+</launch>

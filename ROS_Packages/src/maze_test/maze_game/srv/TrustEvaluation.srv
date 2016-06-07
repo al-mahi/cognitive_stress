@@ -1,0 +1,5 @@
+float32 disparity
+float32 percentDamage
+float32 goalArrivalDelay
+---
+bool trust

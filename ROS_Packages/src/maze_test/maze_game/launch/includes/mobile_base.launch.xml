@@ -1,0 +1,16 @@
+<!--
+  The mobile platform base.
+  
+  Selector for the base.
+ -->
+<launch>
+  <arg name="base"/>
+  <arg name="serialport"/>
+  <arg name="robot_id" default="" />
+  
+  <include file="$(find maze_game)/launch/includes/$(arg base)/mobile_base.launch.xml">
+    <arg name="serialport" value="$(arg serialport)" />
+    <arg name="robot_id" value="$(arg robot_id)" />
+  </include>
+</launch>
+

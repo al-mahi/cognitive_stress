@@ -1,0 +1,5 @@
+<launch>
+
+	<node pkg="nodelet" type="nodelet" name="test_nodelet" args="manager" />
+	<node pkg="maze_test" type="test_nodelet_mgr" name="test_nodelet_manager" />
+</launch>
