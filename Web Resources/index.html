@@ -1,0 +1,354 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link href="cssstyles.css" rel="stylesheet" />
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/EaselJS/current/easeljs.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/ros2djs/current/ros2d.min.js"></script>
+		<script type="text/javascript" src="scripts/NAV2D.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/mjpegcanvasjs/current/mjpegcanvas.min.js"></script>
+	
+	<script type="text/javascript">
+		
+		//Keep track of the robots names for switching their controls on or off
+		var robots = [];
+
+		//The ros connection object
+		var ros;
+		
+		//Video canvases
+		var edgarVideo;
+		var mirandaVideo;
+		var arielVideo;
+
+		//Create an ocupancy grid client to server as the map
+		var client;
+
+		//Trying containers to as root objects for navigators
+		var viewerWidth = 1168;
+		var viewerHeight = 1416;
+		var viewer;
+		var mazeWalls;
+
+		var addRobotClient;
+		var removeRobotClient;
+		var startRobotClient;
+		var requestMazeMarkersClient;
+
+		var arielViewer;
+		var navAriel;
+
+		function init() {
+			
+			//Add the default starting robots
+			robots['ferdinand'] = "Red";
+			robots['trinculo'] = "Blue";
+
+			//Connect to ROS.
+			ros = new ROSLIB.Ros({
+				url : 'ws://localhost:9090'
+			});
+			
+			edgarVideo = new MJPEGCANVAS.Viewer({
+      			divID : 'edgarVideo',
+     			host : 'localhost',
+     			width : 320,
+				height : 240,
+				topic : '/camera/rgb/image_raw'
+			});
+			
+			mirandaVideo = new MJPEGCANVAS.Viewer({
+      			divID : 'ferdinandVideo',
+     			host : 'localhost',
+     			width : 320,
+				height : 240,
+				topic : '/ferdinand/camera/rgb/image_raw'
+			});
+			
+			arielVideo = new MJPEGCANVAS.Viewer({
+      			divID : 'trinculoVideo',
+     			host : 'localhost',
+     			width : 320,
+				height : 240,
+				topic : '/trinculo/camera/rgb/image_raw'
+			});
+
+			addRobotClient = new ROSLIB.Service({
+				ros : ros,
+				name : '/maze_game/add_robot',
+				serviceType : 'maze_game/AddRobot'
+			});
+
+			removeRobotClient = new ROSLIB.Service({
+				ros : ros,
+				name : '/maze_game/remove_robot',
+				serviceType : 'maze_game/RemoveRobot'
+			});
+			
+			startRobotClient = new ROSLIB.Service({
+				ros : ros,
+				name : '/maze_game/start_robot',
+				serviceType : 'maze_game/StartRobot'
+			});
+
+			requestMazeMarkersClient = new ROSLIB.Service({
+				ros : ros,
+				name : '/maze_game/request_maze_points',
+				serviceType : 'maze_game/RequestMazeMarkers'
+			});
+			
+			//Create the main viewer.
+			viewer = new ROS2D.Viewer({
+				divID : 'map',
+				width : viewerWidth,
+				height : viewerHeight
+			});
+			
+			//Create the ZoomView
+			zoomView = new ROS2D.ZoomView({
+				rootObject : viewer.scene,
+				minScale : .5
+			});
+			
+			//Set up a viewer for miranda
+			mirandaView = new ROS2D.Viewer({
+				divID : 'ferdinand',
+				width : viewerWidth,
+				height : viewerHeight,
+				background : createjs.Graphics.getRGB(0,0,0,0)
+			});
+			
+			arielView = new ROS2D.Viewer({
+				divID : 'trinculo',
+				width : viewerWidth,
+				height : viewerHeight,
+				background : createjs.Graphics.getRGB(0,0,0,0)
+			});
+			
+			//Setup the occupancy grid client
+			client = new ROS2D.OccupancyGridClient({
+				ros : ros,
+				rootObject : viewer.scene,
+				continuous : false,
+				topic : '/map'
+			});
+			
+			client.on('change', function() {
+				viewer.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
+				mirandaView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
+				arielView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
+			});
+			
+			navMiranda = new NAV2D.Navigator({
+				ros : ros,
+				serverName : '/ferdinand/move_base',
+				actionName : 'move_base_msgs/MoveBaseAction',
+				withOrientation : true,
+				rootObject : mirandaView.scene,
+				poseTopic : '/ferdinand/robot_pose',
+				markerFillColor : createjs.Graphics.getRGB(255, 0, 0, 0.75)
+			});
+			
+			navAriel = new NAV2D.Navigator({
+				ros : ros,
+				serverName : '/trinculo/move_base',
+				actionName : 'move_base_msgs/MoveBaseAction',
+				withOrientation : true,
+				rootObject : arielView.scene,
+				poseTopic : '/trinculo/robot_pose',
+				markerFillColor : createjs.Graphics.getRGB(64, 0, 255, 0.75)
+			});
+			
+			//Draw the maze walls
+			
+			var request = new ROSLIB.ServiceRequest({
+				request : 'Some Points Please',
+			});
+
+			requestMazeMarkersClient.callService(request, function(result) {
+				if (result.done == "false") {
+					console.log("Something went wrong...");
+				}
+			});
+
+			mazeWalls = new createjs.Stage("mazeWalls");
+			mazeWalls.enableMouseEvents = false;
+			
+			// Make sure we only draw the maze walls once (Should unsubscribe instead?)
+			var done = false;
+			
+			var mazeMarkers = new ROSLIB.Topic({
+				ros : ros,
+				name : '/visualization_marker',
+				messageType : 'visualization_msgs/Marker'
+			});
+			
+			mazeMarkers.subscribe(function(message) {
+				
+				var pose;
+				var scale;
+				var points;
+				
+				if (message.ns == "maze_wall_lower" && !done) {
+					pose = message.pose;
+					scale = message.scale;
+					points = message.points;
+					
+					//Create a 'Shape' object to draw the walls and set its graphics context
+					var g = new createjs.Shape();
+					g.graphics.setStrokeStyle(5,"sqaure").beginStroke("red");
+				
+					//move the drawing point to the start of the path
+					g.graphics.moveTo(points[0].x * viewer.scene.scaleX, viewerWidth - (points[0].y * viewer.scene.scaleY));
+				
+					for (i = 1; i < points.length; i++) {
+						console.log("Points!");
+						g.graphics.lineTo(points[i].x * viewer.scene.scaleX, viewerWidth - (points[i].y * viewer.scene.scaleY));
+					}
+					
+					mazeWalls.addChild(g);
+					mazeWalls.update();
+					
+				}
+				
+				if (message.ns == "maze_wall_upper" && !done) {
+					pose = message.pose;
+					scale = message.scale;
+					points = message.points;
+					
+					var g2 = new createjs.Shape();
+					g2.graphics.setStrokeStyle(5, "square").beginStroke("red");
+					
+					g2.graphics.moveTo(points[0].x * viewer.scene.scale, viewerWidth - (points[0].y * viewer.scene.scaleY));
+					
+					for (i = 1; i < points.length; i++) {
+						console.log("Points!");
+						g2.graphics.lineTo(points[i].x * viewer.scene.scaleX, viewerWidth - (points[i].y * viewer.scene.scaleY));
+					}
+					
+					mazeWalls.addChild(g2);
+					mazeWalls.update();
+				}
+				
+			});
+		}
+
+		function addRobot(toAdd) {
+			var request = new ROSLIB.ServiceRequest({
+				robot_name : toAdd
+			});
+
+			addRobotClient.callService(request, function(result) {
+				if (result.done == "true") {
+					console.log("Added robot: " + toAdd);
+				} else {
+					console.log("Something went wrong!");
+				}
+			});
+		}
+
+		function removeRobot(toRemove) {
+			var request = new ROSLIB.ServiceRequest({
+				robot_name : toRemove,
+			});
+
+			removeRobotClient.callService(request, function(result) {
+				if (result.done == "true") {
+					console.log("Removed robot: " + toRemove);
+				} else {
+					console.log("Something went wrong!");
+				}
+			});
+		}
+		
+		function startRobot(toStart) {
+			var request = new ROSLIB.ServiceRequest({
+				robot_name : toStart
+			});
+			
+			startRobotClient.callService(request, function(result) {
+				if (result.done == "true") {
+					console.log("Started robot: " + toStart);
+				} else if (result.done == "queued") {
+					console.log("Queued robot: " + toStart);
+				} else {
+					console.log("Something went wrong!");
+				}
+			});
+		}
+
+		function controlFerdinand() {
+			document.getElementById("ferdinand").style.zIndex = 3;
+			document.getElementById("trinculo").style.zIndex = 2;
+			document.getElementById("robotControled").innerHTML = "Red Robot";
+			document.getElementById("robotControled").style.color = "Red";
+		}
+		
+		function controlTrinculo() {
+			document.getElementById("trinculo").style.zIndex = 3;
+			document.getElementById("ferdinand").style.zIndex = 2;
+			document.getElementById("robotControled").innerHTML = "Blue Robot";
+			document.getElementById("robotControled").style.color = "Blue";
+		}
+
+		function controlRobot(name) {
+			for (var robot in robots) {
+
+				if (robot == name) {
+					document.getElementById(name).style.zIndex = 3;
+					document.getElementById("robotControled").innerHTML = robots[name] + " Robot";
+					document.getElementById("robotControled").style.color = robots[name];
+				} else {
+					document.getElementById(name).style.zIndex = 2;
+				}
+			}
+		}
+				
+	</script>
+	</head>
+
+	<header>
+		<h1>Labyrinth</h1>
+	</header>
+
+	<body onLoad="init()">
+	
+		<p id="robotControled">Waiting...</p>
+		<!--<canvas id="mazeWalls" width="584" height="708"></canvas> -->
+		<div class="mapDiv">
+			<div class="map" id="map">
+			</div>
+			<div class="mapViewer" id="ferdinand">
+			</div>
+			<div class="mapViewer" id="trinculo">
+			</div>
+			<div class="mapViewer">
+				<canvas id="mazeWalls" width="1168" height="1416" ></canvas>
+			</div>
+		</div>
+		
+		<div class="robotList">
+			<ul>
+				<li><button id="ControlFerdinand" onclick="controlFerdinand()">Control Red Robot</button></li>
+				<li><button id="ControlTrinculo" onclick="controlTrinculo()">Control Blue Robot</button></li>
+			</ul>
+			
+			<div class="videos">
+				<div id="edgarVideo" class="VideoPlayer">
+					<p>Main Camera</p>
+				</div>
+				<div id="ferdinandVideo" class="videoPlayer">
+					<p>Red Robot</p>
+				</div>
+				<div id="trinculoVideo" class="VideoPlayer">
+					<p>Blue Robot</p>
+				</div>
+			</div>
+		</div>
+		
+		<p id="instructions">Controlling the Robots: Select the robot you want to control by clicking one of the control buttons. For example, to control the Red Robot, click the "Control Red Robot" button. The text above the map will change to let you know which robot is being controlled.<br><br>To send the robot to a point on the map, click and hold that point on the map and move the mouse to set the orrientation. A preview will appear while you do this. When you're happy with the orrientation, simply let up on the mouse button and the robot will try and move to the indicated point.
+		</p>
+	</body>
+</html>

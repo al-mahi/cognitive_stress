@@ -1,14 +1,12 @@
 <launch>
 
-    <arg name="robot1_id" default="caliban" />
-    <arg name="robot2_id" default="ferdinand" />
-    <arg name="robot3_id" default="trinculo" />
+    <arg name="robot1_id" default="prospero" />
+    <arg name="robot2_id" default="caliban" />
+    <arg name="robot3_id" default="ferdinand" />
 
     <node name="coin_game_node" pkg="coin_game" type="coin_game_node.py" respawn="false" output="screen">
             <param name="number_of_robots" value="4" />
     </node>
-
-    <node name="map_server" pkg="map_server" type="map_server" respawn="false" args="$(find maze_game)/include/lab_landmark.yaml" />
 
     <include file="$(find coin_game)/launch/trust_evaluator.launch" />
 

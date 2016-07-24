@@ -1,0 +1,5 @@
+string robot_name
+int32 index_a
+int32 index_b
+---
+geometry_msgs/Point coin_location

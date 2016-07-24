@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<QUITEXML xmlns="http://www.quite.com/general/ns/quitexml/">
+<ITEMS>
+<DICT N='0'>  <ITEMS>
+  <A N='Category'>HistoryItem_V1</A>
+  <A N='Command'>TrimAndShift</A>
+  <DICT N='Desc'>    <ITEMS>
+    <S N='0'>Range: all pages</S>
+    <S N='1'>Trim: fix size 8.500 x 11.000 inches / 215.9 x 279.4 mm</S>
+    <S N='2'>Shift: move left by 7.20 points</S>
+    <S N='3'>Normalise (advanced option): &apos;original&apos;</S>
+    </ITEMS>  </DICT>
+
+  <DICT N='Params'>    <ITEMS>
+    <I N='CreepEvery'>32</I>
+    <DICT N='FixedSize'>      <ITEMS>
+      <S N='Created'>D:20140114065848</S>
+      <F N='Height'>792.0000</F>
+      <S N='Name'>US Letter</S>
+      <A N='Type'>Blank</A>
+      <F N='Width'>612.0000</F>
+      </ITEMS>    </DICT>
+
+    <A N='FixedSizeOrientation'>Tall</A>
+    <B N='Interactive'>1</B>
+    <B N='NewDoc'>0</B>
+    <A N='Normalise'>No</A>
+    <I N='PosX'>795</I>
+    <I N='PosY'>352</I>
+    <A N='Shift'>Fixed</A>
+    <A N='ShiftDir'>Left</A>
+    <F N='ShiftFrom'>7.2000</F>
+    <F N='ShiftTo'>0.0000</F>
+    <DICT N='Source'>      <ITEMS>
+      <DICT N='Range'>        <ITEMS>
+        <A N='EvenOdd'>Both</A>
+        <I N='From'>7</I>
+        <A N='RangeType'>AllDoc</A>
+        <I N='To'>36</I>
+        </ITEMS>      </DICT>
+
+      <A N='SourceType'>CurrentAVDoc</A>
+      </ITEMS>    </DICT>
+
+    <A N='Trim'>Uniform</A>
+    <F N='TrimBy'>0.0000</F>
+    <A N='TrimEdge'>Top</A>
+    </ITEMS>  </DICT>
+
+  <DICT N='Provider'>    <ITEMS>
+    <S N='Code'>QITE_QuiteImposingPlus2</S>
+    <S N='FullName'>Quite Imposing Plus 2 2.0</S>
+    <S N='Name'>Quite Imposing Plus 2</S>
+    <I N='Version'>1</I>
+    </ITEMS>  </DICT>
+
+  <DICT N='Result'>    <ITEMS>
+    <I N='CurrentPage'>1</I>
+    <I N='DocPages'>2</I>
+    <I N='FirstPage'>1</I>
+    <I N='PagesProcessed'>2</I>
+    </ITEMS>  </DICT>
+
+  <I N='Version'>1</I>
+  </ITEMS></DICT>
+
+<DICT N='1'>  <ITEMS>
+  <A N='Category'>HistoryItem_V1</A>
+  <A N='Command'>TrimAndShift</A>
+  <DICT N='Desc'>    <ITEMS>
+    <S N='0'>Range: all pages</S>
+    <S N='1'>Trim: fix size 8.500 x 11.000 inches / 215.9 x 279.4 mm</S>
+    <S N='2'>Shift: move down by 23.83 points</S>
+    <S N='3'>Normalise (advanced option): &apos;original&apos;</S>
+    </ITEMS>  </DICT>
+
+  <DICT N='Params'>    <ITEMS>
+    <I N='CreepEvery'>32</I>
+    <DICT N='FixedSize'>      <ITEMS>
+      <S N='Created'>D:20140114065848</S>
+      <F N='Height'>792.0000</F>
+      <S N='Name'>US Letter</S>
+      <A N='Type'>Blank</A>
+      <F N='Width'>612.0000</F>
+      </ITEMS>    </DICT>
+
+    <A N='FixedSizeOrientation'>Tall</A>
+    <B N='Interactive'>1</B>
+    <B N='NewDoc'>0</B>
+    <A N='Normalise'>No</A>
+    <I N='PosX'>795</I>
+    <I N='PosY'>352</I>
+    
+    <A N='Shift'>Fixed</A>
+    <A N='ShiftDir'>Down</A>
+    <F N='ShiftFrom'>23.8320</F>
+    <F N='ShiftTo'>0.0000</F>
+    <DICT N='Source'>      <ITEMS>
+      <DICT N='Range'>        <ITEMS>
+        <A N='EvenOdd'>Both</A>
+        <I N='From'>7</I>
+        <A N='RangeType'>AllDoc</A>
+        <I N='To'>36</I>
+        </ITEMS>      </DICT>
+
+      <A N='SourceType'>CurrentAVDoc</A>
+      </ITEMS>    </DICT>
+
+    <A N='Trim'>Uniform</A>
+    <F N='TrimBy'>0.0000</F>
+    <A N='TrimEdge'>Top</A>
+    </ITEMS>  </DICT>
+
+  <DICT N='Provider'>    <ITEMS>
+    <S N='Code'>QITE_QuiteImposingPlus2</S>
+    <S N='FullName'>Quite Imposing Plus 2 2.0</S>
+    <S N='Name'>Quite Imposing Plus 2</S>
+    <I N='Version'>1</I>
+    </ITEMS>  </DICT>
+
+  <DICT N='Result'>    <ITEMS>
+    <I N='CurrentPage'>1</I>
+    <I N='DocPages'>2</I>
+    <I N='FirstPage'>1</I>
+    <I N='PagesProcessed'>2</I>
+    </ITEMS>  </DICT>
+
+  <I N='Version'>1</I>
+  </ITEMS></DICT>
+
+<A N='Category'>HistoryList_V1</A>
+<S N='Requires'>qi2base</S>
+</ITEMS>
+</QUITEXML>

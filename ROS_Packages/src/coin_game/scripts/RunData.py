@@ -12,6 +12,8 @@ class RunData():
         self.__delay_for_command = []
         self.__net_trust_at_command = []
         self.__collected_coins_at_command = []
+        self.__coin_position_at_command = []
+        self.__robot_start_position_at_command =[]
         self.__num_instances = 0
 
     def add_result(self, **kwargs):
@@ -22,6 +24,8 @@ class RunData():
         self.__delay_for_command.append(kwargs.get("delay"))
         self.__net_trust_at_command.append(kwargs.get("percent_trust"))
         self.__collected_coins_at_command.append(kwargs.get("collected_coins"))
+        self.__coin_position_at_command.append(kwargs.get("coin_position"))
+        self.__robot_start_position_at_command.append(kwargs.get("robot_start_position"))
         self.__num_instances += 1
 
     def get_entry_at_index(self, i):
@@ -45,6 +49,12 @@ class RunData():
 
         if i < len(self.__collected_coins_at_command):
             toReturn.update({"collected_coins": self.__collected_coins_at_command[i]})
+
+        if i < len(self.__coin_position_at_command):
+            toReturn.update({"coin_position": self.__coin_position_at_command[i]})
+
+        if i < len(self.__robot_start_position_at_command):
+            toReturn.update({"robot_start_position": self.__coin_position_at_command[i]})
 
         return toReturn
 

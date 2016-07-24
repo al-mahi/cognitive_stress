@@ -166,6 +166,7 @@ include_directories(
    scripts/coin_game_node.py
    scripts/TrustEvaluator.py
    scripts/RunData.py
+   scripts/Robot.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

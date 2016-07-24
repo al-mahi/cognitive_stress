@@ -1,0 +1,10 @@
+<map id="Robot::Robot" name="Robot::Robot">
+<area shape="rect" id="node2" href="$classRobot.html#a9b62678d0745839be8d4748e39af8764" title="Robot::newGoalCallback" alt="" coords="155,232,322,259"/>
+<area shape="rect" id="node3" href="$classGameModel.html#a92c45ad458ad6ac291d63f7a78df7234" title="GameModel::getExpPointAt" alt="" coords="848,156,1032,183"/>
+<area shape="rect" id="node4" href="$classRobot.html#a12d9c8858090fe98b641f70fd5388776" title="Robot::addDispPoint" alt="" coords="379,232,522,259"/>
+<area shape="rect" id="node5" href="$classRobot.html#abe252f1523d1c1a680b944a6f1d7bc7d" title="Robot::getAverageDisp" alt="" coords="371,283,530,309"/>
+<area shape="rect" id="node6" href="$classRobot.html#a04fd8ba5a0e1968cf127e7061616864e" title="Robot::checkDistance" alt="" coords="375,101,527,128"/>
+<area shape="rect" id="node7" href="$classRobot.html#a36e8069df6f19bdb75bd60a62baba350" title="Robot::getDistanceToMaze\lWalls" alt="" coords="593,65,775,106"/>
+<area shape="rect" id="node8" href="$classRobot.html#a8dd36d19fef73d83868f15f5dc16d5c9" title="Robot::callSubmitScoresService" alt="" coords="579,13,789,40"/>
+<area shape="rect" id="node9" href="$classGameModel.html#ac3f3c95b80faaafc9a1145dd7ab336de" title="GameModel::submitAndUpdate\lAverageScores" alt="" coords="838,6,1042,47"/>
+</map>

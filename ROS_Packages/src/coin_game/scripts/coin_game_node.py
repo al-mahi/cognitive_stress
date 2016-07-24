@@ -8,7 +8,8 @@ import roslib
 from roslib import packages
 from visualization_msgs.msg import *
 import actionlib
-from  actionlib_msgs.msg import *
+from actionlib_msgs.msg import *
+from std_srvs.srv import *
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import *
 from tf.transformations import quaternion_from_euler
@@ -42,19 +43,21 @@ class CoinGameNode():
         get_points_for_indices_service = rospy.Service("points_for_indices", PathPointsForIndices, self.path_points_for_indices)
         spawn_new_coin_service = rospy.Service("spawn_new_coin", SpawnNewCoin, self.spawn_new_coin)
         remove_coin_service = rospy.Service("remove_coin", RobotNamed, self.remove_coin)
+        start_game_service = rospy.Service("start_game", Empty, self.start_game)
 
         self.rgb = {"miranda": [1.0, 0.0, 0.0],
-                    "prospero": [0.3, 0.3, 1.0],
-                    "ferdinand": [0.0, 1.0, 0.0],
-                    "ariel": [1.0, 0.843137255, 0.0],
+                    "trinculo": [0.541176471, 0.168627451, 0.88627451],
                     "caliban": [1.0, 0.5, 0.0],
-                    "trinculo": [0.541176471, 0.168627451, 0.88627451]
+                    "ferdinand": [0.0, 1.0, 0.0],
+                    "prospero": [0.3, 0.3, 1.0],
+                    "ariel": [1.0, 0.843137255, 0.0]
                     }
 
-        self.robot_start_points = [Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
-                                   Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
-                                   Pose(Point(2.1, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, 0))),
-                                   Pose(Point(2.1, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, 0)))]
+        self.robot_start_points = {"trinculo": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
+                                   "caliban": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
+                                   "ferdinand": Pose(Point(2.1, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, 0))),
+                                   "prospero": Pose(Point(2.1, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, 0)))
+                                   }
 
         self.start_point_vacant = [True, True, True, True]
 
@@ -66,17 +69,22 @@ class CoinGameNode():
         else:
             self.number_of_robots = 1
 
-        robots = ["miranda", "caliban", "ferdinand", "trinculo"]
-
-        for x in range(0, self.number_of_robots):
-            print "Starting robots!"
-            self.start_robots(RobotNamedRequest(robots[x]))
+        # robots = ["trinculo", "caliban", "ferdinand", "prospero"]
+        #
+        # for x in range(0, self.number_of_robots):
+        #     print "Starting robots!"
+        #     self.start_robots(RobotNamedRequest(robots[x]))
 
         while not rospy.is_shutdown():
             rospy.spin()
 
     def add_robot(self, req):
         self.robotNodes.append(req.robotName)
+
+        start_req = RobotNamedRequest()
+        start_req.robotName = req.robotName
+        self.start_robots(start_req)
+
         return RobotNamedResponse("Done")
 
     def remove_robot(self, req):
@@ -104,13 +112,26 @@ class CoinGameNode():
             test_point = self.start_point_vacant[random.randint(0, 3)]
             if self.start_point_vacant[test_point] is True:
                 self.start_point_vacant[test_point] = False
-                goal.target_pose.pose = self.robot_start_points[test_point]
+                # goal.target_pose.pose = self.robot_start_points[test_point]
                 break
+
+        goal.target_pose.pose = self.robot_start_points[req.robotName]
 
         rospy.loginfo("Sending " + req.robotName + " to the start of the maze!")
         move_base.send_goal(goal)
         move_base.stop_tracking_goal()
         return RobotNamedResponse("Done")
+
+    def start_game(self, req):
+        try:
+            for robot in self.robotNodes:
+                rospy.wait_for_service("/" + robot + "/start_timer", 10)
+                call_start_timer = rospy.ServiceProxy("/" + robot + "/start_timer", Empty)
+                call_start_timer.call(EmptyRequest())
+        except rospy.ServiceException, e:
+            print "Service call to start_timer failed: {}".format(e)
+
+        return EmptyResponse()
 
     def read_points(self):
         points_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/points.txt")

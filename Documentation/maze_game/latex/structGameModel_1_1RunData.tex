@@ -1,0 +1,58 @@
+\hypertarget{structGameModel_1_1RunData}{\section{Game\-Model\-:\-:Run\-Data Struct Reference}
+\label{structGameModel_1_1RunData}\index{Game\-Model\-::\-Run\-Data@{Game\-Model\-::\-Run\-Data}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structGameModel_1_1RunData_aaa8ae72413a2d4d329a844c7bffb62bf}{Run\-Data} (std\-::string \hyperlink{structGameModel_1_1RunData_a7ee17ad14e766e04af2cfbda2cbdfd85}{robot\-Name}, bool \hyperlink{structGameModel_1_1RunData_a484c66c26eaa03ea0fb65dd34f583a8f}{run\-Maze\-Before}, std\-::vector$<$ ros\-::\-Time $>$ \hyperlink{structGameModel_1_1RunData_a23618079bed4bbb5922164e918f84b76}{goal\-Arival\-Times}, std\-::vector$<$ int32\-\_\-t $>$ \hyperlink{structGameModel_1_1RunData_abf064d5f2980c5a03227b3ec7345e345}{health\-At\-Goal})
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structGameModel_1_1RunData_a7a5adbd64c0373dafac93ab39e3e0217}{ros\-::\-Time \hyperlink{structGameModel_1_1RunData_a7a5adbd64c0373dafac93ab39e3e0217}{timestamp}}\label{structGameModel_1_1RunData_a7a5adbd64c0373dafac93ab39e3e0217}
+
+\begin{DoxyCompactList}\small\item\em Time stamp indicating when the data was saved by the robot. \end{DoxyCompactList}\item 
+\hypertarget{structGameModel_1_1RunData_a7ee17ad14e766e04af2cfbda2cbdfd85}{std\-::string \hyperlink{structGameModel_1_1RunData_a7ee17ad14e766e04af2cfbda2cbdfd85}{robot\-Name}}\label{structGameModel_1_1RunData_a7ee17ad14e766e04af2cfbda2cbdfd85}
+
+\begin{DoxyCompactList}\small\item\em Name of the robot that submitted the data. \end{DoxyCompactList}\item 
+\hypertarget{structGameModel_1_1RunData_a484c66c26eaa03ea0fb65dd34f583a8f}{bool \hyperlink{structGameModel_1_1RunData_a484c66c26eaa03ea0fb65dd34f583a8f}{run\-Maze\-Before}}\label{structGameModel_1_1RunData_a484c66c26eaa03ea0fb65dd34f583a8f}
+
+\begin{DoxyCompactList}\small\item\em Flag indicating if the user has run the maze before. \end{DoxyCompactList}\item 
+\hypertarget{structGameModel_1_1RunData_a23618079bed4bbb5922164e918f84b76}{std\-::vector$<$ ros\-::\-Time $>$ \hyperlink{structGameModel_1_1RunData_a23618079bed4bbb5922164e918f84b76}{goal\-Arival\-Times}}\label{structGameModel_1_1RunData_a23618079bed4bbb5922164e918f84b76}
+
+\begin{DoxyCompactList}\small\item\em Time stamps for when the robot arrived a particular point, indexed by point. \end{DoxyCompactList}\item 
+\hypertarget{structGameModel_1_1RunData_abf064d5f2980c5a03227b3ec7345e345}{std\-::vector$<$ int32\-\_\-t $>$ \hyperlink{structGameModel_1_1RunData_abf064d5f2980c5a03227b3ec7345e345}{health\-At\-Goal}}\label{structGameModel_1_1RunData_abf064d5f2980c5a03227b3ec7345e345}
+
+\begin{DoxyCompactList}\small\item\em The health a robot had when it arrived a particular point in the maze, indexed by point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Struct to represent an entry to export when a call to Export\-Run\-Data is made. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structGameModel_1_1RunData_aaa8ae72413a2d4d329a844c7bffb62bf}{\index{Game\-Model\-::\-Run\-Data@{Game\-Model\-::\-Run\-Data}!Run\-Data@{Run\-Data}}
+\index{Run\-Data@{Run\-Data}!GameModel::RunData@{Game\-Model\-::\-Run\-Data}}
+\subsubsection[{Run\-Data}]{\setlength{\rightskip}{0pt plus 5cm}Game\-Model\-::\-Run\-Data\-::\-Run\-Data (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name, }
+\item[{bool}]{run\-Maze\-Before, }
+\item[{std\-::vector$<$ ros\-::\-Time $>$}]{goal\-Arival\-Times, }
+\item[{std\-::vector$<$ int32\-\_\-t $>$}]{health\-At\-Goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structGameModel_1_1RunData_aaa8ae72413a2d4d329a844c7bffb62bf}
+Constructs a new \hyperlink{structGameModel_1_1RunData}{Run\-Data} object 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name of the robot submitting the data \\
+\hline
+{\em run\-Maze\-Before} & A boolean to indicate if the user has run the maze before \\
+\hline
+{\em goal\-Arival\-Times} & The vector of goal arrival times \\
+\hline
+{\em health\-At\-Goal} & The vector of health values at a particular goal \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Game\-Model.\-h\end{DoxyCompactItemize}

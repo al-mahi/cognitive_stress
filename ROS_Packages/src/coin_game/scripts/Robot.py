@@ -13,6 +13,7 @@ from tf.transformations import quaternion_from_euler, euler_from_quaternion
 from geometry_msgs.msg import *
 import actionlib
 from actionlib_msgs.msg import *
+from std_srvs.srv import *
 from move_base_msgs.msg import *
 from visualization_msgs.msg import *
 
@@ -34,6 +35,7 @@ class Robot():
         self.maze_path_points = []
         self.time_between_points = []
         self.read_points()
+        self.started = False
 
         self.collected_coins = 0
         self.health = 100.0
@@ -51,7 +53,7 @@ class Robot():
         self.eval_trust = rospy.ServiceProxy("evaluate_trust", TrustEvaluation)
         self.get_points_at_indices = rospy.ServiceProxy("points_for_indices", PathPointsForIndices)
 
-        #PointA is the INDEX of first point of the path segment the robot is one and PointB is the second
+        # PointA is the INDEX of first point of the path segment the robot is on and PointB is the second
         self.pointA_index = 0
         self.pointB_index = 1
 
@@ -64,10 +66,22 @@ class Robot():
         self.num_trusted_goals = 0
         self.num_untrusted_goals = 0
 
+        self.coin_positions = []  # Stores the position of the coins as they are spawned
+        self.robot_start_position_for_last_command = Point()
+
         if rospy.has_param("~name"):
             self.name = rospy.get_param("~name")
         else:
             self.name = "default_robot"
+
+        # Configure the first starting point
+        robot_staring_positions = {"trinculo": Point(6.73, 6.0, 0),
+                                  "caliban": Point(6.73, 2.8, 0),
+                                  "ferdinand": Point(2.1, 6.0, 0),
+                                  "prospero": Point(2.1, 2.8, 0),
+                                  "default_name": Point(0, 0, 0)}
+
+        self.robot_start_position_for_last_command = robot_staring_positions.get(self.name)
 
         if rospy.has_param("coin_game/path_tolerance"):
             self.path_tolerance = rospy.get_param("coin_game/path_tolerance")
@@ -81,7 +95,16 @@ class Robot():
 
         self.export_file = open(self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv", mode='w')
         self.csv_writer = csv.writer(self.export_file)
-        self.csv_writer.writerow(['Trusted?', 'Disparity', 'Health', 'Delay', 'Percent Trust', 'Collected Coins'])
+        self.csv_writer.writerow(['Trusted?',
+                                  'Disparity',
+                                  'Health',
+                                  'Time Remaining',
+                                  'Percent Trust',
+                                  'Collected Coins',
+                                  'Coin X',
+                                  'Coin Y',
+                                  'RobotStart X',
+                                  'RobotStart Y'])
 
         if rospy.has_param("/" + self.name + "/move_base/DWAPlannerROS/max_trans_vel"):
             self.max_trans_vel = rospy.get_param("/" + self.name + "/move_base/DWAPlannerROS/max_trans_vel")
@@ -102,7 +125,7 @@ class Robot():
         try:
             add_robot = rospy.ServiceProxy("/add_robot", RobotNamed)
             add_robot(self.name)
-            print "Added robot {} to the game.".format(self.name)
+            print "Trying to add {} to the game...".format(self.name)
         except rospy.ServiceException, e:
             print "Service call to add_robot failed: {}".format(e)
 
@@ -112,6 +135,7 @@ class Robot():
         self.call_remove_coin_service = rospy.ServiceProxy("remove_coin", RobotNamed)
 
         self.t = rospy.Timer(rospy.Duration(1), self.update_timer)
+        self.start_timer_service = rospy.Service("/" + self.name + "/start_timer", Empty, self.start_timer)
 
         rospy.on_shutdown(self.cleanup)
 
@@ -119,6 +143,11 @@ class Robot():
             self.check_distance()
             rate = rospy.Rate(2)
             rate.sleep()
+
+    def start_timer(self, req):
+        self.started = True
+        print "{} timer started!".format(self.name)
+        return EmptyResponse()
 
     def read_points(self):
         points_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/points.txt")
@@ -144,6 +173,9 @@ class Robot():
             self.time_between_points.append(float(line))
 
     def new_goal_callback(self, data):
+
+        # Update robot_start_position_for_last_command
+        self.robot_start_position_for_last_command = data.pose.position
 
         self.prev_position_index = self.pointA_index
         self.prev_position = self.cur_position
@@ -186,6 +218,9 @@ class Robot():
 
     def check_distance(self):
 
+        if not self.started:
+            return
+
         try:
             self.listener.waitForTransform("/" + self.name + "/base_link", "/map", rospy.Time(0), rospy.Duration(120))
         except tf.Exception:
@@ -207,15 +242,17 @@ class Robot():
         # to move toward it's next goal
 
         if self.marked_time is False and self.euclidean_distance(self.cur_position, self.prev_position) > 0.2:
-            self.current_goal_start_time = rospy.Time.now()
+            # self.current_goal_start_time = rospy.Time.now()
+            self.current_goal_start_time = 120 - (12 * self.collected_coins)
             # We must use cur_goal (the point that the user gave) to be able to know when the user has actually arrived
-            self.exp_goal_arrival_delay = (self.euclidean_distance(self.cur_position, self.cur_goal) / self.max_trans_vel) + 1
+            # self.exp_goal_arrival_delay = (self.euclidean_distance(self.cur_position, self.cur_goal) / self.max_trans_vel) + 1
             self.marked_time = True
             print "Marked Time!"
 
         # Have we reached our goal?
         if self.reached_goal is False and self.euclidean_distance(self.cur_position, self.cur_goal) <= 0.2:
-            self.current_arrival_delay = (rospy.Time.now() - self.current_goal_start_time).to_sec() - self.exp_goal_arrival_delay
+            # self.current_arrival_delay = (rospy.Time.now() - self.current_goal_start_time).to_sec() - self.exp_goal_arrival_delay
+            self.current_arrival_delay = self.time_remaining
             self.reached_goal = True
             print "Yay! Arrival Delay was " + str(self.current_arrival_delay)
             self.evaluate_trust()
@@ -241,8 +278,8 @@ class Robot():
         # See if we have won or lost for this robot
         if self.health <= 0 or self.time_remaining <= 0:
             self.robot_death_handler()
-        #elif self.collected_coins == 5:
-        #   self.robot_win_handler()
+        elif self.collected_coins == 5:
+           self.robot_win_handler()
 
     def evaluate_trust(self):
 
@@ -263,13 +300,25 @@ class Robot():
                                      health=self.health,
                                      delay=self.current_arrival_delay,
                                      percent_trust=percent_trust,
-                                     collected_coins=self.collected_coins
+                                     collected_coins=self.collected_coins,
+                                     coin_position=self.cur_coin_location,
+                                     robot_start_position=self.robot_start_position_for_last_command
                                      )
         except rospy.ServiceException, e:
             print "Could not evaluate trust! {}".format(e)
 
         entry = self.run_data.get_entry_at_index(self.run_data.get_num_instances()-1)
-        self.csv_writer.writerow([entry.get("trust_result"), entry.get("disparity"), entry.get("health"), entry.get("delay"), entry.get("percent_trust"), entry.get("collected_coins")])
+        # Write the data to the csv file
+        self.csv_writer.writerow([entry.get("trust_result"),
+                                  entry.get("disparity"),
+                                  entry.get("health"),
+                                  entry.get("delay"),
+                                  entry.get("percent_trust"),
+                                  entry.get("collected_coins"),
+                                  entry.get("coin_position").x,
+                                  entry.get("coin_position").y,
+                                  entry.get("robot_start_position").x,
+                                  entry.get("robot_start_position").y])
 
     def determine_closest_path_indices(self):
 
@@ -341,6 +390,7 @@ class Robot():
     def spawn_new_coin(self):
         resp = self.spawn_new_coin_service(self.name, self.pointA_index, self.pointB_index)
         self.cur_coin_location = resp.coin_location
+        self.coin_positions.append(self.cur_coin_location)
         print "Spawned new coin for " + self.name
 
     def remove_coin(self):
@@ -349,10 +399,10 @@ class Robot():
 
     def add_time(self):
 
-        print_locations = {"miranda": Point(1.65, 2.0, 0.01),
-                           "ferdinand": Point(6.0, 2.0, 0.01),
-                           "caliban": Point(1.65, 6.7, 0.01),
-                           "trinculo": Point(6.0, 6.7, 0.01)}
+        print_locations = {"trinculo": Point(1.65, 2.0, 0.01),
+                           "caliban": Point(6.0, 2.0, 0.01),
+                           "ferdinand": Point(1.65, 6.7, 0.01),
+                           "prospero": Point(6.0, 6.7, 0.01)}
 
         rgb = self.rgb.get(self.name)
 
@@ -381,11 +431,18 @@ class Robot():
 
     def update_timer(self, event):
 
+        if not self.started:
+            return
+
         self.time.action = Marker.MODIFY
         self.time_remaining -= 1
         self.time.text = "Time: " + str(self.time_remaining) \
                          + "\nCoins: " + str(self.collected_coins) \
                          + "\nHealth: " + str(self.health) + "/100"
+        self.time_publisher.publish(self.time)
+
+    def remove_timer(self):
+        self.time.action = Marker.DELETE
         self.time_publisher.publish(self.time)
 
     def robot_death_handler(self):
@@ -404,7 +461,7 @@ class Robot():
 
     def send_to_home(self):
 
-        home_locations = {"miranda": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
+        home_locations = {"prospero": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
                           "caliban": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
                           "ferdinand": Pose(Point(2.1, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, 0))),
                           "trinculo": Pose(Point(2.1, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, 0)))}
@@ -424,6 +481,7 @@ class Robot():
 
     def cleanup(self):
         self.remove_coin()
+        self.remove_timer()
 
 if __name__ == "__main__":
     rospy.init_node("robot_node")

@@ -1,0 +1,363 @@
+\hypertarget{classRobot}{\section{Robot Class Reference}
+\label{classRobot}\index{Robot@{Robot}}
+}
+
+
+{\ttfamily \#include $<$Robot.\-h$>$}
+
+
+
+Collaboration diagram for Robot\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classRobot__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRobot_a1250feae21b7afcfa2b5a184dd8aeed7}{Robot} (std\-::string robot\-Name, ros\-::\-Node\-Handle $\ast$n, \hyperlink{classGameModel}{Game\-Model} $\ast$model\-Ptr)
+\item 
+void \hyperlink{classRobot_a998cd0e4c8b4b1240bb5ffe221bb0d01}{reset\-Robot} ()
+\item 
+void \hyperlink{classRobot_a83e792105e5240778bb8c6ebe176fc72}{set\-State} (\hyperlink{namespaceRobotState_a35861cd80d5e6a7efe93588700256f40}{Robot\-State\-::\-E\-N\-U\-M} state)
+\item 
+\hyperlink{namespaceRobotState_a35861cd80d5e6a7efe93588700256f40}{Robot\-State\-::\-E\-N\-U\-M} \hyperlink{classRobot_ace02b610484c2271e5c3b62de23c08a2}{get\-Cur\-State} ()
+\item 
+bool \hyperlink{classRobot_a97be7246df827ec139a2b2d69d25bad8}{is\-Started} ()
+\item 
+void \hyperlink{classRobot_a04fd8ba5a0e1968cf127e7061616864e}{check\-Distance} ()
+\item 
+void \hyperlink{classRobot_a5047939fed73f5d2b5fd8ee830b0ff48}{set\-Game\-Model} (\hyperlink{classGameModel}{Game\-Model} $\ast$model\-Var)
+\item 
+std\-::string \hyperlink{classRobot_a59e6d6986c1ca9060f92c30800bb6ce8}{get\-Name} ()
+\item 
+void \hyperlink{classRobot_a12d9c8858090fe98b641f70fd5388776}{add\-Disp\-Point} (geometry\-\_\-msgs\-::\-Point point)
+\item 
+float \hyperlink{classRobot_abe252f1523d1c1a680b944a6f1d7bc7d}{get\-Average\-Disp} ()
+\item 
+void \hyperlink{classRobot_a9b62678d0745839be8d4748e39af8764}{new\-Goal\-Callback} (const geometry\-\_\-msgs\-::\-Pose\-Stamped\-::\-Const\-Ptr \&msg)
+\item 
+ros\-::\-Time \hyperlink{classRobot_a50544dbb3f61929321c232e863871938}{get\-Start\-Time} ()
+\item 
+ros\-::\-Duration \hyperlink{classRobot_a0eb6c72cf0a8f3ef3f5154f4562d2013}{get\-Run\-Duration} ()
+\item 
+double \hyperlink{classRobot_a36e8069df6f19bdb75bd60a62baba350}{get\-Distance\-To\-Maze\-Walls} (int i, geometry\-\_\-msgs\-::\-Pose\-Stamped \&p3)
+\item 
+void \hyperlink{classRobot_a8dd36d19fef73d83868f15f5dc16d5c9}{call\-Submit\-Scores\-Service} ()
+\item 
+ros\-::\-Node\-Handle $\ast$ \hyperlink{classRobot_a173f6b2c691b073a9a371d6e9fd45939}{get\-Node\-Handle\-Ptr} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classRobot_ae9a66d09c570678d40cf1dbc71d240c3}{bool \hyperlink{classRobot_ae9a66d09c570678d40cf1dbc71d240c3}{started}}\label{classRobot_ae9a66d09c570678d40cf1dbc71d240c3}
+
+\begin{DoxyCompactList}\small\item\em Has the robot started the maze? \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a69fbe806fa3031514fdf7add365ede0f}{std\-::vector$<$ geometry\-\_\-msgs\-::\-Point $>$ \hyperlink{classRobot_a69fbe806fa3031514fdf7add365ede0f}{disparity}}\label{classRobot_a69fbe806fa3031514fdf7add365ede0f}
+
+\begin{DoxyCompactList}\small\item\em The disparity between the expected point and the point given by the user. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a61982faaa0db91a08195786b552f9732}{int \hyperlink{classRobot_a61982faaa0db91a08195786b552f9732}{point\-Dex}}\label{classRobot_a61982faaa0db91a08195786b552f9732}
+
+\begin{DoxyCompactList}\small\item\em Index for the expected point of the robots current goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classRobot_ae11f12fef20c4252161c6b774a436f1d}{std\-::string \hyperlink{classRobot_ae11f12fef20c4252161c6b774a436f1d}{name}}\label{classRobot_ae11f12fef20c4252161c6b774a436f1d}
+
+\begin{DoxyCompactList}\small\item\em The name of the robot (i.\-e. \char`\"{}miranda\char`\"{}) \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a1524dd7e0c2337ba9f64c5c128a96b7e}{ros\-::\-Node\-Handle \hyperlink{classRobot_a1524dd7e0c2337ba9f64c5c128a96b7e}{public\-\_\-nh}}\label{classRobot_a1524dd7e0c2337ba9f64c5c128a96b7e}
+
+\begin{DoxyCompactList}\small\item\em This \hyperlink{classRobot}{Robot}'s public namespace Node\-Handle. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a54967890efc1ee92e76801335fc9996b}{ros\-::\-Node\-Handle \hyperlink{classRobot_a54967890efc1ee92e76801335fc9996b}{private\-\_\-nh}}\label{classRobot_a54967890efc1ee92e76801335fc9996b}
+
+\begin{DoxyCompactList}\small\item\em This \hyperlink{classRobot}{Robot}'s private namespace Node\-Handle. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a33b4610bd0cf57a0c50a69ead78773b2}{ros\-::\-Subscriber \hyperlink{classRobot_a33b4610bd0cf57a0c50a69ead78773b2}{sub}}\label{classRobot_a33b4610bd0cf57a0c50a69ead78773b2}
+
+\begin{DoxyCompactList}\small\item\em Subscribes to '/\-R\-O\-B\-O\-T\-\_\-\-N\-A\-M\-E/move\-\_\-base/current\-\_\-goal' to receive new navigation goals. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_ae619a5f25f4bfdeaba8dda29e9b68bb5}{\hyperlink{namespaceRobotState_a35861cd80d5e6a7efe93588700256f40}{Robot\-State\-::\-E\-N\-U\-M} \hyperlink{classRobot_ae619a5f25f4bfdeaba8dda29e9b68bb5}{cur\-State}}\label{classRobot_ae619a5f25f4bfdeaba8dda29e9b68bb5}
+
+\begin{DoxyCompactList}\small\item\em The robot's current state, initially set to I\-D\-L\-E. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_abab25b958f5f0f7af339fa82d638fadd}{double \hyperlink{classRobot_abab25b958f5f0f7af339fa82d638fadd}{distance}}\label{classRobot_abab25b958f5f0f7af339fa82d638fadd}
+
+\begin{DoxyCompactList}\small\item\em The robot's distance from the center of the maze's path. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a136a992d1133de166a0a4da2f53040a8}{double \hyperlink{classRobot_a136a992d1133de166a0a4da2f53040a8}{old\-Distance}}\label{classRobot_a136a992d1133de166a0a4da2f53040a8}
+
+\begin{DoxyCompactList}\small\item\em The previously observed distance from the center of the maze's path. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a78e4e81aa68993d79f98d44bf5cdfc10}{int \hyperlink{classRobot_a78e4e81aa68993d79f98d44bf5cdfc10}{health}}\label{classRobot_a78e4e81aa68993d79f98d44bf5cdfc10}
+
+\begin{DoxyCompactList}\small\item\em Used to determine how 'good' a run through the maze was and approximately how long a robot was in contact with an obstacle. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a00aea3ad13ecc05e0e2dad5b2afe7be1}{geometry\-\_\-msgs\-::\-Point \hyperlink{classRobot_a00aea3ad13ecc05e0e2dad5b2afe7be1}{cur\-Goal}}\label{classRobot_a00aea3ad13ecc05e0e2dad5b2afe7be1}
+
+\begin{DoxyCompactList}\small\item\em The current goal used to calculate which path segment the distance calculation should be performed with respect to. Also used to compute the disparity between the robot's own notion of what is a 'good' goal and what the user actually give it. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a09f1ce763b2ee67d35b91c89892decc2}{\hyperlink{classGameModel}{Game\-Model} $\ast$ \hyperlink{classRobot_a09f1ce763b2ee67d35b91c89892decc2}{model}}\label{classRobot_a09f1ce763b2ee67d35b91c89892decc2}
+
+\begin{DoxyCompactList}\small\item\em A pointer the \hyperlink{classGameModel}{Game\-Model} to add this \hyperlink{classRobot}{Robot} instance to. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a33ba4c43aec621b12fe9bb3979afafbb}{std\-::vector$<$ ros\-::\-Time $>$ \hyperlink{classRobot_a33ba4c43aec621b12fe9bb3979afafbb}{goal\-Arival\-Timestamps}}\label{classRobot_a33ba4c43aec621b12fe9bb3979afafbb}
+
+\begin{DoxyCompactList}\small\item\em Keeps track of when a \hyperlink{classRobot}{Robot} arrives at a certain goal/point in the maze. First point should be the time the maze was started, last should be the completion time. \end{DoxyCompactList}\item 
+\hypertarget{classRobot_a4685295702ad481fdd2b78e54c2b1050}{std\-::vector$<$ int32\-\_\-t $>$ \hyperlink{classRobot_a4685295702ad481fdd2b78e54c2b1050}{health\-At\-Goal}}\label{classRobot_a4685295702ad481fdd2b78e54c2b1050}
+
+\begin{DoxyCompactList}\small\item\em Keeps track of what the robot's health was as it arrives at every goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Matthew Atkins
+\end{DoxyAuthor}
+This class is used to represent an individual robot in the current game. The object interacts with R\-O\-S directly to update itself and should inform the \hyperlink{classMazeGame}{Maze\-Game} object associated with this game about relevant events such as taking \char`\"{}damage\char`\"{}. It does provide topics for sending information, probably to rosbridge, about itself for things like updating the web\-U\-I.
+
+The class is designed to support multiple robots using multiple \hyperlink{classRobot}{Robot} object instances. This class I\-S N\-O\-T designed to operate as an independent R\-O\-S node; a robot should be created with service call a running maze\-\_\-game node using the add\-Robot service. This service call requires a string robot\-\_\-name that will be used to uniquely identify a given robot. Each will be given their own R\-O\-S namespace to operate in to avoid accidentally updating information incorrectly. The namespace is determine by the value of robot\-\_\-name from the service call.
+
+For example, to use two robots at the same time, robot1 and robot2 respectively, then the following namespaces will be created\-:
+
+robot1 -\/$>$ robot1/move\-\_\-base/goal\par
+ robot2 -\/$>$ robot2/move\-\_\-base/goal
+
+If only one robot is to be used, a service call to \char`\"{}/maze\-\_\-game/add\-\_\-robot\char`\"{} with robot\-\_\-name set to \char`\"{}\char`\"{} will result in no namespace being prepended. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classRobot_a1250feae21b7afcfa2b5a184dd8aeed7}{\index{Robot@{Robot}!Robot@{Robot}}
+\index{Robot@{Robot}!Robot@{Robot}}
+\subsubsection[{Robot}]{\setlength{\rightskip}{0pt plus 5cm}Robot\-::\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name, }
+\item[{ros\-::\-Node\-Handle $\ast$}]{n, }
+\item[{{\bf Game\-Model} $\ast$}]{model\-Ptr}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a1250feae21b7afcfa2b5a184dd8aeed7}
+Constructs a new \hyperlink{classRobot}{Robot} object with the given name and returns it 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name to assign to this robot. It must be unique to this game. \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRobot_a1250feae21b7afcfa2b5a184dd8aeed7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classRobot_a12d9c8858090fe98b641f70fd5388776}{\index{Robot@{Robot}!add\-Disp\-Point@{add\-Disp\-Point}}
+\index{add\-Disp\-Point@{add\-Disp\-Point}!Robot@{Robot}}
+\subsubsection[{add\-Disp\-Point}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::add\-Disp\-Point (
+\begin{DoxyParamCaption}
+\item[{geometry\-\_\-msgs\-::\-Point}]{point}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a12d9c8858090fe98b641f70fd5388776}
+Appends the disparity to the disparity vector. 
+\begin{DoxyParams}{Parameters}
+{\em d\-Point} & The pointer to the Point to add \\
+\hline
+\end{DoxyParams}
+\hypertarget{classRobot_a8dd36d19fef73d83868f15f5dc16d5c9}{\index{Robot@{Robot}!call\-Submit\-Scores\-Service@{call\-Submit\-Scores\-Service}}
+\index{call\-Submit\-Scores\-Service@{call\-Submit\-Scores\-Service}!Robot@{Robot}}
+\subsubsection[{call\-Submit\-Scores\-Service}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::call\-Submit\-Scores\-Service (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a8dd36d19fef73d83868f15f5dc16d5c9}
+Currently makes a direct call to the \hyperlink{classGameModel}{Game\-Model} associated with this robot and submits the robot's data from this run. 
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRobot_a8dd36d19fef73d83868f15f5dc16d5c9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classRobot_a04fd8ba5a0e1968cf127e7061616864e}{\index{Robot@{Robot}!check\-Distance@{check\-Distance}}
+\index{check\-Distance@{check\-Distance}!Robot@{Robot}}
+\subsubsection[{check\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::check\-Distance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a04fd8ba5a0e1968cf127e7061616864e}
+This function is called every time the robot receives a new nav-\/goal and on the interval set by \hyperlink{classMazeGame}{Maze\-Game}'s spin thread sleep duration. It does the bulk of the work for this class including performing the distance check that determines how far off the path the robots is. It also checks the robot's current state to determine if the robot should be penalized for coming into contact with obstacles or straying to far from the path. If the robot is in the M\-O\-V\-I\-N\-G\-\_\-\-T\-O\-\_\-\-S\-T\-A\-R\-T or R\-U\-N\-N\-I\-N\-G\-\_\-\-M\-A\-Z\-E states it also checks how close the robot is to the next goal in the maze (stored in cur\-Goal). If below a certain threshold, it will see if the robot has reached the end of the maze and either provide the next goal if it has not or stop the robot and submit the robot's score to \hyperlink{classGameModel}{Game\-Model} with a call to \hyperlink{classRobot_a8dd36d19fef73d83868f15f5dc16d5c9}{call\-Submit\-Scores\-Service()}. 
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRobot_a04fd8ba5a0e1968cf127e7061616864e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classRobot_abe252f1523d1c1a680b944a6f1d7bc7d}{\index{Robot@{Robot}!get\-Average\-Disp@{get\-Average\-Disp}}
+\index{get\-Average\-Disp@{get\-Average\-Disp}!Robot@{Robot}}
+\subsubsection[{get\-Average\-Disp}]{\setlength{\rightskip}{0pt plus 5cm}float Robot\-::get\-Average\-Disp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_abe252f1523d1c1a680b944a6f1d7bc7d}
+Computes the average disparity (error) for all the points so far \begin{DoxyReturn}{Returns}
+The average error for all the points given by the user vs the expected points 
+\end{DoxyReturn}
+\hypertarget{classRobot_ace02b610484c2271e5c3b62de23c08a2}{\index{Robot@{Robot}!get\-Cur\-State@{get\-Cur\-State}}
+\index{get\-Cur\-State@{get\-Cur\-State}!Robot@{Robot}}
+\subsubsection[{get\-Cur\-State}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Robot\-State\-::\-E\-N\-U\-M} Robot\-::get\-Cur\-State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_ace02b610484c2271e5c3b62de23c08a2}
+Returns the current state of the robot. \begin{DoxyReturn}{Returns}
+The robot's current state. 
+\end{DoxyReturn}
+\hypertarget{classRobot_a36e8069df6f19bdb75bd60a62baba350}{\index{Robot@{Robot}!get\-Distance\-To\-Maze\-Walls@{get\-Distance\-To\-Maze\-Walls}}
+\index{get\-Distance\-To\-Maze\-Walls@{get\-Distance\-To\-Maze\-Walls}!Robot@{Robot}}
+\subsubsection[{get\-Distance\-To\-Maze\-Walls}]{\setlength{\rightskip}{0pt plus 5cm}double Robot\-::get\-Distance\-To\-Maze\-Walls (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{geometry\-\_\-msgs\-::\-Pose\-Stamped \&}]{p3}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a36e8069df6f19bdb75bd60a62baba350}
+This function calculates the normal distance from the robot to a maze wall given by two points. This two points are determined by the given index, i.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the point to look up in the expected points from \hyperlink{classGameModel}{Game\-Model} \\
+\hline
+{\em p3transform} & The transform frame given by transforming the robots pose in the map frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The distance between the robot and the given line 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRobot_a36e8069df6f19bdb75bd60a62baba350_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classRobot_a59e6d6986c1ca9060f92c30800bb6ce8}{\index{Robot@{Robot}!get\-Name@{get\-Name}}
+\index{get\-Name@{get\-Name}!Robot@{Robot}}
+\subsubsection[{get\-Name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Robot\-::get\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a59e6d6986c1ca9060f92c30800bb6ce8}
+Returns the name given to this robot during it's initialization. \begin{DoxyReturn}{Returns}
+The name of this robot. 
+\end{DoxyReturn}
+\hypertarget{classRobot_a173f6b2c691b073a9a371d6e9fd45939}{\index{Robot@{Robot}!get\-Node\-Handle\-Ptr@{get\-Node\-Handle\-Ptr}}
+\index{get\-Node\-Handle\-Ptr@{get\-Node\-Handle\-Ptr}!Robot@{Robot}}
+\subsubsection[{get\-Node\-Handle\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}ros\-::\-Node\-Handle $\ast$ Robot\-::get\-Node\-Handle\-Ptr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a173f6b2c691b073a9a371d6e9fd45939}
+Get's the R\-O\-S node handle used by this robot \begin{DoxyReturn}{Returns}
+The R\-O\-S node handle used by this robot. 
+\end{DoxyReturn}
+\hypertarget{classRobot_a0eb6c72cf0a8f3ef3f5154f4562d2013}{\index{Robot@{Robot}!get\-Run\-Duration@{get\-Run\-Duration}}
+\index{get\-Run\-Duration@{get\-Run\-Duration}!Robot@{Robot}}
+\subsubsection[{get\-Run\-Duration}]{\setlength{\rightskip}{0pt plus 5cm}ros\-::\-Duration Robot\-::get\-Run\-Duration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a0eb6c72cf0a8f3ef3f5154f4562d2013}
+Returns the time the robot has taken to get to where it is in the maze. If the robot has finished the maze then this is the runtime. \begin{DoxyReturn}{Returns}
+The time the current run has taken so far or the duration of the entire run if the maze has been completed. 
+\end{DoxyReturn}
+\hypertarget{classRobot_a50544dbb3f61929321c232e863871938}{\index{Robot@{Robot}!get\-Start\-Time@{get\-Start\-Time}}
+\index{get\-Start\-Time@{get\-Start\-Time}!Robot@{Robot}}
+\subsubsection[{get\-Start\-Time}]{\setlength{\rightskip}{0pt plus 5cm}ros\-::\-Time Robot\-::get\-Start\-Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a50544dbb3f61929321c232e863871938}
+Get the time that robot started its current run through the maze as a ros\-::\-Time instance \begin{DoxyReturn}{Returns}
+Time the maze was started 
+\end{DoxyReturn}
+\hypertarget{classRobot_a97be7246df827ec139a2b2d69d25bad8}{\index{Robot@{Robot}!is\-Started@{is\-Started}}
+\index{is\-Started@{is\-Started}!Robot@{Robot}}
+\subsubsection[{is\-Started}]{\setlength{\rightskip}{0pt plus 5cm}bool Robot\-::is\-Started (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a97be7246df827ec139a2b2d69d25bad8}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\hyperlink{deprecated__deprecated000001}{Deprecated}]This will be removed in future updates, use \hyperlink{namespaceRobotState_a35861cd80d5e6a7efe93588700256f40}{Robot\-State} instead A flag indicating the status of the maze run \begin{DoxyReturn}{Returns}
+True if the robot has started the maze 
+\end{DoxyReturn}
+\end{DoxyRefDesc}
+\hypertarget{classRobot_a9b62678d0745839be8d4748e39af8764}{\index{Robot@{Robot}!new\-Goal\-Callback@{new\-Goal\-Callback}}
+\index{new\-Goal\-Callback@{new\-Goal\-Callback}!Robot@{Robot}}
+\subsubsection[{new\-Goal\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::new\-Goal\-Callback (
+\begin{DoxyParamCaption}
+\item[{const geometry\-\_\-msgs\-::\-Pose\-Stamped\-::\-Const\-Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a9b62678d0745839be8d4748e39af8764}
+Callback that calculates the disparity between the expected point stored in the \hyperlink{classGameModel}{Game\-Model} against the point given by the user and stores it. It is called every time a new pose is sent by the user.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The pose of the robot from the listener \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRobot_a9b62678d0745839be8d4748e39af8764_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classRobot_a998cd0e4c8b4b1240bb5ffe221bb0d01}{\index{Robot@{Robot}!reset\-Robot@{reset\-Robot}}
+\index{reset\-Robot@{reset\-Robot}!Robot@{Robot}}
+\subsubsection[{reset\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::reset\-Robot (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a998cd0e4c8b4b1240bb5ffe221bb0d01}
+Resets a robot to it's initialization conditions. \hypertarget{classRobot_a5047939fed73f5d2b5fd8ee830b0ff48}{\index{Robot@{Robot}!set\-Game\-Model@{set\-Game\-Model}}
+\index{set\-Game\-Model@{set\-Game\-Model}!Robot@{Robot}}
+\subsubsection[{set\-Game\-Model}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::set\-Game\-Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Game\-Model} $\ast$}]{model\-Var}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a5047939fed73f5d2b5fd8ee830b0ff48}
+This function sets the pointer that contains this \hyperlink{classRobot}{Robot} object
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\-Var} & The pointer storing the location of this \hyperlink{classRobot}{Robot}'s \hyperlink{classGameModel}{Game\-Model} object \\
+\hline
+\end{DoxyParams}
+\hypertarget{classRobot_a83e792105e5240778bb8c6ebe176fc72}{\index{Robot@{Robot}!set\-State@{set\-State}}
+\index{set\-State@{set\-State}!Robot@{Robot}}
+\subsubsection[{set\-State}]{\setlength{\rightskip}{0pt plus 5cm}void Robot\-::set\-State (
+\begin{DoxyParamCaption}
+\item[{{\bf Robot\-State\-::\-E\-N\-U\-M}}]{state}
+\end{DoxyParamCaption}
+)}}\label{classRobot_a83e792105e5240778bb8c6ebe176fc72}
+Sets the robot's current state (i.\-e. I\-D\-L\-E or M\-O\-V\-I\-N\-G\-\_\-\-T\-O\-\_\-\-S\-T\-A\-R\-T). 
+\begin{DoxyParams}{Parameters}
+{\em state} & The state to assign to the robot. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Robot.\-h\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Robot.\-cpp\end{DoxyCompactItemize}

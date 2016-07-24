@@ -8,7 +8,7 @@ include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
 if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "-std=c++11 -ggdb")
+    set(CMAKE_CXX_FLAGS "-pthread -std=c++11 -ggdb")
     message("${Esc}[1;33m-- Compiler supports C++11, compiling using standard C++11!")
 elseif(COMPILER_SUPPORTS_CXX0X)
     set(CMAKE_CXX_FLAGS "-std=c++0x")
@@ -124,6 +124,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+ include_directories(/usr/lib/X11/)
+
  include_directories(include)
  include_directories( src/
   ${catkin_INCLUDE_DIRS}
@@ -131,6 +133,8 @@ catkin_package(
 
 ##add_library(${PROJECT_NAME} src/Robot.cpp src/GameModel.cpp src/MazeGame.cpp)
 ##target_link_libraries(${PROJECT_NAME} ${BOOST_LIBRARIES} ${catkin_LIBRARIES})
+link_libraries(X11)
+link_libraries(Xtst)
 
 add_library(Robot
    src/Robot.cpp
@@ -139,7 +143,7 @@ add_library(Robot
 ## Declare a cpp library
  add_library(GameModel
    src/GameModel.cpp
-)
+         src/franticness.h)
 
 add_dependencies(GameModel ${PROJECT_NAME}_gencpp)
 

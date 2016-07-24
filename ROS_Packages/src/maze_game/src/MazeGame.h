@@ -40,7 +40,7 @@ class MazeGame {
     ros::NodeHandle nh; ///< Pointer that should be shared across all GameModels and Robot objects involved in this MazeGame
 
 public:
-    GameModel * model; ///< Pointer to the model used by this MazeGame
+    GameModel *model; ///< Pointer to the model used by this MazeGame
 
     /**
      * MazeGame constructor
@@ -48,7 +48,7 @@ public:
      */
     MazeGame(ros::NodeHandle *n);
 
-    void startNode(int argc, char** argv);
+    void startNode(int argc, char **argv);
 
     /**
      * Service that is called to add to to the game, this creates a new Robot instance and adds it to the model. \see GameModel::addRobot
@@ -96,7 +96,8 @@ public:
      * @param res ROS service response with the fields: avgRuntime and avgDamage which contain the average runtime and damage values respectively for all runs through the maze to date.
      * @return True if successful False otherwise
      */
-    bool requestAverageScores(maze_game::RequestAverageScores::Request &req, maze_game::RequestAverageScores::Response &res);
+    bool requestAverageScores(maze_game::RequestAverageScores::Request &req,
+                              maze_game::RequestAverageScores::Response &res);
 
     /**
      * Service that is called to submit the data collected by a robot for a single run through the maze. \see GameModel::submitScores
@@ -120,6 +121,7 @@ public:
      * @return True if successful False otherwise
      */
     bool exportRunData(maze_game::ExportRunData::Request &req, maze_game::ExportRunData::Response &res);
+
 };
 
 #endif // MazeGame

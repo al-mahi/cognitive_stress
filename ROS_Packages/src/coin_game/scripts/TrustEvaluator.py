@@ -63,7 +63,7 @@ class TrustEvaluationServer():
         print "\tPercent Damage: " + str(req.percentDamage)
         print "\tArrival Delay: " + str(req.goalArrivalDelay)
 
-        #check given values and clamp them if they are out of bounds
+        # check given values and clamp them if they are out of bounds
         if req.disparity > self.max_disparity:
             req.disparity = self.max_disparity
         elif req.disparity < self.min_disparity:
@@ -79,7 +79,7 @@ class TrustEvaluationServer():
         elif req.goalArrivalDelay < self.min_arrival_delay:
             req.goalArrivalDelay = self.min_arrival_delay
 
-        #Normalize input values
+        # Normalize input values
         normalized_values = [(req.disparity - self.min_disparity)/(self.max_disparity - self.min_disparity),
                              (req.percentDamage - self.min_percent_damage)/(self.max_percent_damage - self.min_percent_damage),
                              (req.goalArrivalDelay - self.min_arrival_delay)/(self.max_arrival_delay - self.min_arrival_delay)
@@ -88,13 +88,13 @@ class TrustEvaluationServer():
 
         domain = self.SVM.domain
 
-        #print "Min disparity: " + str(self.min_disparity) +  "Max disparity: " + str(self.max_disparity)
+        # print "Min disparity: " + str(self.min_disparity) +  "Max disparity: " + str(self.max_disparity)
 
-        for x in range(0,3):
+        for x in range(0, 3):
             print "normalized @ " + str(x) + ": " + str(normalized_values[x])
 
         toClassify = Orange.data.Instance(domain, [normalized_values[0], normalized_values[1], normalized_values[2], None])
-        #print "constructed data instance"
+        # print "constructed data instance"
 
         result = self.SVM(toClassify)
 

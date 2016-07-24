@@ -1,0 +1,16 @@
+build
+devel
+*~
+*.pyc
+*.gz
+*.bak
+*.aux
+*.bbk
+*.blg
+*.log
+*.bbl
+*.nb
+*.odt
+*-eps-converted-to.pdf
+
+

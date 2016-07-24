@@ -3,7 +3,7 @@
 	<arg name="map_file" default="$(find maze_game)/include/lab_landmark.yaml" />
 
 	<!-- Rosbridge Websocket -->
-	<!-- include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" /> -->
+	<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
 	
 	<!-- MJPEG Server
 	<node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" args="_image_transport:=compressed" /> -->
@@ -13,7 +13,7 @@
 
 	<!-- Maze Game -->
 	<node name="maze_game" pkg="maze_game" type="MazeGame" required="true" output="screen">
-		<rosparam param="start_robots">["miranda", "prospero"]</rosparam>
+		<rosparam param="start_robots">["miranda"]</rosparam>
 	</node>
 	
 </launch>

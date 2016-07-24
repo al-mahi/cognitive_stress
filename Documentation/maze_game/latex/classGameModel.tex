@@ -1,0 +1,230 @@
+\hypertarget{classGameModel}{\section{Game\-Model Class Reference}
+\label{classGameModel}\index{Game\-Model@{Game\-Model}}
+}
+
+
+{\ttfamily \#include $<$Game\-Model.\-h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGameModel_1_1RunData}{Run\-Data}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGameModel_a92c0fc830dfc328b743b26b4cf72d016}{Game\-Model} (ros\-::\-Node\-Handle $\ast$n)
+\item 
+void \hyperlink{classGameModel_ac39420ce3fecb4b797ef6bf3867ef71b}{add\-Robot} (std\-::string robot\-Name)
+\item 
+void \hyperlink{classGameModel_a7317d434b62b0cbb2434759073799f00}{remove\-Robot} (std\-::string robot\-Name)
+\item 
+void \hyperlink{classGameModel_aa1adb23fb2d362aaf78c246190929b55}{start\-Robot} (std\-::string robot\-Name)
+\item 
+void \hyperlink{classGameModel_a81341f79e9de8c1aa4652646b24a3c89}{restart\-Robot} (std\-::string robot\-\_\-name)
+\item 
+\hyperlink{classRobot}{Robot} $\ast$ \hyperlink{classGameModel_a70a99a2c666476196557965db8e08a4f}{get\-Robot} (std\-::string robot\-Name)
+\item 
+void \hyperlink{classGameModel_a13965aade5f25efd05b80dc243c743e2}{check\-Robots\-Position} ()
+\item 
+geometry\-\_\-msgs\-::\-Point \hyperlink{classGameModel_a92c45ad458ad6ac291d63f7a78df7234}{get\-Exp\-Point\-At} (int i)
+\item 
+std\-::pair$<$ ros\-::\-Duration, int32\-\_\-t $>$ \hyperlink{classGameModel_a67bc2f3c8c34186b8b619bb6cb57f52d}{get\-Average\-Scores} ()
+\item 
+void \hyperlink{classGameModel_ac3f3c95b80faaafc9a1145dd7ab336de}{submit\-And\-Update\-Average\-Scores} (std\-::string name, std\-::vector$<$ ros\-::\-Time $>$ times, std\-::vector$<$ int32\-\_\-t $>$ health\-Ponits)
+\item 
+bool \hyperlink{classGameModel_a11f9a0ca936f6e4d146d1129738d9c69}{export\-Run\-Data} (std\-::string robot\-Name)
+\item 
+void \hyperlink{classGameModel_a55128eaad5aa63c89bc3b0907412f2a5}{publish\-Maze\-Markers} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGameModel_a44fed97d34754440dc38e8e21d780f80}{std\-::vector$<$ geometry\-\_\-msgs\-::\-Point $>$ \hyperlink{classGameModel_a44fed97d34754440dc38e8e21d780f80}{expected\-Points}}\label{classGameModel_a44fed97d34754440dc38e8e21d780f80}
+
+\begin{DoxyCompactList}\small\item\em The points read using read\-Points. They are used in the disparity calculation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGameModel_ac5eefdf8774b8638dce8fb124ae87ad7}{ros\-::\-Node\-Handle \hyperlink{classGameModel_ac5eefdf8774b8638dce8fb124ae87ad7}{nh}}\label{classGameModel_ac5eefdf8774b8638dce8fb124ae87ad7}
+
+\begin{DoxyCompactList}\small\item\em The node handle for this Maze Game. \end{DoxyCompactList}\item 
+\hypertarget{classGameModel_a9f690e3616752d460d57b2e961870278}{std\-::map$<$ std\-::string, \hyperlink{classRobot}{Robot} $>$ \hyperlink{classGameModel_a9f690e3616752d460d57b2e961870278}{robots}}\label{classGameModel_a9f690e3616752d460d57b2e961870278}
+
+\begin{DoxyCompactList}\small\item\em Holds the \hyperlink{classRobot}{Robot} objects for the robots we are representing in the game keyed by their name. \end{DoxyCompactList}\item 
+\hypertarget{classGameModel_af9b2926734b8760c2bf15455babdfec8}{ros\-::\-Publisher \hyperlink{classGameModel_af9b2926734b8760c2bf15455babdfec8}{marker\-\_\-pub}}\label{classGameModel_af9b2926734b8760c2bf15455babdfec8}
+
+\begin{DoxyCompactList}\small\item\em Publishes the maze as a Visualization Marker message, used primarily by rosbridge. \end{DoxyCompactList}\item 
+\hypertarget{classGameModel_a7901521cc05255f36939d726db7b72b0}{std\-::vector$<$ ros\-::\-Duration $>$ \hyperlink{classGameModel_a7901521cc05255f36939d726db7b72b0}{average\-Run\-Times\-Vector}}\label{classGameModel_a7901521cc05255f36939d726db7b72b0}
+
+\begin{DoxyCompactList}\small\item\em Holds the average times. \end{DoxyCompactList}\item 
+\hypertarget{classGameModel_a3088b82e8e8178045718c2f24f605791}{std\-::vector$<$ \hyperlink{structGameModel_1_1RunData}{Run\-Data} $>$ \hyperlink{classGameModel_a3088b82e8e8178045718c2f24f605791}{run\-Data\-Vector}}\label{classGameModel_a3088b82e8e8178045718c2f24f605791}
+
+\begin{DoxyCompactList}\small\item\em Stores all the \hyperlink{structGameModel_1_1RunData}{Run\-Data} objects since the last export. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Matthew Atkins
+\end{DoxyAuthor}
+This class represents the state of the \char`\"{}game\char`\"{}. It should N\-O\-T handle any of the major logic apart from what is needed to update the state of its components. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGameModel_a92c0fc830dfc328b743b26b4cf72d016}{\index{Game\-Model@{Game\-Model}!Game\-Model@{Game\-Model}}
+\index{Game\-Model@{Game\-Model}!GameModel@{Game\-Model}}
+\subsubsection[{Game\-Model}]{\setlength{\rightskip}{0pt plus 5cm}Game\-Model\-::\-Game\-Model (
+\begin{DoxyParamCaption}
+\item[{ros\-::\-Node\-Handle $\ast$}]{n}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a92c0fc830dfc328b743b26b4cf72d016}
+The default constructor. \begin{DoxyReturn}{Returns}
+An empty \hyperlink{classGameModel}{Game\-Model} object with the given node handle 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGameModel_ac39420ce3fecb4b797ef6bf3867ef71b}{\index{Game\-Model@{Game\-Model}!add\-Robot@{add\-Robot}}
+\index{add\-Robot@{add\-Robot}!GameModel@{Game\-Model}}
+\subsubsection[{add\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::add\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_ac39420ce3fecb4b797ef6bf3867ef71b}
+Creates and adds a new \hyperlink{classRobot}{Robot} object to the robots vector using the given string as its name 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name for the new robot. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGameModel_a13965aade5f25efd05b80dc243c743e2}{\index{Game\-Model@{Game\-Model}!check\-Robots\-Position@{check\-Robots\-Position}}
+\index{check\-Robots\-Position@{check\-Robots\-Position}!GameModel@{Game\-Model}}
+\subsubsection[{check\-Robots\-Position}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::check\-Robots\-Position (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a13965aade5f25efd05b80dc243c743e2}
+Iterates over all the robots currently in the 'robots' vector and gets their position in the maze. It uses this to determine if the robot is close enough to a hazard (i.\-e. a wall) to penalize by determining the distance between the centerline of the maze and the robots base. It also runs a check to see if the robot is close enough to it's next goal in the maze to give it the next goal. \hypertarget{classGameModel_a11f9a0ca936f6e4d146d1129738d9c69}{\index{Game\-Model@{Game\-Model}!export\-Run\-Data@{export\-Run\-Data}}
+\index{export\-Run\-Data@{export\-Run\-Data}!GameModel@{Game\-Model}}
+\subsubsection[{export\-Run\-Data}]{\setlength{\rightskip}{0pt plus 5cm}bool Game\-Model\-::export\-Run\-Data (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a11f9a0ca936f6e4d146d1129738d9c69}
+Exports the data currently stored in the run\-Data\-Vector to individual C\-S\-V files to the 'export' folder in the package 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name of the robot to export data for. If the name passed is 'A\-L\-L' then all available data will be exported. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the export was successful, false otherwise 
+\end{DoxyReturn}
+\hypertarget{classGameModel_a67bc2f3c8c34186b8b619bb6cb57f52d}{\index{Game\-Model@{Game\-Model}!get\-Average\-Scores@{get\-Average\-Scores}}
+\index{get\-Average\-Scores@{get\-Average\-Scores}!GameModel@{Game\-Model}}
+\subsubsection[{get\-Average\-Scores}]{\setlength{\rightskip}{0pt plus 5cm}std\-::pair$<$ ros\-::\-Duration, int32\-\_\-t $>$ Game\-Model\-::get\-Average\-Scores (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a67bc2f3c8c34186b8b619bb6cb57f52d}
+Computes and returns the average runtime across all runs and returns it as a ros\-::\-Duration instance \begin{DoxyReturn}{Returns}
+A pair containing the average runtime score first and the average health score second. 
+\end{DoxyReturn}
+\hypertarget{classGameModel_a92c45ad458ad6ac291d63f7a78df7234}{\index{Game\-Model@{Game\-Model}!get\-Exp\-Point\-At@{get\-Exp\-Point\-At}}
+\index{get\-Exp\-Point\-At@{get\-Exp\-Point\-At}!GameModel@{Game\-Model}}
+\subsubsection[{get\-Exp\-Point\-At}]{\setlength{\rightskip}{0pt plus 5cm}geometry\-\_\-msgs\-::\-Point Game\-Model\-::get\-Exp\-Point\-At (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a92c45ad458ad6ac291d63f7a78df7234}
+Returns a pointer to the point at the specified index as a geometry\-\_\-msgs\-::\-Point object. 
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the point to retrieve \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGameModel_a70a99a2c666476196557965db8e08a4f}{\index{Game\-Model@{Game\-Model}!get\-Robot@{get\-Robot}}
+\index{get\-Robot@{get\-Robot}!GameModel@{Game\-Model}}
+\subsubsection[{get\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Robot} $\ast$ Game\-Model\-::get\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a70a99a2c666476196557965db8e08a4f}
+Get the \hyperlink{classRobot}{Robot} object with the given name or returns null if there is no such \hyperlink{classRobot}{Robot} 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name of the \hyperlink{classRobot}{Robot} to retrieve \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the requested \hyperlink{classRobot}{Robot} object 
+\end{DoxyReturn}
+\hypertarget{classGameModel_a55128eaad5aa63c89bc3b0907412f2a5}{\index{Game\-Model@{Game\-Model}!publish\-Maze\-Markers@{publish\-Maze\-Markers}}
+\index{publish\-Maze\-Markers@{publish\-Maze\-Markers}!GameModel@{Game\-Model}}
+\subsubsection[{publish\-Maze\-Markers}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::publish\-Maze\-Markers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a55128eaad5aa63c89bc3b0907412f2a5}
+Publishes the maze as a visualization\-\_\-msgs/\-Marker messages on the '' topic. \hypertarget{classGameModel_a7317d434b62b0cbb2434759073799f00}{\index{Game\-Model@{Game\-Model}!remove\-Robot@{remove\-Robot}}
+\index{remove\-Robot@{remove\-Robot}!GameModel@{Game\-Model}}
+\subsubsection[{remove\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::remove\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a7317d434b62b0cbb2434759073799f00}
+Removes the robot, if it exists, from the list of known robots.\par
+ \begin{DoxyNote}{Note}
+This does not remove the run data of the robot itself, just the object that represents it.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name of the robot to remove \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGameModel_a81341f79e9de8c1aa4652646b24a3c89}{\index{Game\-Model@{Game\-Model}!restart\-Robot@{restart\-Robot}}
+\index{restart\-Robot@{restart\-Robot}!GameModel@{Game\-Model}}
+\subsubsection[{restart\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::restart\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_a81341f79e9de8c1aa4652646b24a3c89}
+This will reset the robot with the given name to it's initialization values. \begin{DoxySeeAlso}{See Also}
+Robot\-::restart\-Robot 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGameModel_aa1adb23fb2d362aaf78c246190929b55}{\index{Game\-Model@{Game\-Model}!start\-Robot@{start\-Robot}}
+\index{start\-Robot@{start\-Robot}!GameModel@{Game\-Model}}
+\subsubsection[{start\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::start\-Robot (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{robot\-Name}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_aa1adb23fb2d362aaf78c246190929b55}
+Starts the robot with the given name and sends it to the start of the maze. This is the function that the service callback \hyperlink{classMazeGame_a0a8b1fa8e9165f0e7131c04f3c5e1967}{Maze\-Game\-::start\-Robot} calls. This also sets it's state to \hyperlink{namespaceRobotState}{M\-O\-V\-E\-I\-N\-G\-\_\-\-T\-O\-\_\-\-S\-T\-A\-R\-T } When the check\-Distance() function is called on this robot it will see if the robot has reached the start of the maze, if it has the robot's state is update to \hyperlink{namespaceRobotState}{R\-U\-N\-N\-I\-N\-G\-\_\-\-M\-A\-Z\-E } . 
+\begin{DoxyParams}{Parameters}
+{\em robot\-Name} & The name of the robot to start. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGameModel_ac3f3c95b80faaafc9a1145dd7ab336de}{\index{Game\-Model@{Game\-Model}!submit\-And\-Update\-Average\-Scores@{submit\-And\-Update\-Average\-Scores}}
+\index{submit\-And\-Update\-Average\-Scores@{submit\-And\-Update\-Average\-Scores}!GameModel@{Game\-Model}}
+\subsubsection[{submit\-And\-Update\-Average\-Scores}]{\setlength{\rightskip}{0pt plus 5cm}void Game\-Model\-::submit\-And\-Update\-Average\-Scores (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{name, }
+\item[{std\-::vector$<$ ros\-::\-Time $>$}]{times, }
+\item[{std\-::vector$<$ int32\-\_\-t $>$}]{health\-Ponits}
+\end{DoxyParamCaption}
+)}}\label{classGameModel_ac3f3c95b80faaafc9a1145dd7ab336de}
+Appends the given data to the list of entries for export. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the robot submitting the data \\
+\hline
+{\em times} & The vector of goal arrival times \\
+\hline
+{\em health\-Ponits} & The vector of health vales at a particular point \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Game\-Model.\-h\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Game\-Model.\-cpp\end{DoxyCompactItemize}

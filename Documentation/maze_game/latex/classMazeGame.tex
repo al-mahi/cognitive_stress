@@ -1,0 +1,319 @@
+\hypertarget{classMazeGame}{\section{Maze\-Game Class Reference}
+\label{classMazeGame}\index{Maze\-Game@{Maze\-Game}}
+}
+
+
+{\ttfamily \#include $<$Maze\-Game.\-h$>$}
+
+
+
+Collaboration diagram for Maze\-Game\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classMazeGame__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMazeGame_add7809c2ee39bb4d969e3d06200e6396}{Maze\-Game} (ros\-::\-Node\-Handle $\ast$n)
+\item 
+bool \hyperlink{classMazeGame_ab864d71bc5fdf038ffbb2e2966a240a0}{add\-Robot} (maze\-\_\-game\-::\-Add\-Robot\-::\-Request \&req, maze\-\_\-game\-::\-Add\-Robot\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_a5c6771a8330241fe12f4d38b21827dec}{remove\-Robot} (maze\-\_\-game\-::\-Remove\-Robot\-::\-Request \&req, maze\-\_\-game\-::\-Remove\-Robot\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_a0a8b1fa8e9165f0e7131c04f3c5e1967}{start\-Robot} (maze\-\_\-game\-::\-Start\-Robot\-::\-Request \&req, maze\-\_\-game\-::\-Start\-Robot\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_a2c5ddcc5bf163ff953c3bbbbb7294e24}{request\-Maze\-Markers} (maze\-\_\-game\-::\-Request\-Maze\-Markers\-::\-Request \&req, maze\-\_\-game\-::\-Request\-Maze\-Markers\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_a89f36d9e6de0a22983eef3bfbd6bb92f}{request\-Average\-Scores} (maze\-\_\-game\-::\-Request\-Average\-Scores\-::\-Request \&req, maze\-\_\-game\-::\-Request\-Average\-Scores\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_a98aba2340bc3fc3893896cfd8d6f7710}{submit\-Scores} (maze\-\_\-game\-::\-Submit\-Scores\-::\-Request \&req, maze\-\_\-game\-::\-Submit\-Scores\-::\-Response \&res)
+\item 
+bool \hyperlink{classMazeGame_aef4dc5725931d93c5ec742228d1bb6a1}{export\-Run\-Data} (maze\-\_\-game\-::\-Export\-Run\-Data\-::\-Request \&req, maze\-\_\-game\-::\-Export\-Run\-Data\-::\-Response \&res)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classMazeGame_a7aa2f493b51187f851c9a7f8c3d2903d}{\hyperlink{classGameModel}{Game\-Model} $\ast$ \hyperlink{classMazeGame_a7aa2f493b51187f851c9a7f8c3d2903d}{model}}\label{classMazeGame_a7aa2f493b51187f851c9a7f8c3d2903d}
+
+\begin{DoxyCompactList}\small\item\em Pointer to the model used by this \hyperlink{classMazeGame}{Maze\-Game}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classMazeGame_aaabfca5f8cdee9dab2171801f985cae4}{ros\-::\-Node\-Handle \hyperlink{classMazeGame_aaabfca5f8cdee9dab2171801f985cae4}{nh}}\label{classMazeGame_aaabfca5f8cdee9dab2171801f985cae4}
+
+\begin{DoxyCompactList}\small\item\em Pointer that should be shared across all Game\-Models and \hyperlink{classRobot}{Robot} objects involved in this \hyperlink{classMazeGame}{Maze\-Game}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Matthew Atkins
+\end{DoxyAuthor}
+This is main R\-O\-S node and performs the majority of the interactions between the \hyperlink{classMazeGame}{Maze\-Game} code and R\-O\-S itself.\par
+ It provides the following services\-:\par
+ 
+\begin{DoxyItemize}
+\item add\-\_\-robot\-: adds a robot with the name given in the service request. 
+\item remove\-\_\-robot\-: removes the robot with the name given in the service request. 
+\item start\-\_\-robot\-: sends the robot to the start of the maze and sets its state to M\-O\-V\-I\-N\-G\-\_\-\-T\-O\-\_\-\-S\-T\-A\-R\-T click \hyperlink{namespaceRobotState}{here } for more info. 
+\item restart\-\_\-robot\-: resets the robot with the given name back to it's initialization values and set it's state to \hyperlink{namespaceRobotState_a35861cd80d5e6a7efe93588700256f40a91b3fe8ec5cd16e28dc70cb3b28e8aea}{I\-D\-L\-E}  
+\item request\-\_\-maze\-\_\-markers\-: causes the maze's point to be published as visualization\-\_\-msgs/\-Marker message on the /maze\-\_\-game/markers topics 
+\item request\-\_\-average\-\_\-scores\-:  
+\item submit\-\_\-scores\-:  
+\item export\-\_\-run\-\_\-data\-: exports the data for the robot with the given name or all available data if the name given is 'A\-L\-L'. The data is stored as a C\-S\-V file in the packages 'export' directory. Actual export is done \hyperlink{classGameModel_a11f9a0ca936f6e4d146d1129738d9c69}{here} 
+\end{DoxyItemize}
+
+More info. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMazeGame_add7809c2ee39bb4d969e3d06200e6396}{\index{Maze\-Game@{Maze\-Game}!Maze\-Game@{Maze\-Game}}
+\index{Maze\-Game@{Maze\-Game}!MazeGame@{Maze\-Game}}
+\subsubsection[{Maze\-Game}]{\setlength{\rightskip}{0pt plus 5cm}Maze\-Game\-::\-Maze\-Game (
+\begin{DoxyParamCaption}
+\item[{ros\-::\-Node\-Handle $\ast$}]{n}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_add7809c2ee39bb4d969e3d06200e6396}
+\hyperlink{classMazeGame}{Maze\-Game} constructor 
+\begin{DoxyParams}{Parameters}
+{\em n} & The ros\-::\-Node\-Handle to give this \hyperlink{classMazeGame}{Maze\-Game} instance \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMazeGame_ab864d71bc5fdf038ffbb2e2966a240a0}{\index{Maze\-Game@{Maze\-Game}!add\-Robot@{add\-Robot}}
+\index{add\-Robot@{add\-Robot}!MazeGame@{Maze\-Game}}
+\subsubsection[{add\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::add\-Robot (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Add\-Robot\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Add\-Robot\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_ab864d71bc5fdf038ffbb2e2966a240a0}
+Service that is called to add to to the game, this creates a new \hyperlink{classRobot}{Robot} instance and adds it to the model. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classGameModel_ac39420ce3fecb4b797ef6bf3867ef71b}{Game\-Model\-::add\-Robot} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'robot\-Name' that contains the name of the robot to add. \\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_ab864d71bc5fdf038ffbb2e2966a240a0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_aef4dc5725931d93c5ec742228d1bb6a1}{\index{Maze\-Game@{Maze\-Game}!export\-Run\-Data@{export\-Run\-Data}}
+\index{export\-Run\-Data@{export\-Run\-Data}!MazeGame@{Maze\-Game}}
+\subsubsection[{export\-Run\-Data}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::export\-Run\-Data (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Export\-Run\-Data\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Export\-Run\-Data\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_aef4dc5725931d93c5ec742228d1bb6a1}
+Service that is called to export the run data accumulated so far for the robot with the given name. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classGameModel_a11f9a0ca936f6e4d146d1129738d9c69}{Game\-Model\-::export\-Run\-Data} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'robot\-Name' that contains the name of the robot to export data for. If this is set to 'A\-L\-L' then all available data will be exported. \\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful False otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_aef4dc5725931d93c5ec742228d1bb6a1_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_a5c6771a8330241fe12f4d38b21827dec}{\index{Maze\-Game@{Maze\-Game}!remove\-Robot@{remove\-Robot}}
+\index{remove\-Robot@{remove\-Robot}!MazeGame@{Maze\-Game}}
+\subsubsection[{remove\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::remove\-Robot (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Remove\-Robot\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Remove\-Robot\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_a5c6771a8330241fe12f4d38b21827dec}
+Service that is called to remove a robot instance from the game, the robot is also remove from the model. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classGameModel_ac39420ce3fecb4b797ef6bf3867ef71b}{Game\-Model\-::add\-Robot} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'robot\-Name' that contains the name of the robot to remove. \\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_a5c6771a8330241fe12f4d38b21827dec_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_a89f36d9e6de0a22983eef3bfbd6bb92f}{\index{Maze\-Game@{Maze\-Game}!request\-Average\-Scores@{request\-Average\-Scores}}
+\index{request\-Average\-Scores@{request\-Average\-Scores}!MazeGame@{Maze\-Game}}
+\subsubsection[{request\-Average\-Scores}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::request\-Average\-Scores (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Request\-Average\-Scores\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Request\-Average\-Scores\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_a89f36d9e6de0a22983eef3bfbd6bb92f}
+Service that is called to retrieve the average run scores so far. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classGameModel_a67bc2f3c8c34186b8b619bb6cb57f52d}{Game\-Model\-::get\-Average\-Scores} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'robot\-Name' that can be any string, it does not affect the result. \\
+\hline
+{\em res} & R\-O\-S service response with the fields\-: avg\-Runtime and avg\-Damage which contain the average runtime and damage values respectively for all runs through the maze to date. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful False otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_a89f36d9e6de0a22983eef3bfbd6bb92f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_a2c5ddcc5bf163ff953c3bbbbb7294e24}{\index{Maze\-Game@{Maze\-Game}!request\-Maze\-Markers@{request\-Maze\-Markers}}
+\index{request\-Maze\-Markers@{request\-Maze\-Markers}!MazeGame@{Maze\-Game}}
+\subsubsection[{request\-Maze\-Markers}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::request\-Maze\-Markers (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Request\-Maze\-Markers\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Request\-Maze\-Markers\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_a2c5ddcc5bf163ff953c3bbbbb7294e24}
+Service that is called to have the \hyperlink{classGameModel}{Game\-Model} publish the maze markers. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classGameModel_a55128eaad5aa63c89bc3b0907412f2a5}{Game\-Model\-::publish\-Maze\-Markers} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'request' that can be any string, it does not affect the result. \\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful False otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_a2c5ddcc5bf163ff953c3bbbbb7294e24_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_a0a8b1fa8e9165f0e7131c04f3c5e1967}{\index{Maze\-Game@{Maze\-Game}!start\-Robot@{start\-Robot}}
+\index{start\-Robot@{start\-Robot}!MazeGame@{Maze\-Game}}
+\subsubsection[{start\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::start\-Robot (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Start\-Robot\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Start\-Robot\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_a0a8b1fa8e9165f0e7131c04f3c5e1967}
+Service that is called to start a robot and send it to the start of the maze. \hyperlink{}{More info here.} 
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the field 'robot\-Name' that contains the name of the robot to start. \\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful False otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_a0a8b1fa8e9165f0e7131c04f3c5e1967_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMazeGame_a98aba2340bc3fc3893896cfd8d6f7710}{\index{Maze\-Game@{Maze\-Game}!submit\-Scores@{submit\-Scores}}
+\index{submit\-Scores@{submit\-Scores}!MazeGame@{Maze\-Game}}
+\subsubsection[{submit\-Scores}]{\setlength{\rightskip}{0pt plus 5cm}bool Maze\-Game\-::submit\-Scores (
+\begin{DoxyParamCaption}
+\item[{maze\-\_\-game\-::\-Submit\-Scores\-::\-Request \&}]{req, }
+\item[{maze\-\_\-game\-::\-Submit\-Scores\-::\-Response \&}]{res}
+\end{DoxyParamCaption}
+)}}\label{classMazeGame_a98aba2340bc3fc3893896cfd8d6f7710}
+Service that is called to submit the data collected by a robot for a single run through the maze. \begin{DoxySeeAlso}{See Also}
+Game\-Model\-::submit\-Scores 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & R\-O\-S service request with the fields\-: 
+\begin{DoxyItemize}
+\item robot\-\_\-name\-: The name of the robot 
+\item goal\-\_\-arival\-\_\-times\-: A vector containing that contains the times the robot arrived at a particular goal. 
+\item damage\-\_\-at\-\_\-goal\-: A vector containing the 'health' of the robot at each goal. $<$$>$ 
+\end{DoxyItemize}\\
+\hline
+{\em res} & R\-O\-S service response that contains a boolean field 'result' that indicates the success or failure of the operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if successful False otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMazeGame_a98aba2340bc3fc3893896cfd8d6f7710_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Maze\-Game.\-h\item 
+/home/matt/cognitive\-\_\-stress/\-R\-O\-S\-\_\-\-Packages/src/maze\-\_\-game/src/Maze\-Game.\-cpp\end{DoxyCompactItemize}

@@ -6,12 +6,11 @@ Panels:
       Expanded:
         - /TF1/Tree1
       Splitter Ratio: 0.508929
-    Tree Height: 843
+    Tree Height: 700
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
-    Expanded:
-      - /2D Nav Goal2
+    Expanded: ~
     Name: Tool Properties
     Splitter Ratio: 0.588679
   - Class: rviz/Views
@@ -23,7 +22,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -79,76 +78,6 @@ Visualization Manager:
             Expand Link Details: false
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
-          Name: Miranda
-          Robot Description: /miranda/robot_description
-          TF Prefix: miranda
-          Update Interval: 0
-          Value: true
-          Visual Enabled: true
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/LaserScan
-          Color: 255; 0; 0
-          Color Transformer: FlatColor
-          Decay Time: 0
-          Enabled: true
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Max Intensity: 4096
-          Min Color: 0; 0; 0
-          Min Intensity: 0
-          Name: LaserScan
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.01
-          Style: Squares
-          Topic: /miranda/scan
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: true
-        - Arrow Length: 0.2
-          Class: rviz/PoseArray
-          Color: 255; 0; 0
-          Enabled: true
-          Name: Amcl Particle Swarm
-          Topic: /miranda/particlecloud
-          Value: true
-        - Alpha: 1
-          Buffer Length: 1
-          Class: rviz/Path
-          Color: 25; 255; 0
-          Enabled: true
-          Line Style: Lines
-          Line Width: 0.03
-          Name: Full Plan
-          Offset:
-            X: 0
-            Y: 0
-            Z: 0
-          Topic: /miranda/move_base/NavfnROS/plan
-          Value: true
-      Enabled: false
-      Name: Miranda
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Class: rviz/RobotModel
-          Collision Enabled: false
-          Enabled: true
-          Links:
-            All Links Enabled: true
-            Expand Joint Details: false
-            Expand Link Details: false
-            Expand Tree: false
-            Link Tree Style: Links in Alphabetic Order
           Name: Prospero
           Robot Description: /prospero/robot_description
           TF Prefix: prospero
@@ -167,7 +96,7 @@ Visualization Manager:
           Color: 0; 0; 255
           Color Transformer: FlatColor
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 0; 0; 255
           Max Intensity: 4096
@@ -183,7 +112,7 @@ Visualization Manager:
           Topic: /prospero/scan
           Use Fixed Frame: true
           Use rainbow: false
-          Value: true
+          Value: false
         - Arrow Length: 0.2
           Class: rviz/PoseArray
           Color: 85; 85; 255
@@ -220,6 +149,76 @@ Visualization Manager:
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
           Name: RobotModel
+          Robot Description: /caliban/robot_description
+          TF Prefix: caliban
+          Update Interval: 0
+          Value: true
+          Visual Enabled: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/LaserScan
+          Color: 255; 170; 0
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: LaserScan
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.01
+          Style: Flat Squares
+          Topic: /caliban/scan
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Arrow Length: 0.3
+          Class: rviz/PoseArray
+          Color: 255; 170; 0
+          Enabled: true
+          Name: PoseArray
+          Topic: /caliban/particlecloud
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 255; 170; 0
+          Enabled: true
+          Line Style: Lines
+          Line Width: 0.03
+          Name: Full Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Topic: /caliban/move_base/NavfnROS/plan
+          Value: true
+      Enabled: false
+      Name: Caliban
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Class: rviz/RobotModel
+          Collision Enabled: false
+          Enabled: true
+          Links:
+            All Links Enabled: true
+            Expand Joint Details: false
+            Expand Link Details: false
+            Expand Tree: false
+            Link Tree Style: Links in Alphabetic Order
+          Name: RobotModel
           Robot Description: /ferdinand/robot_description
           TF Prefix: ferdinand
           Update Interval: 0
@@ -237,7 +236,7 @@ Visualization Manager:
           Color: 85; 255; 0
           Color Transformer: FlatColor
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 4096
@@ -253,7 +252,7 @@ Visualization Manager:
           Topic: /ferdinand/scan
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Arrow Length: 0.3
           Class: rviz/PoseArray
           Color: 85; 255; 0
@@ -289,468 +288,6 @@ Visualization Manager:
             Expand Link Details: false
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
-            base_footprint:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            base_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            camera_depth_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_depth_optical_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            camera_rgb_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_rgb_optical_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            caster_back_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            caster_front_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            cliff_sensor_front_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            cliff_sensor_left_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            cliff_sensor_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            gyro_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            plate_bottom_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            plate_middle_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            plate_top_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_4_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_5_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_kinect_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_kinect_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wheel_left_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wheel_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-          Name: RobotModel
-          Robot Description: /caliban/robot_description
-          TF Prefix: caliban
-          Update Interval: 0
-          Value: true
-          Visual Enabled: true
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/LaserScan
-          Color: 255; 170; 0
-          Color Transformer: FlatColor
-          Decay Time: 0
-          Enabled: true
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Max Intensity: 4096
-          Min Color: 0; 0; 0
-          Min Intensity: 0
-          Name: LaserScan
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.01
-          Style: Flat Squares
-          Topic: /caliban/scan
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: true
-        - Arrow Length: 0.3
-          Class: rviz/PoseArray
-          Color: 255; 170; 0
-          Enabled: true
-          Name: PoseArray
-          Topic: /caliban/particlecloud
-          Value: true
-        - Alpha: 1
-          Buffer Length: 1
-          Class: rviz/Path
-          Color: 255; 170; 0
-          Enabled: true
-          Line Style: Lines
-          Line Width: 0.03
-          Name: Full Plan
-          Offset:
-            X: 0
-            Y: 0
-            Z: 0
-          Topic: /caliban/move_base/NavfnROS/plan
-          Value: true
-      Enabled: true
-      Name: Caliban
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Class: rviz/RobotModel
-          Collision Enabled: false
-          Enabled: true
-          Links:
-            All Links Enabled: true
-            Expand Joint Details: false
-            Expand Link Details: false
-            Expand Tree: false
-            Link Tree Style: Links in Alphabetic Order
-          Name: Miranda
-          Robot Description: /miranda/robot_description
-          TF Prefix: miranda
-          Update Interval: 0
-          Value: true
-          Visual Enabled: true
-        - Alpha: 1
-          Autocompute Intensity Bounds: true
-          Autocompute Value Bounds:
-            Max Value: 10
-            Min Value: -10
-            Value: true
-          Axis: Z
-          Channel Name: intensity
-          Class: rviz/LaserScan
-          Color: 255; 85; 0
-          Color Transformer: FlatColor
-          Decay Time: 0
-          Enabled: true
-          Invert Rainbow: false
-          Max Color: 255; 255; 255
-          Max Intensity: 4096
-          Min Color: 0; 0; 0
-          Min Intensity: 0
-          Name: LaserScan
-          Position Transformer: XYZ
-          Queue Size: 10
-          Selectable: true
-          Size (Pixels): 3
-          Size (m): 0.01
-          Style: Squares
-          Topic: /miranda/scan
-          Use Fixed Frame: true
-          Use rainbow: true
-          Value: true
-        - Arrow Length: 0.2
-          Class: rviz/PoseArray
-          Color: 255; 0; 0
-          Enabled: true
-          Name: Amcl Particle Swarm
-          Topic: /miranda/particlecloud
-          Value: true
-        - Alpha: 1
-          Buffer Length: 1
-          Class: rviz/Path
-          Color: 25; 255; 0
-          Enabled: true
-          Line Style: Lines
-          Line Width: 0.03
-          Name: Full Plan
-          Offset:
-            X: 0
-            Y: 0
-            Z: 0
-          Topic: /miranda/move_base/NavfnROS/plan
-          Value: true
-      Enabled: false
-      Name: Ariel
-    - Class: rviz/Group
-      Displays:
-        - Alpha: 1
-          Class: rviz/RobotModel
-          Collision Enabled: false
-          Enabled: true
-          Links:
-            All Links Enabled: true
-            Expand Joint Details: false
-            Expand Link Details: false
-            Expand Tree: false
-            Link Tree Style: Links in Alphabetic Order
-            base_footprint:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            base_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            camera_depth_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_depth_optical_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            camera_rgb_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            camera_rgb_optical_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            caster_back_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            caster_front_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            cliff_sensor_front_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            cliff_sensor_left_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            cliff_sensor_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            gyro_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            plate_bottom_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            plate_middle_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            plate_top_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_4_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_bottom_5_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_kinect_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_kinect_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_middle_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_0_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            pole_top_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wheel_left_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wheel_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
           Name: Trinculo
           Robot Description: /trinculo/robot_description
           TF Prefix: trinculo
@@ -769,7 +306,7 @@ Visualization Manager:
           Color: 138; 43; 226
           Color Transformer: FlatColor
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 4096
@@ -785,7 +322,7 @@ Visualization Manager:
           Topic: /trinculo/scan
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Arrow Length: 0.2
           Class: rviz/PoseArray
           Color: 138; 43; 226
@@ -807,16 +344,14 @@ Visualization Manager:
             Z: 0
           Topic: /trinculo/move_base/NavfnROS/plan
           Value: true
-      Enabled: true
+      Enabled: false
       Name: Trinculo
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /visualization_marker
       Name: Marker
       Namespaces:
-        caliban: true
-        caliban_timer: true
-        maze_wall: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -828,25 +363,17 @@ Visualization Manager:
   Tools:
     - Class: rviz/MoveCamera
     - Class: rviz/SetInitialPose
-      Topic: /miranda/initialpose
-    - Class: rviz/SetGoal
-      Topic: /miranda/move_base_simple/goal
-    - Class: rviz/SetInitialPose
       Topic: /prospero/initialpose
     - Class: rviz/SetGoal
       Topic: /prospero/move_base_simple/goal
-    - Class: rviz/SetInitialPose
-      Topic: /ferdinand/initialpose
-    - Class: rviz/SetGoal
-      Topic: /ferdinand/move_base_simple/goal
     - Class: rviz/SetInitialPose
       Topic: /caliban/initialpose
     - Class: rviz/SetGoal
       Topic: /caliban/move_base_simple/goal
     - Class: rviz/SetInitialPose
-      Topic: /ariel/initialpose
+      Topic: /ferdinand/initialpose
     - Class: rviz/SetGoal
-      Topic: /ariel/move_base_simple/goal
+      Topic: /ferdinand/move_base_simple/goal
     - Class: rviz/SetInitialPose
       Topic: /trinculo/initialpose
     - Class: rviz/SetGoal
@@ -875,7 +402,7 @@ Window Geometry:
   Height: 1056
   Hide Left Dock: false
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd000000040000000000000152000003dafc020000000afb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fc00000028000003da000000dd00fffffffa000000010100000002fb0000000c00430061006d0065007200610200000971000000dd0000006d0000001efb000000100044006900730070006c0061007900730100000000000001520000010f00fffffffb0000001200530065006c0065006300740069006f006e00000003020000009e0000006400fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000310000000a00000006400fffffffb0000000a0056006900650077007300000002f2000000cf000000b000fffffffb0000000800540069006d006500000003940000006e0000003b00ffffff000000010000010f00000396fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073f0000003efc0100000001fb0000000800540069006d00650100000000000004500000000000000000000005e7000003da00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000040000000000000152000003dafc020000000afb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fc000000280000034b000000dd00fffffffa000000010100000002fb0000000c00430061006d0065007200610200000971000000dd0000006d0000001efb000000100044006900730070006c0061007900730100000000000001520000010f00fffffffb0000001200530065006c0065006300740069006f006e00000003020000009e0000006400fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000379000000890000006400fffffffb0000000a0056006900650077007300000002f2000000cf000000b000fffffffb0000000800540069006d006500000003940000006e0000003b00ffffff000000010000010f00000396fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073f0000003efc0100000001fb0000000800540069006d00650100000000000004500000000000000000000005e7000003da00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

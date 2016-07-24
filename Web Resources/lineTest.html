@@ -1,0 +1,74 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script src="https://code.createjs.com/easeljs-0.8.1.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+		<script type="text/javascript" src="http://cdn.robotwebtools.org/ros2djs/current/ros2d.min.js"></script>
+		<script type="text/javascript" src="scripts/NAV2D.js"></script>
+		
+		<script type="text/javascript">
+
+			var canvas;
+			var stage;
+			var ros;
+			var done = false;
+			
+			function init() {
+				
+				ros = new ROSLIB.Ros({
+					url : 'ws://localhost:9090'
+				});
+				
+			//Draw the maze
+			var mazeMarkers = new ROSLIB.Topic({
+				ros : ros,
+				name : '/visualization_marker',
+				messageType : 'visualization_msgs/Marker'
+			});
+			
+			mazeMarkers.subscribe(function(message) {
+				
+				var pose;
+				var scale;
+				var points;
+				
+				if (message.ns == "maze_wall" && !done) {
+					pose = message.pose;
+					scale = message.scale;
+					points = message.points;
+				
+					var g = new createjs.Shape();
+					g.graphics.beginStroke("black");
+				
+					//move the drawing point to the start of the path
+					g.graphics.moveTo(points[0].x * 30, points[0].y * 30);
+				
+					for (i = 1; i < points.length; i++) {
+						console.log("Points!");
+						g.graphics.lineTo(points[i].x * 30, points[i].y * 30);
+						done = true;
+					}
+					
+					stage.addChild(g);
+					stage.update();
+					
+				}
+			});
+				
+				canvas = document.getElementById("demoCanvas");
+				stage = new createjs.Stage("demoCanvas");
+				var circle = new createjs.Shape();
+				circle.graphics.beginFill("DeepSkyBlue").drawCircle(0,0,50);
+				circle.x = 100;
+				circle.y = 100;
+				stage.addChild(circle);
+				stage.update();
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="demoCanvas" width="500" height="300"></canvas>
+	</body>
+</html>
