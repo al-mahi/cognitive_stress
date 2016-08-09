@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     while (nh.ok()) {
 //		ROS_INFO("MazeGame Spinning.");
         game.model->checkRobotsPosition();
-        ros::Rate(1.0).sleep();
+        ros::Rate(1).sleep();
         ros::spinOnce();
     }
 

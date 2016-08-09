@@ -54,7 +54,7 @@ class CoinGameNode():
                     }
 
         self.robot_start_points = {"trinculo": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
-                                   "caliban": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
+                                   "miranda": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
                                    "ferdinand": Pose(Point(2.1, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, 0))),
                                    "prospero": Pose(Point(2.1, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, 0)))
                                    }
@@ -69,7 +69,7 @@ class CoinGameNode():
         else:
             self.number_of_robots = 1
 
-        # robots = ["trinculo", "caliban", "ferdinand", "prospero"]
+        # robots = ["trinculo", "miranda", "ferdinand", "prospero"]
         #
         # for x in range(0, self.number_of_robots):
         #     print "Starting robots!"
@@ -80,7 +80,6 @@ class CoinGameNode():
 
     def add_robot(self, req):
         self.robotNodes.append(req.robotName)
-
         start_req = RobotNamedRequest()
         start_req.robotName = req.robotName
         self.start_robots(start_req)
@@ -212,7 +211,7 @@ class CoinGameNode():
 
         return SpawnNewCoinResponse(spawn_location)
 
-    #Determines if a path segment defined by two points is vertical or horizontal
+    # Determines if a path segment defined by two points is vertical or horizontal
     def get_path_segment_orientation(self, index_a, index_b):
 
         toReturn = []

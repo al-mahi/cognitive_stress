@@ -8,6 +8,18 @@ import roslib
 from roslib import packages
 from coin_game_msgs.srv import *
 from RunData import RunData
+#-------added by Mahi------------
+from franticness import Franticness
+from threading import Thread
+import Orange
+import Orange.feature
+import Orange.classification
+import Orange.data
+import Orange.utils
+import Orange.wrappers
+import pickle
+import datetime
+#--------------------------------
 import tf
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 from geometry_msgs.msg import *
@@ -76,7 +88,7 @@ class Robot():
 
         # Configure the first starting point
         robot_staring_positions = {"trinculo": Point(6.73, 6.0, 0),
-                                  "caliban": Point(6.73, 2.8, 0),
+                                  "miranda": Point(6.73, 2.8, 0),
                                   "ferdinand": Point(2.1, 6.0, 0),
                                   "prospero": Point(2.1, 2.8, 0),
                                   "default_name": Point(0, 0, 0)}
@@ -93,18 +105,35 @@ class Robot():
         else:
             self.export_dir = roslib.packages.get_pkg_subdir("coin_game", "export")
 
-        self.export_file = open(self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv", mode='w')
-        self.csv_writer = csv.writer(self.export_file)
-        self.csv_writer.writerow(['Trusted?',
-                                  'Disparity',
-                                  'Health',
-                                  'Time Remaining',
-                                  'Percent Trust',
-                                  'Collected Coins',
-                                  'Coin X',
-                                  'Coin Y',
-                                  'RobotStart X',
-                                  'RobotStart Y'])
+        #-------------added by Mahi------------------------------------------------
+        print "Thread for franticness count!!!"
+        self.timestamp_h_m_s = "0:0:0"
+        self.franticness = Franticness(self.name)
+        self.t = Thread(target=self.franticness.mouse_events)
+        self.t.start()
+        self.export_file = self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv"
+        with open(self.export_file, 'w') as csvfile:
+            csvfile.write("clicks,mouse movements,decision intervals,Cognitive Stress Prediction(rf),h:m:s\n")
+        #--------------------------------------------------------------------------
+        # self.export_file = open(self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv", mode='w')
+        # self.csv_writer = csv.writer(self.export_file)
+        # self.csv_writer.writerow(['Trusted?',
+        #                           'Disparity',
+        #                           'Health',
+        #                           'Time Remaining',
+        #                           'Percent Trust',
+        #                           'Collected Coins',
+        #                           'Coin X',
+        #                           'Coin Y',
+        #                           'RobotStart X',
+        #                           'RobotStart Y',
+        #                           #------added by Mahi------------
+        #                           'clicks',
+        #                           'mouse movements',
+        #                           'decision intervals',
+        #                           'Cognitive Stress Prediction(rf)',
+        #                           'h:m:s'])
+        #                           #-------------------------------
 
         if rospy.has_param("/" + self.name + "/move_base/DWAPlannerROS/max_trans_vel"):
             self.max_trans_vel = rospy.get_param("/" + self.name + "/move_base/DWAPlannerROS/max_trans_vel")
@@ -141,10 +170,17 @@ class Robot():
 
         while not rospy.is_shutdown() and self.isAlive:
             self.check_distance()
-            rate = rospy.Rate(2)
+            rate = rospy.Rate(1.0)
             rate.sleep()
 
     def start_timer(self, req):
+        #--------added by Mahi------
+        print "Debug[M] timer"
+        self.franticness.error_correction = 0.
+        self.franticness.franticness = 0.
+        self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
+        self.franticness._time_newgoal_after_arrival = rospy.Time.now().to_sec()
+        #---------------------------
         self.started = True
         print "{} timer started!".format(self.name)
         return EmptyResponse()
@@ -208,6 +244,14 @@ class Robot():
         self.reached_goal = False
         self.current_disparity = shortest_distance
 
+        #-----------added by Mahi------------------
+        # ignorance time only counts once for the the a given goal after arrival to that goal.
+        if self.franticness._is_first_goal_after_arrival:
+            self.franticness._time_newgoal_after_arrival = rospy.Time.now().to_sec()
+            self.franticness._is_first_goal_after_arrival = False
+        else:
+            pass
+        #------------------------------------------
         # Check distance now that we have updated everything for this new goal
         self.marked_time = False
         self.check_distance()
@@ -256,6 +300,12 @@ class Robot():
             self.reached_goal = True
             print "Yay! Arrival Delay was " + str(self.current_arrival_delay)
             self.evaluate_trust()
+            #--------added by Mahi---------
+            self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
+            self.franticness._is_first_goal_after_arrival = True
+            self.franticness.error_correction = 0.
+            self.franticness.franticness = 0.
+            #------------------------------
 
         # Have we collected the coin?
         if self.euclidean_distance(self.cur_position, self.cur_coin_location) <= 0.2:
@@ -275,11 +325,16 @@ class Robot():
             else:
                 self.time_remaining = 60
 
+
         # See if we have won or lost for this robot
         if self.health <= 0 or self.time_remaining <= 0:
+            if self.t.is_alive():
+                self.t.shutdown()
             self.robot_death_handler()
         elif self.collected_coins == 5:
-           self.robot_win_handler()
+            if self.t.is_alive():
+                self.t.shutdown()
+            self.robot_win_handler()
 
     def evaluate_trust(self):
 
@@ -308,18 +363,46 @@ class Robot():
             print "Could not evaluate trust! {}".format(e)
 
         entry = self.run_data.get_entry_at_index(self.run_data.get_num_instances()-1)
+        #------------------added by Mahi---------------------------------------------
+        classifier_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/random_forest.pck")
+        random_forest_model = pickle.load(classifier_file)
+        domain = random_forest_model.domain
+        print "err="+str(self.franticness.error_correction) +\
+              " fran="+str(self.franticness.franticness) + \
+              " dec_interval="+str(self.franticness.decision_intervals) + \
+              " t_newg="+str(self.franticness._time_newgoal_after_arrival) + \
+              " t_arrival="+str(self.franticness._time_arrival_waypoints)
+        test_data = Orange.data.Instance(domain, [self.franticness.error_correction, self.franticness.franticness, self.franticness.decision_intervals, None])
+        cognitive_load_estimate = random_forest_model(test_data)
+        classifier_file.close()
+        self.timestamp_h_m_s = datetime.datetime.now()
+        #----------------------------------------------------------------------------
         # Write the data to the csv file
-        self.csv_writer.writerow([entry.get("trust_result"),
-                                  entry.get("disparity"),
-                                  entry.get("health"),
-                                  entry.get("delay"),
-                                  entry.get("percent_trust"),
-                                  entry.get("collected_coins"),
-                                  entry.get("coin_position").x,
-                                  entry.get("coin_position").y,
-                                  entry.get("robot_start_position").x,
-                                  entry.get("robot_start_position").y])
-
+        # self.csv_writer.writerow([entry.get("trust_result"),
+        #                           entry.get("disparity"),
+        #                           entry.get("health"),
+        #                           entry.get("delay"),
+        #                           entry.get("percent_trust"),
+        #                           entry.get("collected_coins"),
+        #                           entry.get("coin_position").x,
+        #                           entry.get("coin_position").y,
+        #                           entry.get("robot_start_position").x,
+        #                           entry.get("robot_start_position").y,
+        #                           #-----------added by Mahi---------------
+        #                           self.franticness.error_correction,
+        #                           self.franticness.franticness,
+        #                           self.franticness.decision_intervals,
+        #                           cognitive_load_estimate,
+        #                           "{}:{}:{}".format(self.timestamp_h_m_s.hour,self.timestamp_h_m_s.minute, self.timestamp_h_m_s.second)
+        #                           ]
+        #                           #---------------------------------------
+        #                          )
+        with open(self.export_file, 'a') as csvfile:
+            csvfile.write("{},{},{},{},{}:{}:{}\n".format(self.franticness.error_correction,
+                                                             self.franticness.franticness,
+                                                             self.franticness.decision_intervals,
+                                                             cognitive_load_estimate,
+                                                             self.timestamp_h_m_s.hour,self.timestamp_h_m_s.minute, self.timestamp_h_m_s.second))
     def determine_closest_path_indices(self):
 
         cur_closest_index = 0
@@ -400,7 +483,7 @@ class Robot():
     def add_time(self):
 
         print_locations = {"trinculo": Point(1.65, 2.0, 0.01),
-                           "caliban": Point(6.0, 2.0, 0.01),
+                           "miranda": Point(6.0, 2.0, 0.01),
                            "ferdinand": Point(1.65, 6.7, 0.01),
                            "prospero": Point(6.0, 6.7, 0.01)}
 
@@ -430,7 +513,6 @@ class Robot():
         self.time_publisher.publish(self.time)
 
     def update_timer(self, event):
-
         if not self.started:
             return
 
@@ -462,7 +544,7 @@ class Robot():
     def send_to_home(self):
 
         home_locations = {"prospero": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
-                          "caliban": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
+                          "miranda": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
                           "ferdinand": Pose(Point(2.1, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, 0))),
                           "trinculo": Pose(Point(2.1, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, 0)))}
 

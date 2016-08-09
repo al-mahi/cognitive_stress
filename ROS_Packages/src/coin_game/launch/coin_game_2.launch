@@ -1,7 +1,7 @@
 <launch>
 
-    <arg name="robot1_id" default="prospero" />
-    <arg name="robot2_id" default="caliban" />
+    <arg name="robot1_id" default="ferdinand" />
+    <arg name="robot2_id" default="trinculo" />
 
     <node name="coin_game_node" pkg="coin_game" type="coin_game_node.py" respawn="false" output="screen">
             <param name="number_of_robots" value="2"/>

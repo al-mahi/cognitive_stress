@@ -13,7 +13,7 @@
 
 	<!-- Maze Game -->
 	<node name="maze_game" pkg="maze_game" type="MazeGame" required="true" output="screen">
-		<rosparam param="start_robots">["miranda"]</rosparam>
+		<rosparam param="start_robots">["trinculo"]</rosparam>
 	</node>
 	
 </launch>

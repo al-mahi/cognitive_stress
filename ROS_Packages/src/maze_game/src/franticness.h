@@ -22,7 +22,6 @@ typedef union {
 int SCREEN_HEIGHT = 0;
 int SCREEN_WIDTH = 0;
 
-
 std::map<std::string, int> map_robot_clicks = {{"miranda", 0}, {"trinculo", 0}, {"ferdinand", 0}, {"caliban", 0}};
 std::map<std::string, double> map_robot_moves = {{"miranda", 0}, {"trinculo", 0}, {"ferdinand", 0}, {"caliban", 0}};
 std::map<std::string, int> clicks_when_new_goal = {{"miranda", 0}, {"trinculo", 0}, {"ferdinand", 0}, {"caliban", 0}};
@@ -42,7 +41,6 @@ std::map<std::string, std::vector<double>> time_newgoal_after_arrival = {
     {"caliban", {}},
 };
 
-
 int PREV_MOUSE_POSX = 0;
 int PREV_MOUSE_POSY = 0;
 double SCRN_DIST_NORMALIZER = 0;
@@ -54,6 +52,7 @@ void callback(XPointer xPointer, XRecordInterceptData *hook) {
         XRecordFreeData(hook);
         return;
     }
+    
     DataPack *data = (DataPack *) hook->data;
     int event_type = data->type;
     int time = hook->server_time;
@@ -63,16 +62,16 @@ void callback(XPointer xPointer, XRecordInterceptData *hook) {
 //            printf("ButtonPress: X=%d, Y=%d time=%d\n", data->event.u.keyButtonPointer.rootX,
 //                   data->event.u.keyButtonPointer.rootY, time);
             if((int) data->event.u.u.detail == 1) {
-                map_robot_clicks["miranda"] += 1;
-                map_robot_clicks["trinculo"] += 1;
-                map_robot_clicks["ferdinand"] += 1;
-                map_robot_clicks["caliban"] += 1;
+                map_robot_clicks["miranda"] += 1.0;
+                map_robot_clicks["trinculo"] += 1.0;
+                map_robot_clicks["ferdinand"] += 1.0;
+                map_robot_clicks["caliban"] += 1.0;
             }
             break;
         case MotionNotify:
 //            printf("CursorPose: X=%d, Y=%d dist=%f miranda's dist=%f\n", data->event.u.keyButtonPointer.rootX,
 //                   data->event.u.keyButtonPointer.rootY, distance_covered_by_mouse, map_robot_moves["miranda"]);
-            distance_covered_by_mouse += sqrt(
+            distance_covered_by_mouse = sqrt(
                     (data->event.u.keyButtonPointer.rootX-PREV_MOUSE_POSX)*
                             (data->event.u.keyButtonPointer.rootX-PREV_MOUSE_POSX) +
                             (data->event.u.keyButtonPointer.rootY-PREV_MOUSE_POSY)*
@@ -90,7 +89,6 @@ void callback(XPointer xPointer, XRecordInterceptData *hook) {
     XRecordFreeData(hook);
 }
 
-//int main() {
 int mouse_events() {
     Display *record_disp = XOpenDisplay(NULL);
     Display *local_disp = XOpenDisplay(NULL);
@@ -100,7 +98,6 @@ int mouse_events() {
     SCRN_DIST_NORMALIZER = sqrt(SCREEN_HEIGHT*SCREEN_HEIGHT + SCREEN_WIDTH*SCREEN_WIDTH);
 
     XSynchronize(record_disp, true);
-
     int major, minor;
     if (!XRecordQueryVersion(record_disp, &major, &minor)) {
         printf("RECORD extension not supported on this X server!\n");

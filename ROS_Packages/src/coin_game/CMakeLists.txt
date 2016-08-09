@@ -167,6 +167,9 @@ include_directories(
    scripts/TrustEvaluator.py
    scripts/RunData.py
    scripts/Robot.py
+   #-----------added by Mahi------------
+   scripts/franticness.py
+   #------------------------------------
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
