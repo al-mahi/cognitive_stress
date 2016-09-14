@@ -4,21 +4,21 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/coin_game_msgs/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/coin_game_msgs/package.xml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_game/src/GameModel.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/franticness.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_game/src/Robot.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/MazeGame.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/show_maze.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_game/src/GameModel.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_game/src/Robot.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/GameModel.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/Robot.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/src/MazeGame.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_game/package.xml" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/dispTestSub.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/dispTestPub.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/normEquTest.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_test/src/normEquTest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/dispTestPub.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/dispTestSub.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/normEquTest.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maze_test/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_test/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/maze_test/package.xml" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
@@ -31,7 +31,7 @@
       <sourceFolder url="file:///usr/src/gtest/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file:///usr/src/gtest/cmake/internal_utils.cmake" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 2.7.6 virtualenv at ~/ros_on_py27" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7.6 (/usr/bin/python2.7)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="Header Search Paths">
@@ -42,11 +42,14 @@
           <root url="file:///usr/include" />
           <root url="file:///usr/local/include" />
           <root url="file:///opt/ros/indigo/include" />
+          <root url="file://$USER_HOME$/rocon/devel/include" />
+          <root url="file://$USER_HOME$/turtlebot/devel/include" />
+          <root url="file://$USER_HOME$/kobuki/devel/include" />
           <root url="file://$MODULE_DIR$/../devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/Release/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/Debug/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/RelWithDebInfo/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/MinSizeRel/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/Release/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/Debug/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/RelWithDebInfo/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/MinSizeRel/devel/include" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/lib/X11" />
@@ -55,11 +58,14 @@
           <root url="file:///usr/include" />
           <root url="file:///usr/local/include" />
           <root url="file:///opt/ros/indigo/include" />
+          <root url="file://$USER_HOME$/rocon/devel/include" />
+          <root url="file://$USER_HOME$/turtlebot/devel/include" />
+          <root url="file://$USER_HOME$/kobuki/devel/include" />
           <root url="file://$MODULE_DIR$/../devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/Release/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/Debug/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/RelWithDebInfo/devel/include" />
-          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-a06e199/a06e199/MinSizeRel/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/Release/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/Debug/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/RelWithDebInfo/devel/include" />
+          <root url="file://$USER_HOME$/.CLion2016.2/system/cmake/generated/src-49377447/49377447/MinSizeRel/devel/include" />
         </SOURCES>
       </library>
     </orderEntry>
