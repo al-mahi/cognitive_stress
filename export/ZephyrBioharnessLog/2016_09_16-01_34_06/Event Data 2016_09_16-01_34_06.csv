@@ -1,0 +1,23 @@
+SeqNo, Year, Month, Day, ms, EventCode, Type, Source, EventID, EventSpecificData
+15,2016,09,16,5885103,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Red.
+16,2016,09,16,5946623,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+17,2016,09,16,5946624,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+18,2016,09,16,5947623,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+19,2016,09,16,5947624,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+20,2016,09,16,5948624,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+21,2016,09,16,5948625,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+22,2016,09,16,5954121,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+23,2016,09,16,5958024,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+24,2016,09,16,5958124,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+25,2016,09,16,5959125,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+26,2016,09,16,5960124,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+27,2016,09,16,5960125,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+28,2016,09,16,5960904,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+29,2016,09,16,5962956,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+30,2016,09,16,5963123,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+31,2016,09,16,5969437,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+32,2016,09,16,5972125,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+33,2016,09,16,5973437,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+34,2016,09,16,5974125,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+35,2016,09,16,5974745,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+36,2016,09,16,5977097,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
