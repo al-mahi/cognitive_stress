@@ -20,15 +20,15 @@
 		
 		//Video canvases
 		var edgarVideo;
-		var mirandaVideo;
-		var arielVideo;
+		var ferdinandVideo;
+		var trinculoVideo;
 
 		//Create an ocupancy grid client to server as the map
 		var client;
 
 		//Trying containers to as root objects for navigators
 		var viewerWidth = 1168;
-		var viewerHeight = 1416;
+		var viewerHeight = 1450;
 		var viewer;
 		var mazeWalls;
 
@@ -37,8 +37,13 @@
 		var startRobotClient;
 		var requestMazeMarkersClient;
 
-		var arielViewer;
-		var navAriel;
+		var currentRobot = "NULL";
+
+		// Navigation and viewer elements
+		var ferdinandView;
+		var navFerdinand;
+		var trinculoView;
+		var navTrinculo;
 
 		function init() {
 			
@@ -51,30 +56,16 @@
 				url : 'ws://localhost:9090'
 			});
 			
-			edgarVideo = new MJPEGCANVAS.Viewer({
-      			divID : 'edgarVideo',
-     			host : 'localhost',
-     			width : 320,
-				height : 240,
-				topic : '/camera/rgb/image_raw'
-			});
-			
-			mirandaVideo = new MJPEGCANVAS.Viewer({
-      			divID : 'ferdinandVideo',
-     			host : 'localhost',
-     			width : 320,
-				height : 240,
-				topic : '/ferdinand/camera/rgb/image_raw'
-			});
-			
-			arielVideo = new MJPEGCANVAS.Viewer({
-      			divID : 'trinculoVideo',
-     			host : 'localhost',
-     			width : 320,
-				height : 240,
-				topic : '/trinculo/camera/rgb/image_raw'
-			});
+			// Create video renderer
+//			edgarVideo = new MJPEGCANVAS.Viewer({
+//      			divID : 'edgarVideo',
+//     			host : 'localhost',
+//     			width : 320,
+//				height : 240,
+//				topic : '/camera/rgb/image_raw'
+//			});
 
+			// Set up clients for calling ROS services
 			addRobotClient = new ROSLIB.Service({
 				ros : ros,
 				name : '/maze_game/add_robot',
@@ -113,14 +104,14 @@
 			});
 			
 			//Set up a viewer for miranda
-			mirandaView = new ROS2D.Viewer({
+			ferdinandView = new ROS2D.Viewer({
 				divID : 'ferdinand',
 				width : viewerWidth,
 				height : viewerHeight,
 				background : createjs.Graphics.getRGB(0,0,0,0)
 			});
 			
-			arielView = new ROS2D.Viewer({
+			trinculoView = new ROS2D.Viewer({
 				divID : 'trinculo',
 				width : viewerWidth,
 				height : viewerHeight,
@@ -137,41 +128,41 @@
 			
 			client.on('change', function() {
 				viewer.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
-				mirandaView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
-				arielView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
+				ferdinandView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
+				trinculoView.scaleToDimensions(client.currentGrid.width, client.currentGrid.height);
 			});
 			
-			navMiranda = new NAV2D.Navigator({
+			navFerdinand = new NAV2D.Navigator({
 				ros : ros,
 				serverName : '/ferdinand/move_base',
 				actionName : 'move_base_msgs/MoveBaseAction',
 				withOrientation : true,
-				rootObject : mirandaView.scene,
+				rootObject : ferdinandView.scene,
 				poseTopic : '/ferdinand/robot_pose',
 				markerFillColor : createjs.Graphics.getRGB(255, 0, 0, 0.75)
 			});
 			
-			navAriel = new NAV2D.Navigator({
+			navTrinculo = new NAV2D.Navigator({
 				ros : ros,
 				serverName : '/trinculo/move_base',
 				actionName : 'move_base_msgs/MoveBaseAction',
 				withOrientation : true,
-				rootObject : arielView.scene,
+				rootObject : trinculoView.scene,
 				poseTopic : '/trinculo/robot_pose',
 				markerFillColor : createjs.Graphics.getRGB(64, 0, 255, 0.75)
 			});
 			
 			//Draw the maze walls
 			
-			var request = new ROSLIB.ServiceRequest({
-				request : 'Some Points Please',
-			});
-
-			requestMazeMarkersClient.callService(request, function(result) {
-				if (result.done == "false") {
-					console.log("Something went wrong...");
-				}
-			});
+//			var request = new ROSLIB.ServiceRequest({
+//				request : 'Some Points Please',
+//			});
+//
+//			requestMazeMarkersClient.callService(request, function(result) {
+//				if (result.done == "false") {
+//					console.log("Something went wrong...");
+//				}
+//			});
 
 			mazeWalls = new createjs.Stage("mazeWalls");
 			mazeWalls.enableMouseEvents = false;
@@ -190,6 +181,7 @@
 				var pose;
 				var scale;
 				var points;
+				var g;
 				
 				if (message.ns == "maze_wall_lower" && !done) {
 					pose = message.pose;
@@ -197,9 +189,9 @@
 					points = message.points;
 					
 					//Create a 'Shape' object to draw the walls and set its graphics context
-					var g = new createjs.Shape();
+					g = new createjs.Shape();
 					g.graphics.setStrokeStyle(5,"sqaure").beginStroke("red");
-				
+
 					//move the drawing point to the start of the path
 					g.graphics.moveTo(points[0].x * viewer.scene.scaleX, viewerWidth - (points[0].y * viewer.scene.scaleY));
 				
@@ -221,7 +213,7 @@
 					var g2 = new createjs.Shape();
 					g2.graphics.setStrokeStyle(5, "square").beginStroke("red");
 					
-					g2.graphics.moveTo(points[0].x * viewer.scene.scale, viewerWidth - (points[0].y * viewer.scene.scaleY));
+					g2.graphics.moveTo(points[0].x * viewer.scene.scaleX, viewerWidth - (points[0].y * viewer.scene.scaleY));
 					
 					for (i = 1; i < points.length; i++) {
 						console.log("Points!");
@@ -231,8 +223,43 @@
 					mazeWalls.addChild(g2);
 					mazeWalls.update();
 				}
+
+				if (message.ns == "trinculo") {
+
+					if (message.action == 0) {
+						g = addCoinMarker(message.pose, "#4000FF");
+					} else {
+						g = removeCoinMarker(message.pose);
+					}
+
+					mazeWalls.addChild(g);
+					mazeWalls.update();
+				}
 				
 			});
+		}
+
+		function addCoinMarker(ROSpose, colorStr) {
+
+			console.log("Got a coin! " + ROSpose.position.x + ", " + ROSpose.position.y);
+
+			var g = new createjs.Shape();
+			g.graphics.beginFill(colorStr);
+			g.graphics.drawCircle(ROSpose.position.x * viewer.scene.scaleX, viewerWidth - (ROSpose.position.y * viewer.scene.scaleY), 30);
+
+			return g;
+		}
+
+		function removeCoinMarker(ROSpose) {
+
+			console.log("Removing a coin! " + ROSpose.position.x + ", " + ROSpose.position.y);
+
+			var g = new createjs.Shape();
+			g.graphics.beginFill("#FFFFFF");
+			g.graphics.drawCircle(ROSpose.position.x * viewer.scene.scaleX, viewerWidth - (ROSpose.position.y * viewer.scene.scaleY), 41);
+			g.compositeOperation = "source-out";
+
+			return g;
 		}
 
 		function addRobot(toAdd) {
@@ -282,26 +309,33 @@
 		function controlFerdinand() {
 			document.getElementById("ferdinand").style.zIndex = 3;
 			document.getElementById("trinculo").style.zIndex = 2;
-			document.getElementById("robotControled").innerHTML = "Red Robot";
-			document.getElementById("robotControled").style.color = "Red";
+			document.getElementById("robotControl").innerHTML = "Red Robot";
+			document.getElementById("robotControl").style.color = "Red";
 		}
 		
 		function controlTrinculo() {
 			document.getElementById("trinculo").style.zIndex = 3;
 			document.getElementById("ferdinand").style.zIndex = 2;
-			document.getElementById("robotControled").innerHTML = "Blue Robot";
-			document.getElementById("robotControled").style.color = "Blue";
+			document.getElementById("robotControl").innerHTML = "Blue Robot";
+			document.getElementById("robotControl").style.color = "Blue";
 		}
 
+		// Sets the robot with 'name' to the currently controlled robot and changes the text accordingly.
 		function controlRobot(name) {
+
+			var maxZindex = robots.size + 1;
+
 			for (var robot in robots) {
 
-				if (robot == name) {
-					document.getElementById(name).style.zIndex = 3;
-					document.getElementById("robotControled").innerHTML = robots[name] + " Robot";
-					document.getElementById("robotControled").style.color = robots[name];
-				} else {
-					document.getElementById(name).style.zIndex = 2;
+				if (robots.hasOwnProperty(robot)) {
+
+					if (robot == name) {
+						document.getElementById(name).style.zIndex = maxZindex;
+						document.getElementById("robotControl").innerHTML = robots[name] + " Robot";
+						document.getElementById("robotControl").style.color = robots[name];
+					} else {
+						document.getElementById(name).style.zIndex = maxZindex - 1;
+					}
 				}
 			}
 		}
@@ -315,7 +349,7 @@
 
 	<body onLoad="init()">
 	
-		<p id="robotControled">Waiting...</p>
+		<p id="robotControl">Waiting...</p>
 		<!--<canvas id="mazeWalls" width="584" height="708"></canvas> -->
 		<div class="mapDiv">
 			<div class="map" id="map">
@@ -325,25 +359,21 @@
 			<div class="mapViewer" id="trinculo">
 			</div>
 			<div class="mapViewer">
-				<canvas id="mazeWalls" width="1168" height="1416" ></canvas>
+				<canvas id="mazeWalls" width="1168" height="1450" ></canvas>
 			</div>
 		</div>
 		
 		<div class="robotList">
 			<ul>
-				<li><button id="ControlFerdinand" onclick="controlFerdinand()">Control Red Robot</button></li>
+				<!--<li><button id="ControlFerdinand" onclick="controlFerdinand()">Control Red Robot</button></li>-->
 				<li><button id="ControlTrinculo" onclick="controlTrinculo()">Control Blue Robot</button></li>
+				<li><button id="ControlFerdinand" onclick="controlRobot('ferdinand')">Control Red Robot</button></li>
+				<!--<li><button id="ControlTrinculo" onclick="controlRobot('trinculo')">Control Blue Robot</button></li>-->
 			</ul>
 			
 			<div class="videos">
 				<div id="edgarVideo" class="VideoPlayer">
 					<p>Main Camera</p>
-				</div>
-				<div id="ferdinandVideo" class="videoPlayer">
-					<p>Red Robot</p>
-				</div>
-				<div id="trinculoVideo" class="VideoPlayer">
-					<p>Blue Robot</p>
 				</div>
 			</div>
 		</div>
