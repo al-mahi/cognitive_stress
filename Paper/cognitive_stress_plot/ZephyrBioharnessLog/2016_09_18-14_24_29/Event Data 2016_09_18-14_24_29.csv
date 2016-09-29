@@ -1,0 +1,10 @@
+SeqNo, Year, Month, Day, ms, EventCode, Type, Source, EventID, EventSpecificData
+10,2016,09,18,51886048,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Green.
+11,2016,09,18,51897051,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+12,2016,09,18,51897051,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+13,2016,09,18,51897052,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+14,2016,09,18,51897052,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+15,2016,09,18,51897551,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+16,2016,09,18,51897552,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+17,2016,09,18,51898051,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+18,2016,09,18,51898052,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True

@@ -1,0 +1,82 @@
+SeqNo, Year, Month, Day, ms, EventCode, Type, Source, EventID, EventSpecificData
+28,2016,09,18,59561591,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+29,2016,09,18,59561592,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+30,2016,09,18,59561841,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+31,2016,09,18,59561842,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+32,2016,09,18,59562093,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+33,2016,09,18,59562093,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+34,2016,09,18,59562094,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+35,2016,09,18,59562094,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+36,2016,09,18,59562593,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+37,2016,09,18,59562594,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+38,2016,09,18,59563088,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+39,2016,09,18,59563089,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+40,2016,09,18,59622099,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Red.
+41,2016,09,18,59622100,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+42,2016,09,18,59623104,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+43,2016,09,18,59627099,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+44,2016,09,18,59627099,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+45,2016,09,18,59627100,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+46,2016,09,18,59627100,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+47,2016,09,18,59627599,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+48,2016,09,18,59627600,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+49,2016,09,18,59628099,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+50,2016,09,18,59628100,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+51,2016,09,18,59629101,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+52,2016,09,18,59629102,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+53,2016,09,18,59633103,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+54,2016,09,18,59639105,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+55,2016,09,18,59660109,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+56,2016,09,18,59661111,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+57,2016,09,18,59719615,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+58,2016,09,18,59719616,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+59,2016,09,18,59720615,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+60,2016,09,18,59720616,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+61,2016,09,18,59720865,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+62,2016,09,18,59720866,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+63,2016,09,18,59721115,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+64,2016,09,18,59721115,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+65,2016,09,18,59721116,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+66,2016,09,18,59721116,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+67,2016,09,18,59722115,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+68,2016,09,18,59722116,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+69,2016,09,18,59736126,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+70,2016,09,18,59738126,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+71,2016,09,18,59738375,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+72,2016,09,18,59738376,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+73,2016,09,18,59739123,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+74,2016,09,18,59739123,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+75,2016,09,18,59739124,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+76,2016,09,18,59739124,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+77,2016,09,18,59739373,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+78,2016,09,18,59739374,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+79,2016,09,18,59740124,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+80,2016,09,18,59740125,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+81,2016,09,18,59789636,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+82,2016,09,18,59789637,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+83,2016,09,18,60113201,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+84,2016,09,18,60113201,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+85,2016,09,18,60113202,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+86,2016,09,18,60113202,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+87,2016,09,18,60114202,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+88,2016,09,18,60114203,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+89,2016,09,18,60151711,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+90,2016,09,18,60151712,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+91,2016,09,18,60152210,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+92,2016,09,18,60152210,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+93,2016,09,18,60152211,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+94,2016,09,18,60152211,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+95,2016,09,18,60152710,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+96,2016,09,18,60152711,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+97,2016,09,18,60153216,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+98,2016,09,18,60153217,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+99,2016,09,18,60170212,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+100,2016,09,18,60170212,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Invalid.
+101,2016,09,18,60170213,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+102,2016,09,18,60170213,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+103,2016,09,18,60171212,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Red.
+104,2016,09,18,60171213,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+105,2016,09,18,60239232,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+106,2016,09,18,60244233,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+107,2016,09,18,60249732,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+108,2016,09,18,60249733,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
