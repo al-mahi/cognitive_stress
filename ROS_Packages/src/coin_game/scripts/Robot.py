@@ -2,7 +2,6 @@
 
 import math
 import random
-import csv
 import rospy
 import roslib
 from roslib import packages
@@ -195,6 +194,7 @@ class Robot():
         self.franticness.franticness = 0.
         self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
         self.franticness._time_newgoal_after_arrival = rospy.Time.now().to_sec()
+        self.last_attention_time = rospy.get_time()
         #---------------------------
         self.started = True
         print "{} timer started!".format(self.name)
@@ -232,7 +232,13 @@ class Robot():
         if goal_is_from_rviz and self.is_autonomous[self.name]:
             self.is_autonomous[self.name] = False
         if goal_is_from_rviz:
+            print "{} goal is from Rviz so should go manul :/"
+            self.is_autonomous[self.name] = False
             self.last_attention_time = rospy.get_time() # secs
+            self.franticness.error_correction = 0.
+            self.franticness.franticness = 0.
+            self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
+            self.franticness._time_newgoal_after_arrival = rospy.Time.now().to_sec()
 
         # Update robot_start_position_for_last_command
         self.robot_start_position_for_last_command = data.pose.position
@@ -326,10 +332,11 @@ class Robot():
         else:
             delta_ind = -1
         goal_ind = cur_ind + delta_ind
-        rospy.loginfo("Debug[M] @Robot.py Autonomous: current between ind {} and {} goal {} curx={} cury={} d={}".format(cur_ind, cur_ind+1,
-                                                                                                     goal_ind, self.cur_position.x, self.cur_position.y, dddd))
+        rospy.loginfo("Debug[M] @Robot.py Autonomous: current between ind {} and {} goal {} curx={} cury={} d={}".
+                      format(cur_ind, cur_ind+1, goal_ind, self.cur_position.x, self.cur_position.y, dddd))
         forward_orientations = np.array([1., 1.5, 0., .5, 0, 1.5, 1., .5, 1., 1.5, 1., .5, 1., .5, 0, .5, 1., 1.5, 0, 1.5, 1., 1.5, 0, .5, 0, 1.5, 1., .5, 1., 1.5, 1., 1.]) * np.pi
         backward_orientations = np.array([0.,  0.,.5,  1.,1.5, 1., .5,  0,1.5,  0.,1.5, 0., 1.5, 0, 1.5, 1., 1.5, 0., .5, 1., .5, 0., .5, 1., 1.5, 1., .5, 0., 1.5, 0, .5, 0.]) * np.pi
+
         if delta_ind == 1:
             goal_location = Pose(self.maze_path_points[goal_ind], Quaternion(*quaternion_from_euler(0, 0, forward_orientations[goal_ind])))
         else:
@@ -346,7 +353,9 @@ class Robot():
         goal.target_pose.pose = goal_location
 
         print "Debug[M] @Robot.py Autonomously Sending " + self.name
-        move_base.send_goal_and_wait(goal)
+        move_base.send_goal_and_wait(goal, preempt_timeout=rospy.Duration(0))
+        # move_base.send_goal(goal)
+        # move_base.stop_tracking_goal()
     # ------------------------------------------
 
     def check_distance(self):
@@ -390,22 +399,25 @@ class Robot():
             print "Yay! Arrival Delay was " + str(self.current_arrival_delay)
             if not self.is_autonomous[self.name]:
                 self.evaluate_trust()
-            #--------added by Mahi---------
+            # --------added by Mahi---------
             self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
             self.franticness._is_first_goal_after_arrival = True
             self.franticness.error_correction = 0.
             self.franticness.franticness = 0.
             if self.is_autonomous[self.name]:
+                print "Call 1"
                 self.set_autonomous_goal_and_move()
-            #------------------------------
-        #--------added by Mahi---------
+            # ------------------------------
+        # --------added by Mahi-------------
         print "####---------->>> {}".format(rospy.get_time() - self.last_attention_time)
         if rospy.get_time() - self.last_attention_time > 20.:
             # self.last_attention_time = rospy.get_time()
             if not self.is_autonomous[self.name]:
+                print "Call 2"
                 self.evaluate_trust()
+                self.set_autonomous_goal_and_move()
             self.is_autonomous[self.name] = True
-        #------------------------------
+        # ----------------------------------
 
         # Have we collected the coin?
         if self.euclidean_distance(self.cur_position, self.cur_coin_location) <= 0.2:
@@ -505,9 +517,9 @@ class Robot():
             cognitive_load_estimate
         )
 
-        if cognitive_load_estimate < -.5 and np.fabs(self.franticness.error_correction) > 0.00001 \
-                and np.fabs(self.franticness.franticness) > 0.00001\
-                and np.fabs(self.franticness.decision_intervals) > 0.00001:
+        if cognitive_load_estimate < -.55 and np.fabs(self.franticness.error_correction) > 0.0001 \
+                and np.fabs(self.franticness.franticness) > 0.0001\
+                and np.fabs(self.franticness.decision_intervals) > 0.0001:
             print "{}(( Autonmous mode activated !!!!!!!!!!!!!!!".format(self.name)
             self.is_autonomous[self.name] = True
         else:
