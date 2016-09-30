@@ -4,6 +4,7 @@ from __future__ import print_function
 import sys
 import math
 import rospy
+# Needs Xlib (python-xlib and for C++ libxtst-dev)
 from Xlib import X, XK, display
 from Xlib.ext import record
 from Xlib.protocol import rq

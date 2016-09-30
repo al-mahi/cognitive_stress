@@ -23,7 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(X11 REQUIRED COMPONENTS system)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -116,7 +116,20 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES coin_game
-  CATKIN_DEPENDS actionlib actionlib_msgs geometry_msgs maze_game message_generation move_base_msgs roscpp roslib rospy std_msgs tf tf2 visualization_msgs
+  CATKIN_DEPENDS
+        actionlib
+        actionlib_msgs
+        geometry_msgs
+        maze_game
+        message_generation
+        move_base_msgs
+        roscpp
+        roslib
+        rospy
+        std_msgs
+        tf
+        tf2
+        visualization_msgs
 #  DEPENDS system_lib
 )
 

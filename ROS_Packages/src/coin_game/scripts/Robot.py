@@ -29,6 +29,7 @@ from actionlib_msgs.msg import *
 from std_srvs.srv import *
 from move_base_msgs.msg import *
 from visualization_msgs.msg import *
+from std_msgs.msg import Time
 
 __author__ = 'matthew'
 
@@ -160,6 +161,8 @@ class Robot():
         rospy.loginfo("Done!")
 
         self.new_goal_listener = rospy.Subscriber("/" + self.name + "/move_base/current_goal", PoseStamped, self.new_goal_callback)
+        self.user_activity_listener = rospy.Subscriber('/coin_game/observed_user_action', Time, self.observed_user_action_callback)
+        self.user_activity_publisher = rospy.Publisher("/coin_game/observed_user_action", Time, queue_size=3)
 
         self.time = Marker()
         self.time_publisher = rospy.Publisher("/visualization_marker", Marker, queue_size=10)
@@ -229,11 +232,18 @@ class Robot():
             if np.isclose(p.x, data.pose.position.x) and np.isclose(p.y, data.pose.position.y):
                 goal_is_from_rviz = False
                 break
+
         if goal_is_from_rviz and self.is_autonomous[self.name]:
             self.is_autonomous[self.name] = False
+
         if goal_is_from_rviz:
             self.last_attention_time = rospy.get_time() # secs
-
+            #-------------added by Matthew------------------------------------------------
+            #if the goal came form RViz, the user sent the goal, report this activity
+            time = Time()
+            time.data = rospy.get_time()
+            self.user_activity_publisher.publish(time)
+            #-----------------------------------------------------------------------------
         # Update robot_start_position_for_last_command
         self.robot_start_position_for_last_command = data.pose.position
 
@@ -282,6 +292,9 @@ class Robot():
 
     def euclidean_distance(self, p1, p2):
         return math.sqrt(math.pow(p1.x - p2.x, 2) + math.pow(p1.y - p2.y, 2))
+
+    def observed_user_action_callback(self, msg):
+        print("Observed user action @ time: ", msg.data)
 
     # -----------added by Mahi------------------
     def set_autonomous_goal_and_move(self):
