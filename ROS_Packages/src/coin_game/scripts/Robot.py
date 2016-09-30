@@ -19,6 +19,7 @@ import Orange.utils
 import Orange.wrappers
 import pickle
 import datetime
+import numpy as np
 #--------------------------------
 import tf
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
@@ -86,12 +87,15 @@ class Robot():
         else:
             self.name = "default_robot"
 
+        print "Debug[M] @Robot.py ", self.name, " in Game!"
         # Configure the first starting point
-        robot_staring_positions = {"trinculo": Point(6.73, 6.0, 0),
-                                  "miranda": Point(6.73, 2.8, 0),
-                                  "ferdinand": Point(2.1, 6.0, 0),
-                                  "prospero": Point(2.1, 2.8, 0),
-                                  "default_name": Point(0, 0, 0)}
+        robot_staring_positions = {
+            "trinculo": Point(6.73, 6.0, 0),
+            "miranda": Point(6.73, 2.8, 0),
+            "ferdinand": Point(2.1, 6.0, 0),
+            "prospero": Point(2.1, 2.8, 0),
+            "default_name": Point(0, 0, 0)
+        }
 
         self.robot_start_position_for_last_command = robot_staring_positions.get(self.name)
 
@@ -107,13 +111,24 @@ class Robot():
 
         #-------------added by Mahi------------------------------------------------
         print "Thread for franticness count!!!"
-        self.timestamp_h_m_s = "0:0:0"
+        self.timestamp_h_m_s = "0_0_0"
         self.franticness = Franticness(self.name)
         self.t = Thread(target=self.franticness.mouse_events)
         self.t.start()
         self.export_file = self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv"
         with open(self.export_file, 'w') as csvfile:
-            csvfile.write("clicks,mouse movements,decision intervals,Cognitive Stress Prediction(rf),h:m:s\n")
+            csvfile.write("clicks,mouse movements,decision intervals,Cognitive Stress Prediction(rf),h_m_s\n")
+
+        # marking robot's mode of navigation
+        self.is_autonomous = {
+            "trinculo": False,
+            "miranda": False,
+            "ferdinand": False,
+            "prospero": False,
+            "default_name": False
+        }
+        self.last_attention_time = rospy.get_time() # secs
+
         #--------------------------------------------------------------------------
         # self.export_file = open(self.export_dir + "/" + self.name + "_" + str(rospy.Time.now().to_sec()) + ".csv", mode='w')
         # self.csv_writer = csv.writer(self.export_file)
@@ -209,6 +224,15 @@ class Robot():
             self.time_between_points.append(float(line))
 
     def new_goal_callback(self, data):
+        goal_is_from_rviz = True
+        for p in self.maze_path_points:
+            if np.isclose(p.x, data.pose.position.x) and np.isclose(p.y, data.pose.position.y):
+                goal_is_from_rviz = False
+                break
+        if goal_is_from_rviz and self.is_autonomous[self.name]:
+            self.is_autonomous[self.name] = False
+        if goal_is_from_rviz:
+            self.last_attention_time = rospy.get_time() # secs
 
         # Update robot_start_position_for_last_command
         self.robot_start_position_for_last_command = data.pose.position
@@ -244,21 +268,86 @@ class Robot():
         self.reached_goal = False
         self.current_disparity = shortest_distance
 
-        #-----------added by Mahi------------------
+        # -----------added by Mahi------------------
         # ignorance time only counts once for the the a given goal after arrival to that goal.
         if self.franticness._is_first_goal_after_arrival:
             self.franticness._time_newgoal_after_arrival = rospy.Time.now().to_sec()
             self.franticness._is_first_goal_after_arrival = False
         else:
             pass
-        #------------------------------------------
+        # ------------------------------------------
         # Check distance now that we have updated everything for this new goal
         self.marked_time = False
         self.check_distance()
 
     def euclidean_distance(self, p1, p2):
-
         return math.sqrt(math.pow(p1.x - p2.x, 2) + math.pow(p1.y - p2.y, 2))
+
+    # -----------added by Mahi------------------
+    def set_autonomous_goal_and_move(self):
+        """
+        Robot has no idea about where the next coin has popped up. And autonomously it can either move forward or back.
+        It seems fair to assume for the robot that coins shows up in maze uniformly thus the robot can keep a history of
+        locations of coins and choose either direction based on the less navigated way points.
+        """
+        # set autonomous goal
+        # determine current line segment where the robot is first
+        # print "Debug[M] @Robot.py set_autonomous_goal_and_move !!!!"
+
+        def find_index_in_waypoints(p0, path_points):
+            closest_ind = 0
+            opt_d = np.inf
+            for i in range(len(path_points) - 1):
+                p1 = path_points[i]
+                p2 = path_points[i+1]
+                # projection of vector(p0, p1) on vector(p1,p1)
+                # http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
+                # d = np.fabs((p2.x - p1.x)*(p1.y-p0.y) - (p1.x-p0.x)*(p2.y-p1.y)) / np.sqrt((p2.x-p1.x)**2+(p2.y-p1.y)**2)
+                if np.isclose(p1.y, p2.y): # horizontal seg so vertical distance
+                    if min(p1.x, p2.x)-.2 <= p0.x <= max(p1.x, p2.x)+.2:
+                        d = np.fabs(p0.y - p1.y)
+                    else:
+                        d = np.inf
+                if np.isclose(p1.x, p2.x): # vertical seg so horizontal distance
+                    if min(p1.y, p2.y)-.2 <= p0.y <= max(p1.y, p2.y)+.2:
+                        d = np.fabs(p0.x - p1.x)
+                    else:
+                        d = np.inf
+                if opt_d > d:
+                    opt_d = d
+                    closest_ind = i
+            return closest_ind, opt_d
+
+        cur_ind, dddd = find_index_in_waypoints(self.cur_position, self.maze_path_points)
+        if self.euclidean_distance(self.maze_path_points[cur_ind+1], self.cur_position) <= .2:
+            cur_ind += 1
+        if cur_ind < 13:
+            delta_ind = 1
+        else:
+            delta_ind = -1
+        goal_ind = cur_ind + delta_ind
+        rospy.loginfo("Debug[M] @Robot.py Autonomous: current between ind {} and {} goal {} curx={} cury={} d={}".format(cur_ind, cur_ind+1,
+                                                                                                     goal_ind, self.cur_position.x, self.cur_position.y, dddd))
+        forward_orientations = np.array([1., 1.5, 0., .5, 0, 1.5, 1., .5, 1., 1.5, 1., .5, 1., .5, 0, .5, 1., 1.5, 0, 1.5, 1., 1.5, 0, .5, 0, 1.5, 1., .5, 1., 1.5, 1., 1.]) * np.pi
+        backward_orientations = np.array([0.,  0.,.5,  1.,1.5, 1., .5,  0,1.5,  0.,1.5, 0., 1.5, 0, 1.5, 1., 1.5, 0., .5, 1., .5, 0., .5, 1., 1.5, 1., .5, 0., 1.5, 0, .5, 0.]) * np.pi
+        if delta_ind == 1:
+            goal_location = Pose(self.maze_path_points[goal_ind], Quaternion(*quaternion_from_euler(0, 0, forward_orientations[goal_ind])))
+        else:
+            goal_location = Pose(self.maze_path_points[goal_ind], Quaternion(*quaternion_from_euler(0, 0, backward_orientations[goal_ind])))
+
+        move_base = actionlib.SimpleActionClient("/" + self.name + "/move_base", MoveBaseAction)
+
+        while not move_base.wait_for_server(rospy.Duration(5)):
+            print "Debug[M] @Robot.py Autonomous navigator Waiting for action server...", self.name
+
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = "map"
+        goal.target_pose.header.stamp = rospy.Time.now()
+        goal.target_pose.pose = goal_location
+
+        print "Debug[M] @Robot.py Autonomously Sending " + self.name
+        move_base.send_goal_and_wait(goal)
+    # ------------------------------------------
 
     def check_distance(self):
 
@@ -280,7 +369,7 @@ class Robot():
         # Are we going through a wall?
         if self.distance_from_path(self.pointA_index, trans) > self.path_tolerance:
             self.health -= 1
-            print "Ouch! Health: " + str(self.health)
+            # print "Ouch! Health: " + str(self.health)
 
         # Compute expected time to get from Point A to Point B, record current_goal_start_time once the robot has started
         # to move toward it's next goal
@@ -299,13 +388,24 @@ class Robot():
             self.current_arrival_delay = self.time_remaining
             self.reached_goal = True
             print "Yay! Arrival Delay was " + str(self.current_arrival_delay)
-            self.evaluate_trust()
+            if not self.is_autonomous[self.name]:
+                self.evaluate_trust()
             #--------added by Mahi---------
             self.franticness._time_arrival_waypoints = rospy.Time.now().to_sec()
             self.franticness._is_first_goal_after_arrival = True
             self.franticness.error_correction = 0.
             self.franticness.franticness = 0.
+            if self.is_autonomous[self.name]:
+                self.set_autonomous_goal_and_move()
             #------------------------------
+        #--------added by Mahi---------
+        print "####---------->>> {}".format(rospy.get_time() - self.last_attention_time)
+        if rospy.get_time() - self.last_attention_time > 20.:
+            # self.last_attention_time = rospy.get_time()
+            if not self.is_autonomous[self.name]:
+                self.evaluate_trust()
+            self.is_autonomous[self.name] = True
+        #------------------------------
 
         # Have we collected the coin?
         if self.euclidean_distance(self.cur_position, self.cur_coin_location) <= 0.2:
@@ -325,7 +425,6 @@ class Robot():
             else:
                 self.time_remaining = 60
 
-
         # See if we have won or lost for this robot
         if self.health <= 0 or self.time_remaining <= 0:
             if self.t.is_alive():
@@ -337,15 +436,12 @@ class Robot():
             self.robot_win_handler()
 
     def evaluate_trust(self):
-
         try:
             result = self.eval_trust(self.current_disparity, float((100.0 - self.health) / 100.0), self.current_arrival_delay)
-
             if result.trust is True:
                 self.num_trusted_goals += 1.0
             else:
                 self.num_untrusted_goals += 1.0
-
             percent_trust = float(self.num_trusted_goals / (self.num_trusted_goals + self.num_untrusted_goals))
             print "Percent trust so far: " + str(percent_trust)
 
@@ -367,11 +463,7 @@ class Robot():
         classifier_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/random_forest.pck")
         random_forest_model = pickle.load(classifier_file)
         domain = random_forest_model.domain
-        print "err="+str(self.franticness.error_correction) +\
-              " fran="+str(self.franticness.franticness) + \
-              " dec_interval="+str(self.franticness.decision_intervals) + \
-              " t_newg="+str(self.franticness._time_newgoal_after_arrival) + \
-              " t_arrival="+str(self.franticness._time_arrival_waypoints)
+
         test_data = Orange.data.Instance(domain, [self.franticness.error_correction, self.franticness.franticness, self.franticness.decision_intervals, None])
         cognitive_load_estimate = random_forest_model(test_data)
         classifier_file.close()
@@ -398,11 +490,31 @@ class Robot():
         #                           #---------------------------------------
         #                          )
         with open(self.export_file, 'a') as csvfile:
-            csvfile.write("{},{},{},{},{}:{}:{}\n".format(self.franticness.error_correction,
+            csvfile.write("{},{},{},{},{}_{}_{}-{}_{}_{}\n".format(self.franticness.error_correction,
                                                              self.franticness.franticness,
                                                              self.franticness.decision_intervals,
-                                                             cognitive_load_estimate,
+                                                             cognitive_load_estimate,self.timestamp_h_m_s.year,self.timestamp_h_m_s.month,self.timestamp_h_m_s.day,
                                                              self.timestamp_h_m_s.hour,self.timestamp_h_m_s.minute, self.timestamp_h_m_s.second))
+        # ------------------added by Mahi---------------------------------------------
+        print "err={} fran={} dec_intvl={} t_newg={} t_arrival={}, COGLE={}".format(
+            self.franticness.error_correction,
+            self.franticness.franticness,
+            self.franticness.decision_intervals,
+            self.franticness._time_newgoal_after_arrival,
+            self.franticness._time_arrival_waypoints,
+            cognitive_load_estimate
+        )
+
+        if cognitive_load_estimate < -.5 and np.fabs(self.franticness.error_correction) > 0.00001 \
+                and np.fabs(self.franticness.franticness) > 0.00001\
+                and np.fabs(self.franticness.decision_intervals) > 0.00001:
+            print "{}(( Autonmous mode activated !!!!!!!!!!!!!!!".format(self.name)
+            self.is_autonomous[self.name] = True
+        else:
+            print "{} Normal Mode activated      ---------------".format(self.name)
+            self.is_autonomous[self.name] = False
+        # ----------------------------------------------------------------------------
+
     def determine_closest_path_indices(self):
 
         cur_closest_index = 0
@@ -412,7 +524,7 @@ class Robot():
 
             test_distance = self.euclidean_distance(self.maze_path_points[i], self.cur_position)
 
-            if  test_distance < cur_shortest_distance:
+            if test_distance < cur_shortest_distance:
                 cur_closest_index = i
                 cur_shortest_distance = test_distance
 
@@ -423,7 +535,6 @@ class Robot():
             self.pointA_index = len(self.maze_path_points) - 1
             self.pointB_index = self.pointA_index - 1
         else:
-
             if self.distance_from_path(cur_closest_index, [self.cur_position.x, self.cur_position.y, self.cur_position.z]) <= self.distance_from_path(cur_closest_index + 1,[self.cur_position.x, self.cur_position.y, self.cur_position.z]):
                 self.pointA_index = cur_closest_index
                 self.pointB_index = cur_closest_index + 1
@@ -432,7 +543,6 @@ class Robot():
                 self.pointB_index = cur_closest_index + 2
 
     def distance_from_path(self, i, trans):
-
         p1 = Point()
         p2 = Point()
         p3 = Point()
@@ -446,7 +556,7 @@ class Robot():
         elif i >= len(self.maze_path_points):
             i = len(self.maze_path_points) - 1
 
-        #Make a service call to get the points at the indices
+        #  Make a service call to get the points at the indices
         res1 = self.get_points_at_indices(i - 1, i)
 
         p1 = res1.point_a
@@ -551,7 +661,7 @@ class Robot():
         move_base = actionlib.SimpleActionClient("/" + self.name + "/move_base", MoveBaseAction)
 
         while not move_base.wait_for_server(rospy.Duration(5)):
-            print "Waiting for action server..."
+            print "Waiting for action server...", self.name
 
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = "map"

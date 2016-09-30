@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from itertools import count
 
 from enum import Enum
 import random
@@ -44,15 +43,16 @@ class CoinGameNode():
         get_points_for_indices_service = rospy.Service("points_for_indices", PathPointsForIndices, self.path_points_for_indices)
         spawn_new_coin_service = rospy.Service("spawn_new_coin", SpawnNewCoin, self.spawn_new_coin)
         remove_coin_service = rospy.Service("remove_coin", RobotNamed, self.remove_coin)
-        start_game_service = rospy.Service("start_game", Empty, self.prepare_to_start_game)
+        start_game_service = rospy.Service("start_game", Empty, self.start_game)
 
-        self.rgb = {"miranda": [1.0, 0.0, 0.0],
-                    "trinculo": [0.541176471, 0.168627451, 0.88627451],
-                    "caliban": [1.0, 0.5, 0.0],
-                    "ferdinand": [0.0, 1.0, 0.0],
-                    "prospero": [0.3, 0.3, 1.0],
-                    "ariel": [1.0, 0.843137255, 0.0]
-                    }
+        self.rgb = {
+            "miranda": [1.0, 0.0, 0.0],
+            "trinculo": [0.541176471, 0.168627451, 0.88627451],
+            "caliban": [1.0, 0.5, 0.0],
+            "ferdinand": [0.0, 1.0, 0.0],
+            "prospero": [0.3, 0.3, 1.0],
+            "ariel": [1.0, 0.843137255, 0.0]
+        }
 
         self.robot_start_points = {"trinculo": Pose(Point(6.73, 6.0, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
                                    "miranda": Pose(Point(6.73, 2.8, 0), Quaternion(*quaternion_from_euler(0, 0, math.pi))),
@@ -76,11 +76,6 @@ class CoinGameNode():
         #     print "Starting robots!"
         #     self.start_robots(RobotNamedRequest(robots[x]))
 
-        # Countdown timer to display in Rviz
-        self.countdown_value = 5
-        self.countdown_marker = Marker()
-        self.t = rospy.Timer.__class__
-
         while not rospy.is_shutdown():
             rospy.spin()
 
@@ -102,7 +97,7 @@ class CoinGameNode():
         if self.robotNodes.count(req.robotName) == 0:
             rospy.logwarn("No robot by the name " + req.robotName + " to start.")
             return RobotNamedResponse("ERROR!")
-
+        print "Debug[M] @coin_game_node robot name: ", req.robotName
         move_base = actionlib.SimpleActionClient("/" + req.robotName + "/move_base", MoveBaseAction)
 
         while not move_base.wait_for_server(rospy.Duration(5)):
@@ -113,9 +108,10 @@ class CoinGameNode():
         goal.target_pose.header.stamp = rospy.Time.now()
 
         while True:
-
-            test_point = self.start_point_vacant[random.randint(0, 3)]
-            if self.start_point_vacant[test_point] is True:
+            # test_point = self.start_point_vacant[random.randint(0, 3)]
+            test_point = random.randint(0, 3)
+            print "Debug[M] @coin_game_node: Searching for vacant point... ", req.robotName, "try ", test_point, " vacancy ", self.start_point_vacant
+            if self.start_point_vacant[test_point]:
                 self.start_point_vacant[test_point] = False
                 # goal.target_pose.pose = self.robot_start_points[test_point]
                 break
@@ -127,13 +123,7 @@ class CoinGameNode():
         move_base.stop_tracking_goal()
         return RobotNamedResponse("Done")
 
-    def prepare_to_start_game(self, req):
-        self.display_countdown()
-        self.t = rospy.Timer(rospy.Duration(1), self.update_countdown_marker)
-        return EmptyResponse()
-
-    def start_game(self):
-
+    def start_game(self, req):
         try:
             for robot in self.robotNodes:
                 rospy.wait_for_service("/" + robot + "/start_timer", 10)
@@ -142,47 +132,7 @@ class CoinGameNode():
         except rospy.ServiceException, e:
             print "Service call to start_timer failed: {}".format(e)
 
-    def display_countdown(self):
-
-        rgb = [1.0, 1.0, 1.0]
-
-        self.countdown_marker.header.frame_id = "map"
-        self.countdown_marker.header.stamp = rospy.Time(0)
-        self.countdown_marker.ns = "countdown"
-        self.countdown_marker.id = random.random()
-        self.countdown_marker.type = Marker.TEXT_VIEW_FACING
-        self.countdown_marker.action = Marker.ADD
-        self.countdown_marker.text = "5"
-        self.countdown_marker.pose.position = Point(4.5, 4.35, 0.01)
-        self.countdown_marker.pose.orientation.x = 0.0
-        self.countdown_marker.pose.orientation.y = 0.0
-        self.countdown_marker.pose.orientation.z = 0.0
-        self.countdown_marker.pose.orientation.w = 1.0
-        self.countdown_marker.scale.x = 20.0
-        self.countdown_marker.scale.y = 20.0
-        self.countdown_marker.scale.z = 1.5
-        self.countdown_marker.color.a = 1.0
-        self.countdown_marker.color.r = rgb[0]
-        self.countdown_marker.color.g = rgb[1]
-        self.countdown_marker.color.b = rgb[2]
-
-        self.coin_publisher.publish(self.countdown_marker)
-
-    def update_countdown_marker(self, event):
-
-        print "In timer update!"
-
-        self.countdown_value -= 1
-
-        if self.countdown_value < 0:
-            self.countdown_marker.action = Marker.DELETE
-            self.t.shutdown()
-            self.start_game()
-        else:
-            self.countdown_marker.action = Marker.MODIFY
-            self.countdown_marker.text = str(self.countdown_value)
-
-        self.coin_publisher.publish(self.countdown_marker)
+        return EmptyResponse()
 
     def read_points(self):
         points_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/points.txt")

@@ -5,7 +5,7 @@
     <arg name="robot3_id" default="ferdinand" />
 
     <node name="coin_game_node" pkg="coin_game" type="coin_game_node.py" respawn="false" output="screen">
-            <param name="number_of_robots" value="4" />
+            <param name="number_of_robots" value="3" />
     </node>
 
     <include file="$(find coin_game)/launch/trust_evaluator.launch" />
