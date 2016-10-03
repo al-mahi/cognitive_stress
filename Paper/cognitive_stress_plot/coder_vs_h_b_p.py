@@ -113,10 +113,10 @@ def pred_vs_coder(num_robots):
     # these are matplotlib.patch.Patch properties
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
             verticalalignment='top', bbox=props)
 
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     plt.title("{} Robots".format(num_robots))
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -138,10 +138,10 @@ def pred_vs_coder(num_robots):
     # these are matplotlib.patch.Patch properties
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
             verticalalignment='top', bbox=props)
 
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -164,10 +164,10 @@ def pred_vs_coder(num_robots):
     # these are matplotlib.patch.Patch properties
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
             verticalalignment='top', bbox=props)
 
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     # ------------------------------------------------------------------------------------------------------------------
     # ax = plt.subplot(6, 3, 9 + num_robots)
@@ -187,10 +187,10 @@ def pred_vs_coder(num_robots):
     # # these are matplotlib.patch.Patch properties
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
     #
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     # # ------------------------------------------------------------------------------------------------------------------
     #
@@ -211,10 +211,10 @@ def pred_vs_coder(num_robots):
     # # these are matplotlib.patch.Patch properties
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
     #
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     #
     # # --------------------------physiological observation------------------------------------
@@ -243,12 +243,12 @@ def pred_vs_coder(num_robots):
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # textstr = "Correlation\npearson $\\rho =$ {:.3}\n".format(rho1)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
 
-fig = plt.figure(figsize=(30, 30))
+fig = plt.figure(figsize=(20, 30))
 pred_vs_coder(1)
 pred_vs_coder(2)
 # pred_vs_coder(3)
