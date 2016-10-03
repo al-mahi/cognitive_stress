@@ -34,17 +34,19 @@ S. M. Al Mahi\\
 
 \maketitle
 \begin{abstract} 
-We present a robot that learns to recognize the indications that a
-complex, rapidly-evolving task has exceeded the cognitive capacity of
-a human partner to provide helpful direction.  The robot learns to
-associate human directions and task quality metrics in the context of
-a well-understood task, in this case, the navigation of a maze.  The
-robot is then able to use this learned model to evaluate the behavior
-of a human partner in a task which it does not understand and cannot
-execute without human instruction.  Even though the context of the new
-task is beyond the robot's comprehension, it can accurately assess
-whether it is being given trustworthy directions from an increasingly
-frazzled human partner.
+We demonstrate that a robot is capable of learning to recognize the
+behavioral indicators that a complex, rapidly-evolving task has exceeded
+the cognitive capacity of a human partner and make an informed decision
+based upon this assessment. The robot is trained to associate human
+directions with task quality for a well-understood task, in this case, the
+navigation of a maze. The robot may then apply this learned model to a
+different problem while still being able to evaluate a human operator's
+cognitive load. Even without the ability to understand the end goal of this
+new task, the robot can use the indicators learned previously to estimate
+the cognitive limits of an increasingly frazzled human partner.. Perhaps
+even more importantly, the robot may then make an informed decision
+based on this assessment, switching to an autonomous operation mode for
+example, in an attempt to reduce operator demand.
 \end{abstract}
 
 %\category{I.2.9}{Robotics}{Human Assistance}{Multiple Robots}
@@ -67,27 +69,25 @@ in the future; this renders such systems incapable of making
 instantaneous or reactive decisions. In contrast, systems which are
 capable of making split-second decisions, such as the lane drift
 detection found in some high-end cars, make no inference concerning
-the user's abilites or frame of mind; they are reacting to a
-well-understood world state without consulting their human
+the user's abilities or frame of mind; they are reacting to a
+well understood world state without consulting their human
 partners. This is not true interaction; the robot is learning to work
-\textit{around} the user instead of with them.  Human assistance
-should enable complex multi-robot tasks where the robots themselves
-are unable to assess their environment fully, but this lays a heavy
-burden on the operator in a dynamic, dangerous, rapidly-changing
-environment with many cognitive demands.  Fundamentally, human
+\textit{around} the user instead of with them. Human assistance
+should enable complex multi-robot tasks in situations where the robots
+themselves are unable to assess their environment fully, but this lays a
+heavy burden on the operator in a dynamic, dangerous, rapidly-changing
+environment with many cognitive demands. Human
 operators and robots each have complementary capabilities and
-limitations, and they must each be aware of the abilities of the
-other.  Discovering the cognitive capacity of human operators in
-human-robot teams is essential \cite{Malchus:2013:REC:2447556.2447632}.
+limitations; that both groups have the ability to know the limits of the other is crucial for cooperation and ultimately success. \cite{Malchus:2013:REC:2447556.2447632}.
+
 Our research allows robots to form models of human behavior during
 well-understood tasks, and then apply these learned models during
-unknown tasks.  We show that these models allow the robot to make an
+unknown tasks. We show that these models allow the robot to make an
 effective determination of the cognitive capacity of a human partner,
 even when the robot cannot directly assess the task it is being asked
-to perform.  In this way, a robot team member should be able to fall
-back into a safe autonomous mode whenever the task demands begin to
-exceed the ability of its human partner to provide effective
-direction.
+to perform. This provides the robot with the ability to fall back to safe
+autonomous operation mode whenever the task demands begin to
+exceed the ability of its human partner. The operator may then assume direct control at their discretion as they are able.
 
 \begin{figure}
 \centering
@@ -96,18 +96,19 @@ direction.
 \label{fig:game_photo}
 \end{figure}
 
-Why is teamwork between human and robots so important?  Both have
-advantages and limitations. It is easy to understand that a robot with
-flawed sensors and actuators may not be able to perform a task, owing
-to failure to perceive information about its environment.  But it is
-not necessarily the case that improving the sensors and actuators will
-have a commensurate effect on the robot's ability to accomplish a task
--- a great many tasks require contextual information far beyond the
-current ability of any robot to reason about.  Thus for the forseeable
-future, many tasks will require assistance from human teammates, who
-are able to integrate data, rely on experience to predict the effects
-of actions on world states, and produce effective long-term plans far
-better than any current robot.
+Why is this understanding between human and robots so important? As
+previously mentioned, both members have advantages and limitations. It
+easy to see that a robot with limited sensors and actuators may be unable
+to perform a task, owing to a failure to perceive information about its
+environment. Merely cramming improved components into a robots does
+not guarantee any significant improvement on the robot's ability to
+accomplish a task -- a great many tasks require contextual information far
+beyond what machines are currently able to muddle out. Thus for the
+foreseeable future, many of these complex tasks will require assistance
+from human teammates, co-processors if you will. Humans are able to
+integrate data, rely on experience to predict the effects of actions on world
+states, and produce effective long-term plans far better than any current
+robot.
 
 Human assistance with multiple robots has been demonstrated in
 different practical situations. For example, they have been used as
