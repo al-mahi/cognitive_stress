@@ -29,10 +29,8 @@ def build(group, pass_remaining):
 
     name = robots_in_group[group][pass_remaining - 1]
 
-    with open("output_{}.csv".format(group), "a") as out:
+    with open("{}_robot/output_{}.csv".format(group, group), "w") as out:
         for e in features[group]:
-
-            print e
 
             # Calculate new CLE and save it
             test_data = Orange.data.Instance(domain, [float(e[0]), float(e[1]), float(e[2]), int(e[5] == name), int(e[6]), None])
