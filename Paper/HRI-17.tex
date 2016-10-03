@@ -1,5 +1,6 @@
 \documentclass{sig-alternate}
 \usepackage{amsmath,amsfonts}
+\usepackage{booktabs}
 \usepackage{multirow}
 
 \begin{document}
@@ -405,13 +406,11 @@ particular experiment, these are the following:
 \item $h_1$ is the \emph{error correction} term, which measures the
   tendency of a human operator to provide a navigation goal and then
   subsequently provide another before the task is complete, and
-\item $h_2$ is the \emph{franticness} term, which measures the pace of
-  control inputs generally.
+\item $h_2$ is the \emph{franticness} term, which characterizes erratic behavior for the control inputs.
 \end{itemize}
 
-These features were chosen because they seem reasonable and
-ecologically valid in a navigation context, but there is no reason to
-assume that they are uniquely suitable as components of $H$.
+These features were chosen because they are contextually valid for a navigation problem, while remaining general enough to not be tied to our a specific instance. It is worth noting that there is no reason to
+assume that the features selected are  uniquely suited as members of $H$.
 Appropriate features for inclusion in $H$ should be easy to identify
 in a wide variety of tasks.
 
@@ -561,7 +560,7 @@ In the coin game the human operator could interact with the robots using two int
 While using web interface, in order to compare the robot's estimate of cognitive capacity with
 reality, test subjects were asked during the experiment to rate their
 own cognitive stress levels at 12-second intervals using a Likert
-scale. The human operators who participated using Rviz were given a physilogical activity monitor\footnote{https://www.zephyranywhere.com/products/bioharness-3} to attach to their chest to monitor their heart rate, breathing rate, posture, ECG amplitudes and they were also being montitored by a human evaluator who rated and logged their cognitive stress level while they were playing the game. In other words human(coder) evaluator serves here as an subjective evaluator whreas the physiological metrics provides objective evaluation. We have found posture of human operator most likely correlates with subjective correlation with the code evaluation. One possible reason behind this is that posture is one of the visible observation that the coder can have while evaluating the operator. The coder rated stress level high when the operator tends to lean toward the screen of the computer when he or lean back on the chair Fig.\ref{fig:coder_vs_posture} which is intuitive.
+scale. The human operators who participated using Rviz were given a physilogical activity monitor\footnote{https://www.zephyranywhere.com/products/bioharness-3} to attach to their chest to monitor their heart rate, breathing rate, posture, ECG amplitudes and they were also being montitored by a human evaluator who rated and logged their cognitive stress level while they were playing the game. In other words human(coder) evaluator serves here as an subjective evaluator whreas the physiological metrics provides objective evaluation. We have found posture of human operator most likely correlates with subjective correlation with the code evaluation  Fig.\ref{fig:coder_vs_posture}. One possible reason behind this is that posture is one of the visible observation that the coder can have while evaluating the operator. The coder rated stress level high when the operator tends to lean toward the screen of the computer when he or lean back on the chair. Other physiological metrics does not higly correlates with coder evaluation of stress level.
 
 \begin{figure}  
 \centering
@@ -570,6 +569,7 @@ scale. The human operators who participated using Rviz were given a physilogical
 \label{fig:coder_vs_posture}
 \end{figure}
 
+The coin game also had a autonomous assistant configuration where the robot starts to navigate the maze autonomously not knowing where the coin is. Robot can pick the coin if crossed over it.The autonomous mood was activated by the robot if it found the human operator to be untrustworthy; the stress level is higher than a threshold. The threshold that we have set for our experiment was 55\% based on the data that we have collected from the non autonomous or manual mood. If the ignorance time which is the duration while no commands were given to that particular robot was higher than a threshold the robot switched to autonomous mood as well. In autonomous mood robot assumes that the coin can show up anywhere in the maze thus moves towards the optimum way point from where it the expected distance from a coin is minimum. 
 %We have set two scenarios in this experiment. The first scenario, is the single human operator one or more robots team. In this scenario only one human operator was allowed to assist the human-robot team. We have set a timer for the human operator as 2 minutes and also set maximum 5 coin collection limit. Either condition satisfies the end of the game. Every time the robot collects a coin the timer is shortened by 12 seconds to put more cognitive stress on human operator. In the second scenario, multiple one or more robots were teamed up with two human operators. The initial timer was set to 1 minute and a maximum of ten coins were allowed to collect. Either condition satisfied he end of the game.
 
 \subsection{Coin Game Results}
@@ -578,12 +578,38 @@ Analysis of the results from the coin game experiment are in agreement
 with the original hypothesis. In general, the robot correctly predicts
 the cognitive load that its operator was under in every
 scenario. These findings can be seen in Fig~\ref{fig:coder_eval_1_2}.
-Here, the horizontal axis denotes model estimated cognitive stress over time. The vertical axis denotes coder evaluation cognitive load estimate. From our experiments we have found that the cognitive load estimate from the robots using our model correlates with the coder evaluated stress level by a factor $\rho=.336$ and $\rho=.22$ for coin game played with one and two robots respectively. Our experiment also shows that posture of human operator is a suitable objective metric for estimating cognitive stress level of human operator. We could not find any intersting pattern in other physiological objective metrics i.e. heart rate, breating rate, ECG amplitude that correlates to our predictions or coder evaluation. However, that does not mean that they do not capture cognitive stress level of human operator. A better model with more enriched $H$ vector of human behavior metric can certainly produce a better estimate that correlates more with those physiological metrics. But having a $H$ also means the robot can take more sophisticated input from human operators. Whereas in our case we have confined our experiment with simplistic robots.
+Here, the horizontal axis denotes model estimated cognitive stress over time. The vertical axis denotes coder evaluation cognitive load estimate. From our experiments we have found that the cognitive load estimate from the robots using our model correlates with the coder evaluated stress level by a factor $\rho=.336$ and $\rho=.22$ for coin game played with one and two robots respectively. Our experiment also captures that posture and breathing rate of human operator as objective metric for estimating cognitive stress level.We could not find any intersting pattern in other physiological objective metrics i.e. heart rate, ECG amplitude using our model and experimental setup. However, that does not mean that they do not capture cognitive stress level of human operator. A better model with more enriched $H$ vector of human behavior metric can certainly produce a better estimate that correlates more with those physiological metrics. But having a $H$ also means the robot can take more sophisticated input from human operators. Whereas in our case we have confined our experiment with simplistic robots.
 It is critical for interpreting the information in \ref{fig:final-results} to note that while the robot's cognitive load evaluation and the scoring technique for quantifying
 self-reported user stress both produce a result between zero and one
 \textit{their magnitudes are not directly comparable}.Whenever cognitive stress occurs or changes, the robot is able to recognize this increase for most cases in the
 tested scenarios, and the robot's evaluation agrees with self-reported
-user stress.  In the context of this paper, it also supports the
+user stress.
+
+\begin{figure}  
+\centering
+\includegraphics[width=.5\textwidth]{prediction_vs_b_p_2.eps}
+\caption{Models predicted stress level vs Physiological metrics in coin game experiment.}
+\label{fig:coder_vs_posture}
+\end{figure}
+
+Most important contribution of our model can has been demonstrated from the perpective of task success. The task success of the coin game is measured in term of number of coins collected withing given time. Our experiment shows that by switching to autonomous mood on detection of high stress level of human operator can significantly improve the task success \ref{tab:task_success}.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\caption{Task success comparsions between autonomous assistance mood and manual mood. Automous assistance was activated on detection of high stress level predicted by our model.}
+\label{my-label}
+\begin{tabular}{@{}|c|c|c|c|c|@{}}
+\toprule
+Game Mood                                                                                  & \multicolumn{2}{c|}{Manual} & \multicolumn{2}{c|}{Auto} \\ \midrule
+\begin{tabular}[c]{@{}c@{}}Number of\\ Robots in\\ Participated\end{tabular}               & one          & two          & one         & two         \\ \midrule
+\begin{tabular}[c]{@{}c@{}}Number of Failure/\\ Total Number\\ of Game Played\end{tabular} & 2/12         & 5/15         & 0/10        & 1/10        \\ \midrule
+\begin{tabular}[c]{@{}c@{}}Average time\\ per game\\ (in sec.)\end{tabular}                & 329          & 345          & 170         & 233         \\ \bottomrule
+\end{tabular}
+\end{table}
+
+In the context of this paper, it also supports the
 original hypothesis: robots can are able to reliably assess the
 cognitive strain their human partners are under, even in contexts
 where the actual tasks they are being asked to perform are opaque to
