@@ -577,7 +577,16 @@ Analysis of the results from the coin game experiment are in agreement
 with the original hypothesis. In general, the robot correctly predicts
 the cognitive load that its operator was under in every
 scenario. These findings can be seen in Fig~\ref{fig:coder_eval_1_2}.
-Here, the horizontal axis denotes model estimated cognitive stress over time. The vertical axis denotes coder evaluation cognitive load estimate. From our experiments we have found that the cognitive load estimate from the robots using our model correlates with the coder evaluated stress level by a factor $\rho=.336$ and $\rho=.22$ for coin game played with one and two robots respectively. Our experiment also shows that posture of human operator is a suitable objective metric for estimating cognitive stress level of human operator. We could not find any intersting pattern in other physiological objective metrics i.e. heart rate, breating rate, ECG amplitude that correlates to our predictions or coder evaluation. However, that does not mean that they do not capture cognitive stress level of human operator. A better model with more enriched $H$ vector of human behavior metric can certainly produce a better estimate that correlates more with those physiological metrics. But having a $H$ also means the robot can take more sophisticated input from human operators. Whereas in our case we have confined our experiment with simplistic robots.
+Here, the horizontal axis denotes model estimated cognitive stress over time. The vertical axis denotes coder evaluation cognitive load estimate. From our experiments we have found that the cognitive load estimate from the robots using our model correlates with the coder evaluated stress level by a factor $\rho=.336$ and $\rho=.22$ for coin game played with one and two robots respectively. Our experiment also captures that posture and breathing rate of human operator as objective metric for estimating cognitive stress level.
+
+\begin{figure}  
+\centering
+\includegraphics[width=.5\textwidth]{prediction_vs_b_p_2.eps}
+\caption{Models predicted stress level vs Physiological metrics in coin game experiment.}
+\label{fig:coder_vs_posture}
+\end{figure}
+
+We could not find any intersting pattern in other physiological objective metrics i.e. heart rate, ECG amplitude using our model and experimental setup. However, that does not mean that they do not capture cognitive stress level of human operator. A better model with more enriched $H$ vector of human behavior metric can certainly produce a better estimate that correlates more with those physiological metrics. But having a $H$ also means the robot can take more sophisticated input from human operators. Whereas in our case we have confined our experiment with simplistic robots.
 It is critical for interpreting the information in \ref{fig:final-results} to note that while the robot's cognitive load evaluation and the scoring technique for quantifying
 self-reported user stress both produce a result between zero and one
 \textit{their magnitudes are not directly comparable}.Whenever cognitive stress occurs or changes, the robot is able to recognize this increase for most cases in the

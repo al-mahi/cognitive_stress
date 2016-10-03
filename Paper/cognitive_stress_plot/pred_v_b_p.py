@@ -57,69 +57,9 @@ def pred_vs_coder(num_robots):
     #456
     #789
     #...
-    # ------------------------------------------------------------------------------------------------------------------
-    def nn_hrv(h):
-        """
-        SDSD ("standard deviation of successive differences"), the standard deviation of the successive differences between adjacent NNs
-        3 5 10 20 22
-        1: 5  - 3 = 2
-        2: 10 - 2 = 8
-        3: 20 - 8 = 12
-        4: 22 - 12 = 10
-        @type h: dict
-        @return:
-        """
-        h_k = h.keys()
-        h_v = h.values()
-        nn = 5
-        res_h = h_v
-        res_h = np.zeros(len(h_v))
-        for i in range(len(h_v)):
-            diff = h_v[i]
-            successive_diff = []
-            for j in range(1, nn):
-                i_n = i - j
-                if i_n >= 0:
-                    successive_diff.append(h_v[i_n] - diff)
-                    diff = h_v[i_n] - diff
-            for j in range(1, nn):
-                i_n = i + j
-                if i_n < len(h_v):
-                    successive_diff.append(h_v[i_n] - diff)
-                    diff = h_v[i_n] - diff
-            res_h[i] = np.std(successive_diff)
-        res = {}
-        for i in range(len(h_k)):
-            res[h_k[i]] = res_h[i]
-        return res
-    heart_rate = nn_hrv(heart_rate)
-
-    ax = plt.subplot(3, 2, 0+num_robots)
-    plt.ylabel("Physiological Evaluation of Stress Level")
-    time_observation_heart = set(heart_rate.keys())
-    common_times_heart = time_predictions & time_observation_heart
-    predictions_heart = np.array([model_predictions.get(t) for t in common_times_heart])
-    observations_heart = np.array([heart_rate.get(t) for t in common_times_heart])
-    # observations_heart /= observations_heart.max()
-    plt.scatter(predictions_heart, observations_heart, color="b", label="heart rate varitation")
-    # y = mx + c
-    m_pred, c_pred = np.polyfit(predictions_heart, observations_heart, 1)
-    axes = plt.gca()
-    X_plot = np.linspace(axes.get_xlim()[0], axes.get_xlim()[1], 100)
-    plt.plot(X_plot, m_pred*X_plot + c_pred, 'b--', label="least sqr heart")
-    rho, pv = scipy.stats.pearsonr(predictions_heart, observations_heart)
-    textstr = "heart $\\rho =$ {:.3}\n".format(rho)
-    # these are matplotlib.patch.Patch properties
-    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
-            verticalalignment='top', bbox=props)
-
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
-    plt.title("{} Robots".format(num_robots))
 
     # ------------------------------------------------------------------------------------------------------------------
-    ax = plt.subplot(3, 2, 2 + num_robots)
+    ax = plt.subplot(2, 2, 0 + num_robots)
     plt.ylabel("Physiological Evaluation of Stress Level")
     time_observation_breat = set(breathing_rate.keys())
     common_times_breat = time_predictions & time_observation_breat
@@ -137,20 +77,23 @@ def pred_vs_coder(num_robots):
     # these are matplotlib.patch.Patch properties
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.60, 0.15, textstr, transform=ax.transAxes, fontsize='large',
             verticalalignment='top', bbox=props)
 
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
 
     # ------------------------------------------------------------------------------------------------------------------
-    ax = plt.subplot(3, 2, 4 + num_robots)
+    ax = plt.subplot(2, 2, 2 + num_robots)
     plt.ylabel("Physiological Evaluation of Stress Level")
     plt.xlabel("Models Estimation of Stress Level")
     time_observation_postu = set(posture.keys())
     common_times_postu = time_predictions & time_observation_postu
     predictions_postu = np.array([model_predictions.get(t) for t in common_times_postu])
     observations_postu = np.array([posture.get(t) for t in common_times_postu]) / -360.
+    for i in range(len(observations_postu)):
+        if observations_postu[i] < 0.:
+            observations_postu[i] = np.fabs(observations_postu[i])
     # observations_postu /= observations_postu.max()
     plt.scatter(predictions_postu, observations_postu, color="c", label="posture")
     # y = mx + c
@@ -163,10 +106,10 @@ def pred_vs_coder(num_robots):
     # these are matplotlib.patch.Patch properties
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # place a text box in upper left in axes coords
-    ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.60, 0.15, textstr, transform=ax.transAxes, fontsize='large',
             verticalalignment='top', bbox=props)
 
-    legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     # ------------------------------------------------------------------------------------------------------------------
     # ax = plt.subplot(6, 3, 9 + num_robots)
@@ -186,10 +129,10 @@ def pred_vs_coder(num_robots):
     # # these are matplotlib.patch.Patch properties
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
     #
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     # # ------------------------------------------------------------------------------------------------------------------
     #
@@ -210,10 +153,10 @@ def pred_vs_coder(num_robots):
     # # these are matplotlib.patch.Patch properties
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
     #
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
     #
     # # --------------------------physiological observation------------------------------------
@@ -242,17 +185,17 @@ def pred_vs_coder(num_robots):
     # props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     # textstr = "Correlation\npearson $\\rho =$ {:.3}\n".format(rho1)
     # # place a text box in upper left in axes coords
-    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='medium',
+    # ax.text(0.7, 0.2, textstr, transform=ax.transAxes, fontsize='large',
     #         verticalalignment='top', bbox=props)
-    # legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
+    # legend = plt.legend(loc='upper left', shadow=True, fontsize='large')
     # plt.title("{} Robots".format(num_robots))
 
-fig = plt.figure(figsize=(30, 30))
+fig = plt.figure(figsize=(15, 10))
 pred_vs_coder(1)
 pred_vs_coder(2)
 # pred_vs_coder(3)
 ext = "eps"
-plt.savefig("prediction_vs_h_b_p.{}".format(ext), format=ext)
+plt.savefig("prediction_vs_b_p_2.{}".format(ext), format=ext)
 plt.show()
 
 
