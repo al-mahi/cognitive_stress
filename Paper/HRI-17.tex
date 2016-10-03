@@ -405,13 +405,11 @@ particular experiment, these are the following:
 \item $h_1$ is the \emph{error correction} term, which measures the
   tendency of a human operator to provide a navigation goal and then
   subsequently provide another before the task is complete, and
-\item $h_2$ is the \emph{franticness} term, which measures the pace of
-  control inputs generally.
+\item $h_2$ is the \emph{franticness} term, which characterizes erratic behavior for the control inputs.
 \end{itemize}
 
-These features were chosen because they seem reasonable and
-ecologically valid in a navigation context, but there is no reason to
-assume that they are uniquely suitable as components of $H$.
+These features were chosen because they are contextually valid for a navigation problem, while remaining general enough to not be tied to our a specific instance. It is worth noting that there is no reason to
+assume that the features selected are  uniquely suited as members of $H$.
 Appropriate features for inclusion in $H$ should be easy to identify
 in a wide variety of tasks.
 
