@@ -70,11 +70,9 @@ class CoinGameNode():
         else:
             self.number_of_robots = 1
 
-        # robots = ["trinculo", "miranda", "ferdinand", "prospero"]
-        #
-        # for x in range(0, self.number_of_robots):
-        #     print "Starting robots!"
-        #     self.start_robots(RobotNamedRequest(robots[x]))
+        self.countdown_timer = rospy.Timer
+        self.countdown_marker = Marker()
+        self.game_start_countdown = 5
 
         while not rospy.is_shutdown():
             rospy.spin()
@@ -133,6 +131,47 @@ class CoinGameNode():
             print "Service call to start_timer failed: {}".format(e)
 
         return EmptyResponse()
+
+    def begin_countdown(self, req):
+
+        self.countdown_marker.header.frame_id = "map"
+        self.countdown_marker.header.stamp = rospy.Time.now()
+        self.countdown_marker.ns = "countdown"
+        self.countdown_marker.id = random.randint
+        self.countdown_marker.type = Marker.TEXT_VIEW_FACING
+        self.countdown_marker.text = "5"
+        self.countdown_marker.action = Marker.ADD
+        self.countdown_marker.pose.position.x = 4.3
+        self.countdown_marker.pose.position.y = 4.3
+        self.countdown_marker.pose.position.z = 3.0
+        self.countdown_marker.pose.orientation.x = 0.0
+        self.countdown_marker.pose.orientation.y = 0.0
+        self.countdown_marker.pose.orientation.z = 0.0
+        self.countdown_marker.pose.orientation.w = 1.0
+        self.countdown_marker.scale.x = 1.0
+        self.countdown_marker.scale.y = 1.0
+        self.countdown_marker.scale.z = 5.0
+        self.countdown_marker.color.a = 1.0
+        self.countdown_marker.color.r = 1.0
+        self.countdown_marker.color.g = 1.0
+        self.countdown_marker.color.b = 1.0
+        self.coin_publisher.publish(self.countdown_marker)
+
+        self.countdown_timer = rospy.Timer(rospy.Rate(1), self.countdown)
+
+    def countdown(self, event):
+
+        if self.game_start_countdown >= 0:
+            self.game_start_countdown -= 1
+            self.countdown_marker.text = str(self.game_start_countdown)
+            self.countdown_marker.action = Marker.MODIFY
+        else:
+            self.countdown_timer.shutdown()
+            self.game_start_countdown = 0
+            self.countdown_marker.text = str(self.game_start_countdown)
+            self.countdown_marker.action = Marker.DELETE
+
+        self.coin_publisher.publish(self.countdown_marker)
 
     def read_points(self):
         points_file = open(roslib.packages.get_pkg_subdir("coin_game", "include") + "/points.txt")

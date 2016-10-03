@@ -58,23 +58,23 @@ def pred_vs_coder(num_robots):
     #789
     #...
     # ------------------------------------------------------------------------------------------------------------------
-    ax = plt.subplot(1, 2, 0 + num_robots)
+    ax = plt.subplot(1, 3, 0 + num_robots)
     plt.xlabel("coder evaluation of stress")
     if num_robots==1:
-        plt.ylabel("observed posture")
-    time_observation_postu = set(posture.keys())
+        plt.ylabel("observed breaths/min")
+    time_observation_postu = set(breathing_rate.keys())
     common_times_postu = time_predictions & time_observation_postu
     predictions_postu = np.array([coder_evaluations.get(t) for t in common_times_postu])
     observations_postu = np.array([posture.get(t) for t in common_times_postu]) / -360.
     # observations_postu /= observations_postu.max()
-    plt.scatter(predictions_postu, observations_postu, color="c", label="posture")
+    plt.scatter(predictions_postu, observations_postu, color="c", label="breaths/min")
     # y = mx + c
     # print(time_observation_postu)
     # print(common_times_postu)
     m_pred, c_pred = np.polyfit(predictions_postu, observations_postu, 1)
     axes = plt.gca()
     X_plot = np.linspace(axes.get_xlim()[0], axes.get_xlim()[1], 100)
-    plt.plot(X_plot, m_pred * X_plot + c_pred, 'c--', label="least sqr posture")
+    plt.plot(X_plot, m_pred * X_plot + c_pred, 'c--', label="least sqr breaths/min")
     rho, pv = scipy.stats.pearsonr(predictions_postu, observations_postu)
     textstr = "correlation\n$\\rho =$ {:.3}\n".format(rho)
     # these are matplotlib.patch.Patch properties
@@ -86,12 +86,13 @@ def pred_vs_coder(num_robots):
     legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
     plt.title("{} Robots".format(num_robots))
 
-fig = plt.figure(figsize=(8, 4))
+fig = plt.figure(figsize=(15, 5))
 pred_vs_coder(1)
 pred_vs_coder(2)
+pred_vs_coder(3)
 ext = "eps"
 plt.tight_layout()
-plt.savefig("coder_vs_posture.{}".format(ext), format=ext)
+plt.savefig("coder_vs_resperatory.{}".format(ext), format=ext)
 plt.show()
 
 

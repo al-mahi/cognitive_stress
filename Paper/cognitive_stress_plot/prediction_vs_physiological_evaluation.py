@@ -45,7 +45,7 @@ def pred_vs_coder(num_robots):
                             posture[r[5]] = float(r[10])
                             activity_level[r[5]] = float(r[11])
                             ecg_amplitude[r[5]] = float(r[18])
-                    else:
+                    elif fname.startswith("output_"):
                         rows.pop(0)
                         for row in rows:
                             r = row.split(",")
@@ -58,6 +58,42 @@ def pred_vs_coder(num_robots):
     #789
     #...
     # ------------------------------------------------------------------------------------------------------------------
+    def nn_hrv(h):
+        """
+        SDSD ("standard deviation of successive differences"), the standard deviation of the successive differences between adjacent NNs
+        3 5 10 20 22
+        1: 5  - 3 = 2
+        2: 10 - 2 = 8
+        3: 20 - 8 = 12
+        4: 22 - 12 = 10
+        @type h: dict
+        @return:
+        """
+        h_k = h.keys()
+        h_v = h.values()
+        nn = 5
+        res_h = h_v
+        res_h = np.zeros(len(h_v))
+        for i in range(len(h_v)):
+            diff = h_v[i]
+            successive_diff = []
+            for j in range(1, nn):
+                i_n = i - j
+                if i_n >= 0:
+                    successive_diff.append(h_v[i_n] - diff)
+                    diff = h_v[i_n] - diff
+            for j in range(1, nn):
+                i_n = i + j
+                if i_n < len(h_v):
+                    successive_diff.append(h_v[i_n] - diff)
+                    diff = h_v[i_n] - diff
+            res_h[i] = np.std(successive_diff)
+        res = {}
+        for i in range(len(h_k)):
+            res[h_k[i]] = res_h[i]
+        return res
+    heart_rate = nn_hrv(heart_rate)
+
     ax = plt.subplot(6, 3, 0+num_robots)
     plt.xlabel("Models Estimation of Stress Level")
     plt.ylabel("Physiological Evaluation of Stress Level")

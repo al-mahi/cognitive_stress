@@ -45,7 +45,7 @@ def pred_vs_coder(num_robots):
                             posture[r[5]] = float(r[10])
                             activity_level[r[5]] = float(r[11])
                             ecg_amplitude[r[5]] = float(r[18])
-                    else:
+                    elif fname:
                         rows.pop(0)
                         for row in rows:
                             r = row.split(",")

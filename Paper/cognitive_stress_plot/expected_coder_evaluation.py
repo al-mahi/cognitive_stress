@@ -31,7 +31,7 @@ def pred_vs_coder(num_robots):
                             coder_evaluations[r[0]] = (float(r[1]))
                     elif fname.startswith("Summary"):
                         pass
-                    else:
+                    elif fname.startswith("output_"):
                         rows.pop(0)
                         for row in rows:
                             r = row.split(",")

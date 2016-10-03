@@ -114,7 +114,14 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
 #  INCLUDE_DIRS include src
   LIBRARIES Robot
-  CATKIN_DEPENDS geometry_msgs move_base_msgs roscpp rospy std_msgs visualization_msgs message_runtime actionlib
+  CATKIN_DEPENDS
+        geometry_msgs
+        move_base_msgs
+        roscpp rospy
+        std_msgs
+        visualization_msgs
+        message_runtime
+        actionlib
 #  DEPENDS system_lib
 )
 
@@ -142,7 +149,7 @@ add_library(Robot
 
 ## Declare a cpp library
  add_library(GameModel
-   src/GameModel.cpp
+         src/GameModel.cpp
          src/franticness.h)
 
 add_dependencies(GameModel ${PROJECT_NAME}_gencpp)
@@ -160,8 +167,7 @@ add_dependencies(Robot GameModel)
 add_dependencies(Robot ${PROJECT_NAME}_gencpp)
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(MazeGame GameModel Robot
-   ${catkin_LIBRARIES}
+target_link_libraries(MazeGame GameModel Robot ${catkin_LIBRARIES}
 )
 
 ##target_link_libraries(Robot GameModel ${catkin_LIBRARIES})
