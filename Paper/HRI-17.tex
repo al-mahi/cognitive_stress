@@ -408,9 +408,8 @@ in a wide variety of tasks.
 \subsection{Maze Game and Training Results}
 Now we will show that the robot is able to learn the model $\hat{s} =
 g(H)$, and that it reflects the cognitive capacity of humans
-correctly, based on the described metrics.  Fifteen test subjects
-performed runs of the maze game, resulting in approximately $1000$
-data points used for training.
+correctly, based on the described metrics. The maze game was trained by the coder py playing the game
+multiple times and collecting the data.
 
 %\begin{figure}
 %\centering
@@ -427,15 +426,8 @@ data points used for training.
 Because the robot understands the maze game and the details of the
 performance metrics, it is able to generate the training data labels
 for a supervised model learning task.  We have used the Orange data
-mining API\footnote{http://orange.biolab.si} for running the
-regression.  The human behavioral metrics $H$ and the robot's
-self-generated task success metric $s$ are used to train a Random Forest Regression Learner (RF).RF have been
-used to learn enormous classifiers in very complex feature spaces. The maze game regression
-operates only in a low-dimensional feature space, so an RF is able to
-learn from our experimental data effortlessly, and the approach should
-scale to much more complex feature spaces.  The classifier is trained
-on $H$ and $s$.  The RF generates an optimized $g(H)$ by performing a
-regression on the relationship between $s$ and $H$.
+mining API\footnote{http://orange.biolab.si} for running the regression.  The human behavioral metrics $H$ and the robot's self-generated task success metric $s$ are used to train a Random Forest Regression Learner (RF).RF have been used to learn enormous classifiers in very complex feature spaces. The maze game regression operates only in a low-dimensional feature space, so an RF is able to learn from our experimental data effortlessly, and the approach should scale to much more complex feature spaces.  The classifier is trained
+on $H$ and $s$.  The RF generates an optimized $g(H)$ by performing a regression on the relationship between $s$ and $H$.
 %identifies a regression on the test data by minimizing the
 %following function:
 %\begin{equation*}
@@ -547,11 +539,11 @@ able to sense the existence of coins.  However, it can still compute
 $\hat{s} = g(H)$, and it can thus calculate an estimate of human
 cognitive capacity and reliability.
 
-In the coin game the human operator could interact with the robots using two interfaces; web browser (Fig.\ref{fig:web_interface_img}) and Rviz (Fig.\ref{fig:coin_map}). Among human operators ten people interacted with the robot remotely via web browser while playing the coin game. Whereas, ten other participated in the coin game being in the sane room where the game was staged via Rviz interface.
-While using web interface, in order to compare the robot's estimate of cognitive capacity with
-reality, test subjects were asked during the experiment to rate their
-own cognitive stress levels at 12-second intervals using a Likert
-scale. The human operators who participated using Rviz were given a physiological activity monitor\footnote{https://www.zephyranywhere.com/products/bioharness-3} to attach to their chest to monitor their heart rate, breathing rate, posture, ECG amplitudes and they were also being monitored by a human evaluator who rated and logged their cognitive stress level while they were playing the game. In other words human(coder) evaluator serves here as an subjective evaluator whreas the physiological metrics provides objective evaluation. Physiological metrics as objective evaluation along with subjective evaluation by the coder has been used and recommended in several works on human psycology\cite{Brookings1996361, Roscoe1992259}. We have found posture of human operator most likely correlates with subjective correlation with the code evaluation. One possible reason behind this is that posture is one of the visible observation that the coder can have while evaluating the operator. The coder rated stress level high when the operator tends to lean toward the screen of the computer when he or lean back on the chair. Other physiological metrics does not highly correlates with coder evaluation of stress level.
+In the coin game the human operator could interact with the robots using two interfaces; 
+%web browser (Fig.\ref{fig:web_interface_img}) and Rviz (Fig.\ref{fig:coin_map}). Among human operators ten people interacted with the robot remotely via web browser while playing the coin game. Whereas, 
+Ten test subjects participated in the coin game being in the same room where the game was staged via Rviz interface. The subjects were recruited by open announcement for volunteer participation in robotics experiment. 
+%While using web interface, in order to compare the robot's estimate of cognitive capacity with reality, test subjects were asked during the experiment to rate their own cognitive stress levels at 12-second intervals using a Likert scale. 
+The human operators who participated using Rviz were given a physiological activity monitor\footnote{https://www.zephyranywhere.com/products/bioharness-3} to attach to their chest to monitor their heart rate, breathing rate, posture, ECG amplitudes and they were also being monitored by a human evaluator who rated and logged their cognitive stress level while they were playing the game. In other words human(coder) evaluator serves here as an subjective evaluator whreas the physiological metrics provides objective evaluation. Physiological metrics as objective evaluation along with subjective evaluation by the coder has been used and recommended in several works on human psycology\cite{Brookings1996361, Roscoe1992259}. We have found posture of human operator most likely correlates with subjective correlation with the code evaluation. One possible reason behind this is that posture is one of the visible observation that the coder can have while evaluating the operator. The coder rated stress level high when the operator tends to lean toward the screen of the computer when he or lean back on the chair. Other physiological metrics does not highly correlates with coder evaluation of stress level.
 
 The coin game also had a autonomous assistant configuration where the robot starts to navigate the maze autonomously not knowing where the coin is. Robot can pick the coin if crossed over it.The autonomous mood was activated by the robot if it found the human operator to be untrustworthy; the stress level is higher than a threshold. The threshold that we have set for our experiment was 55\% based on the data that we have collected from the non autonomous or manual mood. If the ignorance time which is the duration while no commands were given to that particular robot was higher than a threshold the robot switched to autonomous mood as well. In autonomous mood robot assumes that the coin can show up anywhere in the maze thus moves towards the optimum way point from where it the expected distance from a coin is minimum. In other wors, we then define a decision function $\delta$ based on $\tilde{s}$.  This is intended to indicate whether the provided human assistance is qualitatively above or below that person's useful cognitive threshold $\theta$:
 
@@ -580,8 +572,7 @@ operating the robots in autonomous mode decreased the maximum runtime and yielde
 It is critical for interpreting the information in Fig. \ref{fig:coder_eval_1_2} or \ref{fig:pred_phy} to note that while the robot's cognitive load evaluation and the scoring technique for quantifying
 self-reported user stress both produce a result between zero and one
 \textit{their magnitudes are not directly comparable}.Whenever cognitive stress occurs or changes, the robot is able to recognize this increase for most cases in the
-tested scenarios, and the robot's evaluation agrees with self-reported
-user stress.
+tested scenarios, and the robot's evaluation agrees with self-reported user stress.
 
 \begin{figure}  
 \centering
