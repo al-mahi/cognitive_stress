@@ -45,17 +45,17 @@ def pred_vs_coder(num_robots):
                             posture[r[5]] = float(r[10])
                             activity_level[r[5]] = float(r[11])
                             ecg_amplitude[r[5]] = float(r[18])
-                    else:
+                    elif fname.startswith("output"):
                         rows.pop(0)
                         for row in rows:
                             r = row.split(",")
                             if len(r) < 2: break
                             model_predictions[r[4]] = (-1. * float(r[3]))
 
-    ax = plt.subplot(1, 2, 0+num_robots)
-    plt.xlabel("Models Estimation of Stress Level")
-    if num_robots == 1:
-        plt.ylabel("Coders Evaluation of Stress Level")
+    ax = plt.subplot(2, 1, num_robots)
+    if num_robots == 2:
+        plt.xlabel("Models Estimation of Stress Level")
+    plt.ylabel("Coders Evaluation of Stress Level")
     time_predictions = set(model_predictions.keys())
     time_observation = set(coder_evaluations.keys())
     common_times = time_predictions & time_observation
@@ -81,7 +81,7 @@ def pred_vs_coder(num_robots):
     plt.title("{} Robot".format(num_robots))
 
 
-fig = plt.figure(figsize=(8, 4))
+fig = plt.figure(figsize=(4, 8))
 pred_vs_coder(1)
 pred_vs_coder(2)
 ext = "eps"
