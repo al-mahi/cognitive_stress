@@ -60,7 +60,7 @@ def pred_vs_coder(num_robots):
 
     # ------------------------------------------------------------------------------------------------------------------
     ax = plt.subplot(2, 1, num_robots)
-    plt.ylabel("Physiological Evaluation of Stress Level")
+    plt.ylabel("Physiological Evaluation\nof Stress Level")
     time_observation_breat = set(breathing_rate.keys())
     common_times_breat = time_predictions & time_observation_breat
     predictions_breat = np.array([model_predictions.get(t) for t in common_times_breat])
@@ -76,17 +76,17 @@ def pred_vs_coder(num_robots):
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     textstr = "correlation\n $\\rho =$ {:.3}\n".format(rho)
     # place a text box in upper left in axes coords
-    ax.text(0.69, 0.21, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.85, 0.3, textstr, transform=ax.transAxes, fontsize='medium',
             verticalalignment='top', bbox=props)
     legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
     plt.title("{} Robot".format(num_robots))
     # plt.title("{} Robots".format(num_robots))
 
-    plt.ylabel("Physiological Evaluation of Stress Level")
+    plt.ylabel("Physiological Evaluation\nof Stress Level")
     if num_robots == 2:
         plt.xlabel("Models Estimation of Stress Level")
 
-fig = plt.figure(figsize=(4, 8))
+# fig = plt.figure(figsize=(4, 8))
 pred_vs_coder(1)
 pred_vs_coder(2)
 # pred_vs_coder(3)

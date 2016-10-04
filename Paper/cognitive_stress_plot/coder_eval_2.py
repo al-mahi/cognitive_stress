@@ -55,7 +55,7 @@ def pred_vs_coder(num_robots):
     ax = plt.subplot(2, 1, num_robots)
     if num_robots == 2:
         plt.xlabel("Models Estimation of Stress Level")
-    plt.ylabel("Coders Evaluation of Stress Level")
+    plt.ylabel("Coders Evaluation\nof Stress Level")
     time_predictions = set(model_predictions.keys())
     time_observation = set(coder_evaluations.keys())
     common_times = time_predictions & time_observation
@@ -75,13 +75,13 @@ def pred_vs_coder(num_robots):
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     textstr = "correlation\n $\\rho =$ {:.3}\n".format(rho1)
     # place a text box in upper left in axes coords
-    ax.text(0.69, 0.21, textstr, transform=ax.transAxes, fontsize='medium',
+    ax.text(0.85, 0.3, textstr, transform=ax.transAxes, fontsize='medium',
             verticalalignment='top', bbox=props)
     legend = plt.legend(loc='upper left', shadow=True, fontsize='medium')
     plt.title("{} Robot".format(num_robots))
 
 
-fig = plt.figure(figsize=(4, 8))
+# fig = plt.figure(figsize=(4, 8))
 pred_vs_coder(1)
 pred_vs_coder(2)
 ext = "eps"
