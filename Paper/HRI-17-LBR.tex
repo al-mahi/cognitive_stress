@@ -89,7 +89,7 @@ In the Maze Game,  vector of environmental measurements $E = [e_0, e_1, e_2]$.In
 would have planned for itself,$e_1$ is the \emph{collision} term, which penalizes collisions with walls, and $e_2$ is
 the \emph{time delay} term, the amount of time taken for the human to guide the robot through the maze, compared with
 the robot's estimate of the time it would have taken under its own power. The computation of $s = f(E)$ is a function
-for measuring success of the human directions , is a normalized summation of all ,metric in $E$.
+for measuring success of the human directions , is a normalized summation of all metric in $E$.
 
 By computing this value $s$, the robot can label its own data in order to train a supervised learning algorithm which
 will relate the success of a human-directed task with a set of measured behaviors $H = [h_0, h_1, h_2]$. For this particular experiment,$h_0$ is the \emph{decision interval}
@@ -118,9 +118,9 @@ increase for most cases in the tested scenarios, and the robot's evaluation agre
 \end{figure}
 
 Most important contribution of our model can has been demonstrated from the perspective of task success. The task
-success of the coin game is measured in term of number of coins collected within given time.Tab.\ref{tab:task_success}.
-It shows that autonomous assistance improves overall task success. In the context of this paper, it also supports the
-original hypothesis: robots can are able to reliably assess the cognitive strain their human partners are under, even in
+success of the coin game is measured in term of number of coins collected within given time. Task success score has been quantified as the duration of the game penalized by a constant score in case of a failure. Tab.\ref{tab:task_success}.
+It shows that autonomous assistance improves overall task success score. In the context of this paper, it also supports the
+original hypothesis: robots are able to reliably assess the cognitive strain their human partners are under, even in
 contexts where the actual tasks they are being asked to perform are opaque to the robot.
 
 \begin{figure}
