@@ -133,7 +133,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmu10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/ae/aeti9.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsl9.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/ae/aebx9.tfm
 INPUT prediction_vs_b_p_2.eps
 INPUT ./prediction_vs_b_p_2.eps
 INPUT ./prediction_vs_b_p_2.eps
@@ -143,6 +142,7 @@ INPUT ./prediction_vs_b_p_2.eps
 INPUT ./prediction_vs_b_p_2-eps-converted-to.pdf
 INPUT ./prediction_vs_b_p_2-eps-converted-to.pdf
 INPUT ./prediction_vs_b_p_2-eps-converted-to.pdf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/ae/aebx9.tfm
 INPUT BoxWiskerTimesCompMaualVsAuto2.eps
 INPUT ./BoxWiskerTimesCompMaualVsAuto2.eps
 INPUT ./BoxWiskerTimesCompMaualVsAuto2.eps
@@ -152,6 +152,15 @@ INPUT ./BoxWiskerTimesCompMaualVsAuto2.eps
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
+INPUT coder_eval_1_2.eps
+INPUT ./coder_eval_1_2.eps
+INPUT ./coder_eval_1_2.eps
+INPUT ./coder_eval_1_2-eps-converted-to.pdf
+INPUT ./coder_eval_1_2-eps-converted-to.pdf
+INPUT ./coder_eval_1_2.eps
+INPUT ./coder_eval_1_2-eps-converted-to.pdf
+INPUT ./coder_eval_1_2-eps-converted-to.pdf
+INPUT ./coder_eval_1_2-eps-converted-to.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/ae/aebx9.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
