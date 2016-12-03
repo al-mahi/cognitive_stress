@@ -65,7 +65,7 @@ new task. Human-robot interactions can be evaluated using fundamental metrics
 \cite{olsen2003metrics} like task effectiveness (TE), neglect tolerance (NT), free time (FT), fan out (FO).
 Physiological metrics as objective evaluation along with subjective evaluation for cognitive load estimate\cite{Brookings1996361}.
 
-\section{Technical Details} \subsection{Problem statement} Take $H=[h_1,h_2,\cdots,h_m]$ to be a vector of ecologically
+\section{Problem statement} Take $H=[h_1,h_2,\cdots,h_m]$ to be a vector of ecologically
 valid measurements of human behavior relevant to the problem space.  Assume a task for which a robot participant can
 independently calculate $s$ which is a function of a vector of measurable environmental features
 $E=[e_1,e_2,\cdots,e_n]$.  Thus, $s = f(E)$, where $f$ is a task-specific function known to the robot.  Using $f$ and
@@ -76,7 +76,9 @@ $H$ with task success $s$ within a known task, so the output of $g$ is a learned
 an analogue to $f$ or $s$ in this new task.  However, it can still measure the components of $H$, and it has access to
 its learned model $g$.  We show that computing $\hat{s}=g(H)$ in this new environment allows the robot to estimate not
 the task success, but the cognitive load on its human partner and an estimate of the quality of the human's direction.
-\subsection{Experimental design} Our experiments consisted two games, namely, the Maze and the Coin. Effectively
+
+\section{Experimental design} 
+Our experiments consisted two games, namely, the Maze and the Coin. Effectively
 navigating a Maze game has been demonstrated in literature \cite{crick2011human}. In the Mage game, the robot collected
 the data needed to build a model $g$ for evaluating the trustworthiness of user input $H$. In the subsequent Coin Game,
 the robot is placed in a different scenario, one in which it had no access to success measures or even rules; beyond the
@@ -98,7 +100,7 @@ $h_1$ is the \emph{error correction} term, which measures the tendency of a huma
 and then subsequently provide another before the task is complete, and , $h_2$ is the \emph{franticness} term, which
 characterizes erratic behavior for the control inputs.
 
-\subsection{Results} In general, the robot correctly predicts the cognitive load that its operator was under in every
+\section{Results} In general, the robot correctly predicts the cognitive load that its operator was under in every
 scenario Fig~\ref{fig:coder_eval_1_2}. From our experiments we
 have found that the cognitive load estimate from the robots using our model correlates with the coder evaluated stress
 level by a factor $\rho=.205$ and $\rho=.25$ for coin game played with one and two robots respectively. Our experiment
