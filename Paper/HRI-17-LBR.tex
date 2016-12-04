@@ -49,21 +49,17 @@ based upon this assessment.
   robot behavior design, quantitative field study, learning about the
   environment}
 
-\section{Introduction}
-One of the most challenging obstacles facing human-robot teams is the
-inherent communication barrier between the two. Human operators, at
-least once they have received training, have some notion concerning
-the capacities of their mechanized partners, but the ability of robots
-to assess the limitations of humans has not received adequate
-attention.
+\section{Introduction} One of the most challenging obstacles facing human-robot teams is the inherent communication
+barrier between the two. Human operators, at least once they have received training, have some notion concerning the
+capacities of their mechanized partners, but the ability of robots to assess the limitations of humans has not received
+adequate attention.
 
 The robot is trained to associate human directions with task quality for a well-understood task, in this case, the
-navigation of a maze. The robot may then apply this learned model to a
-different problem while still being able to evaluate a human operator's
-cognitive load. Even without the ability to understand the end goal of this
-new task. Human-robot interactions can be evaluated using fundamental metrics
-\cite{olsen2003metrics} like task effectiveness (TE), neglect tolerance (NT), free time (FT), fan out (FO).
-Physiological metrics as objective evaluation along with subjective evaluation for cognitive load estimate\cite{Brookings1996361}.
+navigation of a maze. The robot may then apply this learned model to a different problem while still being able to
+evaluate a human operator's cognitive load. Even without the ability to understand the end goal of this new task. Human-
+robot interactions can be evaluated using fundamental metrics \cite{olsen2003metrics} like task effectiveness (TE),
+neglect tolerance (NT), free time (FT), fan out (FO). Physiological metrics as objective evaluation along with
+subjective evaluation for cognitive load estimate has been also studied in psychology\cite{Brookings1996361}.
 
 \section{Problem statement} Take $H=[h_1,h_2,\cdots,h_m]$ to be a vector of ecologically
 valid measurements of human behavior relevant to the problem space.  Assume a task for which a robot participant can
@@ -120,31 +116,34 @@ increase for most cases in the tested scenarios, and the robot's evaluation agre
 \end{figure}
 
 Most important contribution of our model can has been demonstrated from the perspective of task success. The task
-success of the coin game is measured in term of number of coins collected within given time. Task success score has been quantified as the duration of the game penalized by a constant score in case of a failure. Tab.\ref{tab:task_success}.
-It shows that autonomous assistance improves overall task success score. In the context of this paper, it also supports the
-original hypothesis: robots are able to reliably assess the cognitive strain their human partners are under, even in
-contexts where the actual tasks they are being asked to perform are opaque to the robot.
+success of the coin game is measured in term of number of coins collected within given time. Task success score has been
+quantified as the duration of the game penalized by a constant score in case of a failure. Autonomous assistance was
+activated on detection of high stress level predicted by our model. Tab.\ref{tab:task_success} shows that autonomous
+assistance improves overall task success score. In the context of this paper, it also supports the original hypothesis:
+robots are able to reliably assess the cognitive strain their human partners are under, even in contexts where the
+actual tasks they are being asked to perform are opaque to the robot.
 
 \begin{figure}
 \centering
 \includegraphics[width=.5\textwidth]{BoxWiskerTimesCompMaualVsAuto2.eps}
-\caption{Comparison of task task success for task involving one and two robots operating in both manual and autonomous modes. Task success has been quantified as task completion time with additional penalty for failure to complete the task (loosing the Coin game).}
+\caption{Comparison of task task success score for task involving one and two robots operating in both manual and autonomous assistance modes.}
 \label{fig:BoxWiskersTimeComp}
 \end{figure}
 
-\begin{table}[] \centering \caption{Task success comparisons between autonomous assistance mood and manual mood.
-Autonomous assistance was activated on detection of high stress level predicted by our model.} \label{tab:task_success}
+\begin{table}[] \centering \caption{Task success comparisons between autonomous assistance mood and manual mood.}
+\label{tab:task_success}
 \begin{tabular}{@{}|c|c|c|c|c|@{}} \toprule Game Mode & \multicolumn{2}{c|}{Manual} &
 \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Autonomous \\ Assistance on high\\ Stress level\end{tabular}} \\ \midrule
 \begin{tabular}[c]{@{}c@{}}Number of\\ Robots\\ Participated\end{tabular} & one     & two  & one  & two  \\ \midrule
 \begin{tabular}[c]{@{}c@{}}Number of Failure/\\ Total Number\\ of Game Played\end{tabular} & 3/7 & 3/7 & 0/10 & 1/10 \\
 \midrule \begin{tabular}[c]{@{}c@{}}Task Success Score\\ per game\end{tabular}                & 318  & 355  & 170  &
-258.2   \\ \bottomrule \end{tabular} \end{table}
+258.2   \\ \bottomrule \end{tabular} 
+\end{table}
 
 \begin{figure}
 \centering
 \includegraphics[width=.5\textwidth]{coder_eval_1_2.eps}
-\caption{Cognitive load of human operators in Coin Game experiments with differing numbers of robots and steadily increasing task complexity. The robots' predictions fairly correlates with the coder evaluation of cognitive load estimate.}
+\caption{Cognitive load of human operators in Coin Game experiments with differing numbers of robots and steadily increasing task complexity.}
 \label{fig:coder_eval_1_2}
 \end{figure}
 
