@@ -68,8 +68,6 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/ae/t1aer.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/ae/aer9.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 INPUT Output/HRI-17-LBR.aux
 INPUT Output/HRI-17-LBR.aux
 OUTPUT Output/HRI-17-LBR.aux
@@ -152,15 +150,6 @@ INPUT ./BoxWiskerTimesCompMaualVsAuto2.eps
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
 INPUT ./BoxWiskerTimesCompMaualVsAuto2-eps-converted-to.pdf
-INPUT coder_eval_1_2.eps
-INPUT ./coder_eval_1_2.eps
-INPUT ./coder_eval_1_2.eps
-INPUT ./coder_eval_1_2-eps-converted-to.pdf
-INPUT ./coder_eval_1_2-eps-converted-to.pdf
-INPUT ./coder_eval_1_2.eps
-INPUT ./coder_eval_1_2-eps-converted-to.pdf
-INPUT ./coder_eval_1_2-eps-converted-to.pdf
-INPUT ./coder_eval_1_2-eps-converted-to.pdf
 INPUT Output/HRI-17-LBR.bbl
 INPUT Output/HRI-17-LBR.bbl
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/ae/aebx9.vf
