@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex Output/HRI-17-LBR"] 1480917782 "Output/HRI-17-LBR.aux" "Output/HRI-17-LBR.bbl" "Output/HRI-17-LBR" 1480917782
+["bibtex Output/HRI-17-LBR"] 1480917782 "Output/HRI-17-LBR.aux" "Output/HRI-17-LBR.bbl" "Output/HRI-17-LBR" 1480918042
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/abbrv.bst" 1292289607 20329 b5fed53e10044d0f8112183785c759b1 ""
-  "Output/HRI-17-LBR.aux" 1480917782 1348 dfd80143186e979041ac1ce5b0f1e0ac ""
+  "Output/HRI-17-LBR.aux" 1480918042 1348 dfd80143186e979041ac1ce5b0f1e0ac ""
   "Output/HRI-17-LBR.bcf" 0 -1 0 ""
   "sigproc-2.bib" 1475552878 13053 f6244636fdf7545d4ec8b1998a624d66 ""
   (generated)
   "Output/HRI-17-LBR.blg"
   "Output/HRI-17-LBR.bbl"
-["pdflatex"] 1480917782 "/home/alien/Conferences/HRI-2017/cognitive_stress/Paper/HRI-17-LBR.tex" "Output/HRI-17-LBR.pdf" "HRI-17-LBR" 1480917782
+["pdflatex"] 1480918042 "/home/alien/Conferences/HRI-2017/cognitive_stress/Paper/HRI-17-LBR.tex" "Output/HRI-17-LBR.pdf" "HRI-17-LBR" 1480918042
   "/etc/texmf/web2c/texmf.cnf" 1463318831 1101 af7716885e081ab43982cab7b4672c1a ""
-  "/home/alien/Conferences/HRI-2017/cognitive_stress/Paper/HRI-17-LBR.tex" 1480917781 12081 36e14571d9bb9e4d4cd34a5d175d14db ""
+  "/home/alien/Conferences/HRI-2017/cognitive_stress/Paper/HRI-17-LBR.tex" 1480918041 12083 6d41d4b351075cec418c7177c1f12bc4 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1136768653 4484 b828043cbd581d289d955903c1339981 ""
@@ -106,8 +106,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1463318931 1863403 f3ff9a4253bcb5fb9a9baaf0c572cb01 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1463319001 3853386 ff6c687e7eb8d765702f16c8e4b8ce3d ""
   "BoxWiskerTimesCompMaualVsAuto2.eps" 1480724478 28371 3456da2ac8822b52d078e1c1996ccf96 ""
-  "HRI-17-LBR.tex" 1480917781 12081 36e14571d9bb9e4d4cd34a5d175d14db ""
-  "Output/HRI-17-LBR.aux" 1480917782 1348 dfd80143186e979041ac1ce5b0f1e0ac ""
+  "HRI-17-LBR.tex" 1480918041 12083 6d41d4b351075cec418c7177c1f12bc4 ""
+  "Output/HRI-17-LBR.aux" 1480918042 1348 dfd80143186e979041ac1ce5b0f1e0ac ""
   "Output/HRI-17-LBR.bbl" 1480917782 1509 9d4f5b029d88fc7b8183ba8be039c824 "bibtex Output/HRI-17-LBR"
   "prediction_vs_b_p_2.eps" 1475547330 61591 9946e6356561bbd654fafa17841b950b ""
   "sig-alternate.cls" 1475543516 59796 cd12d5dad7257bc285bd1140dbab6047 ""
