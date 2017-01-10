@@ -1,9 +1,9 @@
-PWD /home/alien/Conferences/HRI-2017/cognitive_stress/Paper
+PWD /home/alien/Conferences/HRI-17-LBR/cognitive_stress/Paper
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/alien/Conferences/HRI-2017/cognitive_stress/Paper/HRI-17-LBR.tex
+INPUT /home/alien/Conferences/HRI-17-LBR/cognitive_stress/Paper/HRI-17-LBR.tex
 OUTPUT Output/HRI-17-LBR.log
 INPUT sig-alternate.cls
 INPUT sig-alternate.cls
