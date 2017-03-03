@@ -112,14 +112,15 @@ Our goal is to build a model for robots so that they can
 \end{multicols}
 }
 
-\headerbox{Motivations and Contributions}{name=motivations,column=0,span=1,below=objectives}{ 
+\headerbox{Motivations}{name=motivations,column=0,span=1,below=objectives}{ 
 	\textbf{Motivation:}
     \begin{itemize}
     \item Overcome inherent communication barrier between human and robot
     \item Controlling multiple robots becomes impossible: cognitive load, heterogeneous robots
     \item Complete automation impossible: new task environment
     \item Robots need to assess cognitive capacity of human-robot team for mutual benefits\cite{crandall2005validating}
-    \end{itemize}
+    \end{itemize}}
+\headerbox{Contributions}{name=contributions,column=0,span=1,below=motivations}{ 
     \textbf{Contributions:}
     We produced a robot that can
     \begin{itemize}
@@ -130,11 +131,11 @@ Our goal is to build a model for robots so that they can
     \end{itemize}
 }
 
-\headerbox{Physiological Metrics}{name=trivial,column=0,below=motivations}{
+\headerbox{Physiological Metrics}{name=trivial,column=0,below=contributions}{
   \begin{minipage}{\textwidth}
-  \pgfdeclareimage[height=2.35cm, width = 6.5 cm]{bioharness}{./figures/bioharness}
+  \pgfdeclareimage[height=2 cm, width = 6.5 cm]{bioharness}{./figures/bioharness}
   \pgfuseimage{bioharness}
-  Trivial fundamental metrics\cite{olsen2003metrics} of measuring the behavioral indicators (i.e. ECG,EEG) has following drawbacks:
+  Fundamental metrics\cite{olsen2003metrics} of measuring the behavioral indicators (i.e. ECG,EEG) has following drawbacks:
   \begin{itemize}
   	\item hard to set up in generic task environments
   	\item a generic method to assess cognitive load should work with simple metric
@@ -148,7 +149,7 @@ Our goal is to build a model for robots so that they can
   	\begin{minipage}{\textwidth}
   	    $E=[e_1,\dots,e_n]$ is measurable environmental features of task success.\\
   	    $H=[h_1,\dots,h_n]$ is behavioral metrics which are ecologically valid for a navigation task.
-  	    \pgfdeclareimage[height= 2.5 cm, width = 7 cm]{metrics_E_H}{./figures/metrics_E_H}
+  	    \pgfdeclareimage[height= 2 cm, width = 6.5 cm]{metrics_E_H}{./figures/metrics_E_H}
   	    \centering
   		\pgfuseimage{metrics_E_H}
   	\end{minipage}
