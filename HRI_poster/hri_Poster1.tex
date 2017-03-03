@@ -112,16 +112,25 @@ Our goal is to build a model for robots so that they can
 \end{multicols}
 }
 
-\headerbox{Motivations}{name=motivations,column=0,span=1,below=objectives}{ 
+\headerbox{Motivations and Contributions}{name=motivations,column=0,span=1,below=objectives}{ 
+	\textbf{Motivation:}
     \begin{itemize}
     \item Overcome inherent communication barrier between human and robot
     \item Controlling multiple robots becomes impossible: cognitive load, heterogeneous robots
     \item Complete automation impossible: new task environment
     \item Robots need to assess cognitive capacity of human-robot team for mutual benefits\cite{crandall2005validating}
     \end{itemize}
+    \textbf{Contributions:}
+    We produced a robot that can
+    \begin{itemize}
+    \item Compute a success metric
+    \item Connect observed human behavior to the task success.
+    \item Learned model of human behavior is still useful in tasks when the robot can no longer self-evaluate.
+ 
+    \end{itemize}
 }
 
-\headerbox{Trivial Methods}{name=trivial,column=0,below=motivations}{
+\headerbox{Physiological Metrics}{name=trivial,column=0,below=motivations}{
   \begin{minipage}{\textwidth}
   \pgfdeclareimage[height=2.35cm, width = 6.5 cm]{bioharness}{./figures/bioharness}
   \pgfuseimage{bioharness}
@@ -137,18 +146,11 @@ Our goal is to build a model for robots so that they can
 \headerbox{Feature Metrics}{name=contributions,column=0,below=trivial}{
 %  \vspace{0.5em}
   	\begin{minipage}{\textwidth}
-  	    $E$ is measurable environmental features of task success
-  		\begin{itemize}
-  		\item $e_0$ is the \emph{disparity}
-  		\item $e_1$ is the \emph{collision} 
-  		\item $e_2$ is the \emph{time delay}
-  		\end{itemize}
-  		$H$ is human behavioral metrics which are ecologically valid for a navigation direction task
-  		\begin{itemize}
-  		\item $h_0$ is the \emph{decision interval}
-  		\item $h_1$ is the \emph{error correction}
- 		\item $h_2$ is the \emph{franticness}
-  		\end{itemize}
+  	    $E=[e_1,\dots,e_n]$ is measurable environmental features of task success.\\
+  	    $H=[h_1,\dots,h_n]$ is behavioral metrics which are ecologically valid for a navigation task.
+  	    \pgfdeclareimage[height= 2.5 cm, width = 7 cm]{metrics_E_H}{./figures/metrics_E_H}
+  	    \centering
+  		\pgfuseimage{metrics_E_H}
   	\end{minipage}
 }
 
