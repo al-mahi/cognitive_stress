@@ -171,56 +171,34 @@ Our goal is to build a model for robots so that they can
   \pgfuseimage{coin}
   \captionof{figure}{Interface to human operator for Coin game.}
   \end{minipage}
-  \begin{minipage}{.5\textwidth}
-  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{coin}{./figures/coin_game_rviz}
-  The rule of Coin game(Fig.2) was similar to Maze game except in
-  \\\textbf{Coin Game:}
+
+  % Coin Game
+  \begin{minipage}{.48\textwidth}
+  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{res1}{./figures/BoxWiskerTimesCompMaualVsAuto2}
+  \textbf{Coin Game:}
   \begin{itemize}
-  	\item The goal is to navigate to corresponding coin location 
+  	\item The goal is to collect 5 coins instead of completing the maze
   	\item The timeout for completion next goal is decremented after each coin collection
+  	\item We collected H metrics from the experiment which was input to the model to estimate stress $\hat{s}$
+  	\item On detection high stress robot started navigating autonomously
   \end{itemize}
   \centering
-  \pgfuseimage{coin}
-  \captionof{figure}{Interface to human operator for Coin game.}
+  \pgfuseimage{res1}
+  \captionof{figure}{\textbf{Learned model's contribution to task success:} Coin game task penalties in manual vs. autonomous assistance
+  modes across 34 test subjects. $p < 0.05$ in both instances.}
   \end{minipage}
   \end{multicols}
 }
 
-\headerbox{Prediction vs Physiological Evidence}{name=demos,column=1,below=methodology}{ 
-  \pgfdeclareimage[height= 2.5 cm, width = 3.5 cm]{box}{./figures/boxplot}
-  %\pgfdeclareimage[height= 2.5 cm, width = 3.5 cm]{boxa}{./figures/box_actions}
-  \pgfdeclareimage[height= 2.5 cm, width = 3.0 cm]{iti}{./figures/iterative}
-  
-	\begin{itemize}
-	\item Comparison for truck loading task: Better performance in guided mode
-          %		\item The task was performed more efficiently in the ``guided'' mode.
-	\end{itemize}
-	\vspace{-1.5em}
-        %	\begin{minipage}{.15\textwidth}
-	\centering
-	\pgfuseimage{box} 
-	%	\captionof{figure}{Cluster Input}
-        %	\end{minipage}
-        %	\begin{minipage}{.15\textwidth}
-	%\centering
-	%\pgfuseimage{boxa} %
-	\begin{minipage}{0.9\textwidth}
-	  \captionof{figure}{Completion time for the two modes}\label{comp}
-	\end{minipage}
-	
-	\vspace{-1em}
-	\begin{minipage}{.60\textwidth}
-	  \begin{itemize}
-	  \item Performance comparison between first and second cycle.
-	    
-	  \end{itemize}
-	  
-	\end{minipage}		
-        %	\end{minipage}
-	\begin{minipage}{.35\textwidth}
-	  
-	  \pgfuseimage{iti} %
-	\end{minipage}      
+\headerbox{Prediction vs Evidence}{name=demos,column=1,below=methodology}{ 
+  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{res2}{./figures/prediction_vs_b_p_2.png}
+  The robot correctly predicts an operator's cognitive load. Figure Fig. shows modest correlation between
+physiological evidence  of an operator and the robot's estimation of stress.
+  \centering
+  \pgfuseimage{res2}
+  \captionof{figure}{Robot's estimated cognitive stress level modestly correlates
+  with physiological metrics (breathing rate measured with a Bioharness).}
+
 }
 
 \headerbox{References}{name=references,column=2,below=methodology}{
@@ -229,7 +207,7 @@ Our goal is to build a model for robots so that they can
   \nocite{*} 
   \small{
     \bibliographystyle{unsrt}
-    \bibliography{sigproc-2} 
+    \bibliography{posterbib}
     
   }
 }
