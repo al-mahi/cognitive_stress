@@ -1,11 +1,10 @@
-\documentclass[portrait,a0paper,fontscale=0.28]{baposter} % Adjust the font scale/size here
+\documentclass[portrait,a1paper,fontscale=0.4]{baposter} % Adjust the font scale/size here
 
 \usepackage{graphicx} % Required for including images
 \graphicspath{{figures/}} % Directory in which figures are stored
 
 \usepackage{amsmath} % For typesetting math
 \usepackage{amssymb} % Adds new symbols to be used in math mode
-
 
 %\usepackage{subfigure,float}
 %\usepackage{subfig}
@@ -67,7 +66,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %----------------------------------------------------------------------------------------
 %
 {\includegraphics[height=4em]{OSUlogo}} % First university/lab logo on the left
-{\bf\textsc{Learning to Assess the Cognitive Capacity of Human Partners}} % Poster title\vspace{0.5em}
+{\bf\textsc{Learning to assess the cognitive capacity of human partners}} % Poster title\vspace{0.5em}
 {\textsc{S. M. al Mahi, Matthew Atkins and Christopher Crick\\Oklahoma State University\hspace{12pt} }} % Author names and institution
 % {\includegraphics[height=3em]{tamu-logo}} % Second university/lab logo on the right
 
@@ -78,13 +77,13 @@ linewidth=2pt % Width of the border lines around content boxes
 \headerbox{Objectives}{name=objectives,column=0,row=0}{
 
 
-Our goal is to build a model for robots so that they can
+Enable robots to:
 \begin{itemize}\compresslist
 	
-\item learn to assess cognitive capacity of a human partner.
-\item can act autonomously based on that. 
-\item reduce the human decision burden.
-\item help improving task performance.
+\item Learn to assess cognitive capacity of a human partner.
+\item Choose their level of autonomy based on this cognitive assessment.
+\item Reduce the human decision burden.
+\item Improve task performance in difficult, chaotic and dynamic circumstances.
 
 \end{itemize}
 
@@ -106,7 +105,7 @@ Our goal is to build a model for robots so that they can
 	 	\centering
 	 	\pgfuseimage{maze} %
        \end{minipage}\vspace{1em}
-       \captionof{figure}{Experimental setup of Maze Game experiment for training model to predict Cognitive Stress}
+       \captionof{figure}{Experimental setup of maze game experiment for training model to predict cognitive stress}
    \end{minipage}
 
 \end{multicols}
@@ -115,79 +114,82 @@ Our goal is to build a model for robots so that they can
 \headerbox{Motivations}{name=motivations,column=0,span=1,below=objectives}{ 
 	\textbf{Motivation:}
     \begin{itemize}
-    \item Overcome inherent communication barrier between human and robot
-    \item Controlling multiple robots becomes impossible: cognitive load, heterogeneous robots
+    \item Inherent communication barriers between human and robot
+    \item Controlling multiple robots becomes impossible: cognitive
+      load, heterogeneous robots
     \item Complete automation impossible: new task environment
-    \item Robots need to assess cognitive capacity of human-robot team for mutual benefits\cite{crandall2005validating}
+    \item Robots need to assess cognitive capacity of human-robot team
+      for mutual benefits\cite{crandall2005validating}
     \end{itemize}}
 \headerbox{Contributions}{name=contributions,column=0,span=1,below=motivations}{ 
     \textbf{Contributions:}
-    We produced a robot that can
+    We produce a robot that can:
     \begin{itemize}
-    \item Compute a success metric
+    \item Compute a success metric.
     \item Connect observed human behavior to the task success.
-    \item Learned model of human behavior is still useful in tasks when the robot can no longer self-evaluate.
+    \item Learned model of human behavior is still useful in tasks
+      when the robot can no longer self-evaluate.
  
     \end{itemize}
 }
 
-\headerbox{Physiological Metrics}{name=trivial,column=0,below=contributions}{
+\headerbox{Physiological metrics}{name=trivial,column=0,below=contributions}{
   \begin{minipage}{\textwidth}
   \pgfdeclareimage[height=2 cm, width = 6.5 cm]{bioharness}{./figures/bioharness}
   \pgfuseimage{bioharness}
-  Fundamental metrics\cite{olsen2003metrics} of measuring the behavioral indicators (i.e. ECG,EEG) has following drawbacks:
-  \begin{itemize}
-  	\item hard to set up in generic task environments
-  	\item a generic method to assess cognitive load should work with simple metric
-  	\item can be useful as baseline
+  Traditional metrics\cite{olsen2003metrics} for behavioral indicators (i.e. ECG,EEG) have drawbacks:
+  \begin{itemize}\compresslist
+  	\item Difficult to deploy in real-world task environments.
+  	\item Instruments measure something different from task performance (correlation not strong, as seen below).
+  	\item Still useful as baseline to evaluate other approaches.
   \end{itemize}  
   \end{minipage}
 }
 
 \headerbox{Feature Metrics}{name=contributions,column=0,below=trivial}{
 %  \vspace{0.5em}
-  	\begin{minipage}{\textwidth}
-  	    $E=[e_1,\dots,e_n]$ is measurable environmental features of task success.\\
-  	    $H=[h_1,\dots,h_n]$ is behavioral metrics which are ecologically valid for a navigation task.
-  	    \pgfdeclareimage[height= 2 cm, width = 6.5 cm]{metrics_E_H}{./figures/metrics_E_H}
-  	    \centering
-  		\pgfuseimage{metrics_E_H}
-  	\end{minipage}
+  \begin{minipage}{\textwidth}
+    $E=[e_1,\dots,e_n]$ are measurable environmental features of task success.\\
+    $H=[h_1,\dots,h_n]$ are human behavioral metrics which are ecologically valid for a navigation task.
+    \pgfdeclareimage[width=6.5 cm]{metrics_E_H}{./figures/metrics_E_H}
+    \centering
+    \pgfuseimage{metrics_E_H}
+  \end{minipage}
 }
-
 
 \headerbox{Experiments and Results }{name=methodology,column=1,span=2,below=overview}{
   \begin{multicols}{2}
   \begin{minipage}{.5\textwidth}
-  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{coin}{./figures/coin_game_rviz}
+  \pgfdeclareimage[width = 5.5 cm]{coin}{./figures/coin_game_rviz}
   Our experiments consisted of two games, maze navigation\cite{crick2011human} and coin collection.
-  \\\textbf{Mage Game:}
+  \\\textbf{Maze game:}
   \begin{itemize}
-  	\item The task in this game is to complete a maze(Fig.1) by instructing Turtlebot robot
-  	\item The game is 2 min. long and collision with walls are negatively rewarded
-  	\item The games complexity evolves in succession
-  	\item Mage Game was used to collect the metrics in E and calculate the success score s
-  	\item The underlying function was modeled using E and s by using Random Forest learner
+  	\item The task in this game is to complete a maze (Fig.1) by controlling one or more Turtlebot robots
+  	\item 2 min. long; collisions with walls are negatively rewarded
+  	\item Complexity increases over time.
+  	\item The maze game was used to collect the metrics in $E$ and calculate the success score $s$
+  	\item The underlying function was modeled using $E$ and $s$ by
+          using a random forest learning algorithm
   \end{itemize}
   \centering
   \pgfuseimage{coin}
-  \captionof{figure}{Interface to human operator for Coin game.}
+  \captionof{figure}{Interface to human operator for coin game.}
   \end{minipage}
 
   % Coin Game
   \begin{minipage}{.48\textwidth}
-  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{res1}{./figures/BoxWiskerTimesCompMaualVsAuto2}
+  \pgfdeclareimage[width = 5.5 cm]{res1}{./figures/BoxWiskerTimesCompMaualVsAuto2}
   \textbf{Coin Game:}
   \begin{itemize}
   	\item The goal is to collect 5 coins instead of completing the maze
-  	\item The timeout for completion next goal is decremented after each coin collection
-  	\item We collected H metrics from the experiment which was input to the model to estimate stress $\hat{s}$
-  	\item On detection high stress robot started navigating autonomously
+  	\item The timeout for completing the next goal is decremented after each coin collection
+  	\item Human behavioral metrics $H$ were evaluated by the learned model to estimate stress $\hat{s}$
+  	\item Under one test condition, robot navigated autonomously upon detecting high cognitive stress
   \end{itemize}
-  \centering
-  \pgfuseimage{res1}
-  \captionof{figure}{\textbf{Learned model's contribution to task success:} Coin game task penalties in manual vs. autonomous assistance
-  modes across 34 test subjects. $p < 0.05$ in both instances.}
+  \centering \pgfuseimage{res1} \captionof{figure}{\textbf{Learned
+      model's contribution to task success:} Coin game task penalties
+    in manual vs. autonomous assistance modes across 34 test
+    subjects. $p < 0.05$ in both instances.}
   \end{minipage}
   \end{multicols}
 }
@@ -199,7 +201,7 @@ Our goal is to build a model for robots so that they can
   \centering
   \pgfuseimage{res2}
   \captionof{figure}{Robot's estimated cognitive stress level modestly correlates
-  with physiological metrics (breathing rate measured with a Bioharness).}
+  with physiological metrics (breathing rate measured with a bioharness).}
 }
 
 \headerbox{References}{name=references,column=2,below=methodology}{
