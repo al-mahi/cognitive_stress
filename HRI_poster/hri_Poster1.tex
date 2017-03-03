@@ -1,0 +1,240 @@
+\documentclass[portrait,a0paper,fontscale=0.28]{baposter} % Adjust the font scale/size here
+
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Directory in which figures are stored
+
+\usepackage{amsmath} % For typesetting math
+\usepackage{amssymb} % Adds new symbols to be used in math mode
+
+
+%\usepackage{subfigure,float}
+%\usepackage{subfig}
+%\usepackage{subfloat}
+%\usepackage{subcaption}
+%\usepackage{float}
+\usepackage{pgf}
+%\usepackage{minipage}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows,backgrounds}
+\usetikzlibrary{positioning,fit,calc}
+\usepackage{scalefnt}
+\usepackage{graphicx}
+\usepackage[labelfont+=small]{subcaption}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{booktabs} % Top and bottom rules for tables
+\usepackage{enumitem} % Used to reduce itemize/enumerate spacing
+\usepackage{palatino} % Use the Palatino font
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+
+\usepackage{multicol} % Required for multiple columns
+\setlength{\columnsep}{1.5em} % Slightly increase the space between columns
+\setlength{\columnseprule}{0mm} % No horizontal rule between columns
+
+\usepackage{tikz} % Required for flow chart
+\usetikzlibrary{shapes,arrows} % Tikz libraries required for the flow chart in the template
+
+\newcommand{\compresslist}{ % Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{itemize}
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+}
+
+\definecolor{lightblue}{rgb}{0.145,0.6666,1} % Defines the color used for content box headers
+
+\begin{document}
+
+\begin{poster}
+{
+headerborder=closed, % Adds a border around the header of content boxes
+colspacing=1em, % Column spacing
+bgColorOne=white, % Background color for the gradient on the left side of the poster
+bgColorTwo=white, % Background color for the gradient on the right side of the poster
+borderColor=orange, % Border color
+headerColorOne=orange, % Background color for the header in the content boxes (left side)
+headerColorTwo=orange, % Background color for the header in the content boxes (right side)
+headerFontColor=white, % Text color for the header text in the content boxes
+boxColorOne=white, % Background color of the content boxes
+textborder=roundedleft, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
+eyecatcher=true, % Set to false for ignoring the left logo in the title and move the title left
+headerheight=0.1\textheight, % Height of the header
+headershape=roundedright, % Specify the rounded corner in the content box headers, can be: rectangle, small-rounded, roundedright, roundedleft or rounded
+headerfont=\Large\bf\textsc, % Large, bold and sans serif font in the headers of content boxes
+%textfont={\setlength{\parindent}{1.5em}}, % Uncomment for paragraph indentation
+linewidth=2pt % Width of the border lines around content boxes
+}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+%
+{\includegraphics[height=4em]{OSUlogo}} % First university/lab logo on the left
+{\bf\textsc{Learning to Assess the Cognitive Capacity of Human Partners}} % Poster title\vspace{0.5em}
+{\textsc{S. M. al Mahi, Matthew Atkins and Christopher Crick\\Oklahoma State University\hspace{12pt} }} % Author names and institution
+% {\includegraphics[height=3em]{tamu-logo}} % Second university/lab logo on the right
+
+%----------------------------------------------------------------------------------------
+%	OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\headerbox{Objectives}{name=objectives,column=0,row=0}{
+
+
+Our goal is to build a model for robots so that they can
+\begin{itemize}\compresslist
+	
+\item learn to assess cognitive capacity of a human partner.
+\item can act autonomously based on that. 
+\item reduce the human decision burden.
+\item help improving task performance.
+
+\end{itemize}
+
+%\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+}
+
+
+\headerbox{Overview of the Model}{name=overview,column=1,span=2,row=0}{
+\centering
+\begin{multicols}{2}
+  \begin{minipage}{.52\textwidth}
+  	\pgfdeclareimage[height=5.1cm, width =\textwidth]{overview}{./figures/stress_model}
+  	\pgfuseimage{overview}
+  \end{minipage}
+  
+  \begin{minipage}{.4\textwidth}
+       \pgfdeclareimage[height= 4 cm, width = 5.5cm]{maze}{./figures/robots-in-maze}
+       \begin{minipage}{0.35\textwidth}
+	 	\centering
+	 	\pgfuseimage{maze} %
+       \end{minipage}\vspace{1em}
+       \captionof{figure}{Experimental setup of Maze Game experiment for training}
+   \end{minipage}
+
+\end{multicols}
+}
+
+\headerbox{Motivations}{name=motivations,column=0,span=1,below=objectives}{ 
+    \begin{itemize}
+    \item Overcome inherent communication barrier between human robot
+    \item Controlling multiple robots becomes impossible: cognitive load, heterogeneous robots
+    \item Complete automation impossible: new task environment
+    \item Robots must asses human cognitive load in human robot-team
+    \item Robots need to assess cognitive capacity of human robot team 
+    \end{itemize}
+}
+
+\headerbox{Trivial Methods}{name=trivial,column=0,below=motivations}{
+  \begin{minipage}{\textwidth}
+  \pgfdeclareimage[height=2.35cm, width = 6.5 cm]{bioharness}{./figures/bioharness}
+  \pgfuseimage{bioharness}
+  Trivial fundamental metrics\cite{olsen2003metrics} of measuring the behavioral indicators (i.e. ECG,EEG) has following drawbacks:
+  \begin{itemize}
+  	\item hard to set up in generic task environments
+  	\item a generic method to assess cognitive load should work with simple metric
+  	\item can be useful as baseline
+  \end{itemize}  
+  \end{minipage}
+}
+
+\headerbox{Feature Metrics}{name=contributions,column=0,below=trivial}{
+%  \vspace{0.5em}
+  	\begin{minipage}{\textwidth}
+  	    $E$ is measurable environmental features of task success
+  		\begin{itemize}
+  		\item $e_0$ is the \emph{disparity}
+  		\item $e_1$ is the \emph{collision} 
+  		\item $e_2$ is the \emph{time delay}
+  		\end{itemize}
+  		$H$ is human behavioral metrics which are ecologically valid for a navigation direction task
+  		\begin{itemize}
+  		\item $h_0$ is the \emph{decision interval}
+  		\item $h_1$ is the \emph{error correction}
+ 		\item $h_2$ is the \emph{franticness}
+  		\end{itemize}
+  	\end{minipage}
+}
+
+
+\headerbox{Experiments and Results }{name=methodology,column=1,span=2,below=overview}{
+  \begin{multicols}{2}
+  \begin{minipage}{.5\textwidth}
+  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{coin}{./figures/coin_game_rviz}
+  Our experiments consisted of two games, maze navigation\cite{crick2011human} and coin collection.
+  \\\textbf{Mage Game:}
+  \begin{itemize}
+  	\item The task in this game is to complete a maze(Fig.1) by instructing Turtlebot robot
+  	\item The game is 2 min. long and collision with walls are negatively rewarded
+  	\item The games complexity evolves in succession
+  	\item Mage Game was used to collect the metrics in E and calculate the success score s
+  	\item The underlying function was modeled using E and s by using Random Forest learner
+  \end{itemize}
+  \centering
+  \pgfuseimage{coin}
+  \captionof{figure}{Interface to human operator for Coin game.}
+  \end{minipage}
+  \begin{minipage}{.5\textwidth}
+  \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{coin}{./figures/coin_game_rviz}
+  The rule of Coin game(Fig.2) was similar to Maze game except in
+  \\\textbf{Coin Game:}
+  \begin{itemize}
+  	\item The goal is to navigate to corresponding coin location 
+  	\item The timeout for completion next goal is decremented after each coin collection
+  \end{itemize}
+  \centering
+  \pgfuseimage{coin}
+  \captionof{figure}{Interface to human operator for Coin game.}
+  \end{minipage}
+  \end{multicols}
+}
+
+\headerbox{Prediction vs Physiological Evidence}{name=demos,column=1,below=methodology}{ 
+  \pgfdeclareimage[height= 2.5 cm, width = 3.5 cm]{box}{./figures/boxplot}
+  %\pgfdeclareimage[height= 2.5 cm, width = 3.5 cm]{boxa}{./figures/box_actions}
+  \pgfdeclareimage[height= 2.5 cm, width = 3.0 cm]{iti}{./figures/iterative}
+  
+	\begin{itemize}
+	\item Comparison for truck loading task: Better performance in guided mode
+          %		\item The task was performed more efficiently in the ``guided'' mode.
+	\end{itemize}
+	\vspace{-1.5em}
+        %	\begin{minipage}{.15\textwidth}
+	\centering
+	\pgfuseimage{box} 
+	%	\captionof{figure}{Cluster Input}
+        %	\end{minipage}
+        %	\begin{minipage}{.15\textwidth}
+	%\centering
+	%\pgfuseimage{boxa} %
+	\begin{minipage}{0.9\textwidth}
+	  \captionof{figure}{Completion time for the two modes}\label{comp}
+	\end{minipage}
+	
+	\vspace{-1em}
+	\begin{minipage}{.60\textwidth}
+	  \begin{itemize}
+	  \item Performance comparison between first and second cycle.
+	    
+	  \end{itemize}
+	  
+	\end{minipage}		
+        %	\end{minipage}
+	\begin{minipage}{.35\textwidth}
+	  
+	  \pgfuseimage{iti} %
+	\end{minipage}      
+}
+
+\headerbox{References}{name=references,column=2,below=methodology}{
+  
+  \renewcommand{\section}[2]{\vskip 0.05em} 
+  \nocite{*} 
+  \small{
+    \bibliographystyle{unsrt}
+    \bibliography{sigproc-2} 
+    
+  }
+}
+
+
+\end{poster}
+
+\end{document}
