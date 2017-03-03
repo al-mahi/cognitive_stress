@@ -106,7 +106,7 @@ Our goal is to build a model for robots so that they can
 	 	\centering
 	 	\pgfuseimage{maze} %
        \end{minipage}\vspace{1em}
-       \captionof{figure}{Experimental setup of Maze Game experiment for training}
+       \captionof{figure}{Experimental setup of Maze Game experiment for training model to predict Cognitive Stress}
    \end{minipage}
 
 \end{multicols}
@@ -114,11 +114,10 @@ Our goal is to build a model for robots so that they can
 
 \headerbox{Motivations}{name=motivations,column=0,span=1,below=objectives}{ 
     \begin{itemize}
-    \item Overcome inherent communication barrier between human robot
+    \item Overcome inherent communication barrier between human and robot
     \item Controlling multiple robots becomes impossible: cognitive load, heterogeneous robots
     \item Complete automation impossible: new task environment
-    \item Robots must asses human cognitive load in human robot-team
-    \item Robots need to assess cognitive capacity of human robot team 
+    \item Robots need to assess cognitive capacity of human-robot team for mutual benefits\cite{crandall2005validating}
     \end{itemize}
 }
 
@@ -192,13 +191,12 @@ Our goal is to build a model for robots so that they can
 
 \headerbox{Prediction vs Evidence}{name=demos,column=1,below=methodology}{ 
   \pgfdeclareimage[height= 4 cm, width = 5.5 cm]{res2}{./figures/prediction_vs_b_p_2.png}
-  The robot correctly predicts an operator's cognitive load. Figure Fig. shows modest correlation between
-physiological evidence  of an operator and the robot's estimation of stress.
+  \textbf{Result:}
+  The robot correctly predicts an operator's cognitive load in Figure 4.
   \centering
   \pgfuseimage{res2}
   \captionof{figure}{Robot's estimated cognitive stress level modestly correlates
   with physiological metrics (breathing rate measured with a Bioharness).}
-
 }
 
 \headerbox{References}{name=references,column=2,below=methodology}{
